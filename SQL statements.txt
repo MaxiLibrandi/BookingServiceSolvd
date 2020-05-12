@@ -1,0 +1,111 @@
+1- 
+
+SELECT * FROM Users u 
+LEFT JOIN Contacts c 
+ON u.id = c.user_id 
+LEFT JOIN Contact_Sources cs
+ON c.contact_source_id = cs.id
+LEFT JOIN Reservations r
+ON u.id = r.guest_id
+LEFT JOIN Reservation_Status rs 
+ON r.reservation_status_id = rs.id 
+LEFT JOIN Accommodations a 
+ON r.accommodation_id = a.id
+LEFT JOIN Users u1 // Ask if it's correct for getting host data. What about contact? 
+ON a.host_id = u1.id 
+LEFT JOIN Accommodation_Rules ar
+ON a.id = ar.accommodation_id
+LEFT JOIN Rules ru
+ON ar.rule_id = ru.id
+LEFT JOIN Accommodation_Services as 
+ON a.id = as.accommodation_id
+LEFT JOIN Services s
+ON as.service_id = s.id
+LEFT JOIN Room ro
+ON a.id = ro.accommodation_id
+LEFT JOIN Room_Types rt
+ON ro.room_type_id = rt.id
+LEFT JOIN Accommodation_Images ai
+ON a.id = ai.accommodation_id
+LEFT JOIN Cities ci
+ON a.city_id = ci.id
+LEFT JOIN Countries co 
+ON ci.country_id = co.id 
+LEFT JOIN Continents cn
+ON co.continent_id = cn.id 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2- 
+
+SELECT r.accommodation_id, AVG(rating) 
+FROM Reservations r 
+GROUP BY r.accommodation_id
+HAVING AVG(rating) > 3
+
+SELECT r.accommodation_id, COUNT(r.accomodation_id)
+FROM Rooms r
+GROUP BY r.accomodation_id
+HAVING COUNT(r.accomodation_id) > 5
+
+SELECT c.name, COUNT(a.city)
+FROM Accommodations a 
+LEFT JOIN Cities c
+ON a.city_id = c.id
+GROUP BY a.city_id
+HAVING COUNT(a.city) > 20
+
+SELECT r.accommodation_id, MAX(r.price)
+FROM Reservations r 
+WHERE r.rating = 1
+GROUP_BY r.accommodation_id
+HAVING MAX(r.price) >  10000.00
+
+SELECT u.*, COUNT(a.host_id)
+FROM Accommodations a
+LEFT JOIN Users u
+ON a.host_id = u.id 
+WHERE EXTRACT(YEAR FROM u.birth_date) > 1995
+GROUP BY a.host_id
+HAVING COUNT(a.host_id) > 3
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3- 
+
+INSERT INTO Reservation_Status (status) VALUES ('pending');
+INSERT INTO Reservation_Status (status) VALUES ('cancelled');
+INSERT INTO Reservation_Status (status) VALUES ('accepted');
+INSERT INTO Rules (description) VALUES ('Pets not allowed');
+INSERT INTO Rules (description) VALUES ('Children not allowed');
+INSERT INTO Services (description) VALUES ('WiFi');
+INSERT INTO Services (description) VALUES ('TV');
+INSERT INTO Services (description) VALUES ('Towels & bed sheets');
+INSERT INTO Room_Types (type) VALUES ('Bathroom');
+INSERT INTO Room_Types (type) VALUES ('Bedroom');
+INSERT INTO Contact_Sources (source) VALUES ('mail')
+INSERT INTO Users (name, last_name, birth_date) VALUES ('John','Wilson','1987-09-17');
+INSERT INTO Users (name, last_name, birth_date) VALUES ('Maximo','Librandi','1997-07-03');
+INSERT INTO Users (name, last_name, birth_date) VALUES ('Laura','Bigalli','1975-07-25');
+INSERT INTO Contacts (user_id, contact_source_id, contact_data) VALUES (1, 1, 'johnwilson1987@gmail.com');
+INSERT INTO Contacts (user_id, contact_source_id, contact_data) VALUES (2, 1, 'maximolibrandi@hotmail.com');
+INSERT INTO Continents (name) VALUES ('North America');
+INSERT INTO Countries (name, continent_id) VALUES ('United States', 1);
+INSERT INTO Cities (name, country_id) VALUES ('New York', 1);
+INSERT INTO Accommodations (host_id,direction, description, max_capacity, city_id) VALUES (1, 'Enry St 020', 'Comfortable and cosy room to spend an incredible stay in the big city', 2, 1);
+INSERT INTO Accommodation_Images (path, accommodation_id) VALUES ('~/images/accommodation/1.jpg', 1);
+INSERT INTO Accommodation_Images (path, accommodation_id) VALUES ('~/images/accommodation/2.jpg', 1);
+INSERT INTO Rooms (description, accommodation_id, room_type_id) VALUES ('Bedroom with a double bed', 1, 2);
+INSERT INTO Rooms (description, accommodation_id, room_type_id) VALUES ('Bathroom with a shower and toilet, 1, 1);
+INSERT INTO Accommodation_Rules (rule_id, accommodation_id) VALUES (1, 1);
+INSERT INTO Accommodation_Services (service_id, accommodation_id) VALUES (1, 1);
+INSERT INTO Accommodation_Services (service_id, accommodation_id) VALUES (3, 1);
+INSERT INTO Reservations (guest_id, accommodation_id, date_from, date_to, price, reservation_status_id, rating) VALUES (2, 1, '2020-12-20', '2021-01-20', 1050.00, 1, null);
+
+UPDATE Contacts SET contact_data = 'maximolibrandi@gmail.com' WHERE id = 2;
+UPDATE Accommodations SET max_capacity = 3 WHERE id = 1;
+UPDATE Rooms SET description = 'Bedroom with a double bed and sofa-bed' WHERE id = 1;
+UPDATE Reservations SET reservation_status_id = 3 WHERE id = 1;
+UPDATE Reservations SET rarting = 5 WHERE id = 1;
+
+DELETE FROM Accommodation_Images WHERE id = 2;
+DELETE FROM Users WHERE id = 3;
+DELETE FROM Accommodation_Services WHERE service_id = 3 AND accommodation_id = 1;
