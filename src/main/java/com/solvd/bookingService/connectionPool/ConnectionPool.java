@@ -12,12 +12,13 @@ public class ConnectionPool {
 	private static ConnectionPool cp;
 	private BlockingQueue<Connection> connections;
 	private Integer connectionsCount;
+	public static final Integer POOL_SIZE = 5;
 	private static final String DB_URL = "jdbc:mysql://localhost";
 	private static final String DB_USERNAME = "root";
 	private static final String DB_PASSWORD = "root";
-	private static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+	public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+	
 	private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
-	public static final Integer POOL_SIZE = 5;
 	
 	private ConnectionPool(){
 		connections = new LinkedBlockingQueue<Connection>(POOL_SIZE);
