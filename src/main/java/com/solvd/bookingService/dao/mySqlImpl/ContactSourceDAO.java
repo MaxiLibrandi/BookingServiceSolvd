@@ -1,7 +1,6 @@
 package com.solvd.bookingService.dao.mySqlImpl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,32 +9,31 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import com.solvd.bookingService.connectionPool.ConnectionPool;
 import com.solvd.bookingService.dao.IEntityDAO;
-import com.solvd.bookingService.models.user.User;
+import com.solvd.bookingService.models.user.ContactSource;
 
-public class UserDAO implements IEntityDAO<User>{
-	
+public class ContactSourceDAO implements IEntityDAO<ContactSource>{
+
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-	private static final Logger LOGGER = LogManager.getLogger(UserDAO.class);
+	private static final Logger LOGGER = LogManager.getLogger(ContactSourceDAO.class);
 
 	@Override
-	public List<User> getEntities() {
+	public List<ContactSource> getEntities() {
 		Connection c = null;
-		List<User> users = new ArrayList<User>();
+		List<ContactSource> contactSources = new ArrayList<ContactSource>();
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			PreparedStatement ps = c.prepareStatement("SELECT * FROM Users");
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM Contact_Sources");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				User u = new User();
-				u.setId(rs.getLong("id"));
-				u.setName(rs.getString("name"));
-				u.setLastName(rs.getString("last_name"));
-				u.setBirthDate(rs.getDate("birth_date").toLocalDate());
-				users.add(u);
+				ContactSource cs = new ContactSource();
+				cs.setId(rs.getLong("id"));
+				cs.setSource(rs.getString("source"));
+				contactSources.add(cs);
 			}
 			ps.close();
 			rs.close();
@@ -48,25 +46,23 @@ public class UserDAO implements IEntityDAO<User>{
 		} finally {
 			connectionPool.releaseConnection(c);
 		}
-		return users;
+		return contactSources;
 	}
 
 	@Override
-	public User getEntityById(Long id) {
+	public ContactSource getEntityById(Long id) {
 		Connection c = null;
-		User user = null;
+		ContactSource cs = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			PreparedStatement ps = c.prepareStatement("SELECT * FROM Users u WHERE u.id = ?");
+			PreparedStatement ps = c.prepareStatement("SELECT * FROM Contact_Sources cs WHERE cs.id = ?");
 			ps.setLong(1, id);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			user = new User();
-			user.setId(rs.getLong("id"));
-			user.setName(rs.getString("name"));
-			user.setLastName(rs.getString("last_name"));
-			user.setBirthDate(rs.getDate("birth_date").toLocalDate());
+			cs = new ContactSource();
+			cs.setId(rs.getLong("id"));
+			cs.setSource(rs.getString("source"));
 			ps.close();
 			rs.close();
 		} catch (ClassNotFoundException e) {
@@ -78,19 +74,17 @@ public class UserDAO implements IEntityDAO<User>{
 		} finally {
 			connectionPool.releaseConnection(c);
 		}
-		return user;
+		return cs;
 	}
 
 	@Override
-	public void save(User entity) {
+	public void save(ContactSource entity) {
 		Connection c = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			PreparedStatement ps = c.prepareStatement("INSERT INTO Users (name, last_name, birth_date) VALUES (?,?,?)");
-			ps.setString(1, entity.getName());
-			ps.setString(2, entity.getLastName());
-			ps.setDate(3, Date.valueOf(entity.getBirthDate()));
+			PreparedStatement ps = c.prepareStatement("INSERT INTO Contact_Sources (source) VALUES (?)");
+			ps.setString(1, entity.getSource());
 			ps.executeQuery();
 			ps.close();
 		} catch (ClassNotFoundException e) {
@@ -105,16 +99,14 @@ public class UserDAO implements IEntityDAO<User>{
 	}
 
 	@Override
-	public void update(User entity) {
+	public void update(ContactSource entity) {
 		Connection c = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			PreparedStatement ps = c.prepareStatement("UPDATE Users u SET u.name = ?, u.last_name = ?, u.birth_date = ? WHERE u.id = ?");
-			ps.setString(1, entity.getName());
-			ps.setString(2, entity.getLastName());
-			ps.setDate(3, Date.valueOf(entity.getBirthDate()));
-			ps.setLong(4, entity.getId());
+			PreparedStatement ps = c.prepareStatement("UPDATE Contact_Sources cs SET cs.source = ? WHERE cs.id = ?");
+			ps.setString(1, entity.getSource());
+			ps.setLong(2, entity.getId());
 			ps.executeQuery();
 			ps.close();
 		} catch (ClassNotFoundException e) {
@@ -134,7 +126,7 @@ public class UserDAO implements IEntityDAO<User>{
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			PreparedStatement ps = c.prepareStatement("DELETE FROM Users u WHERE u.id = ?");
+			PreparedStatement ps = c.prepareStatement("DELETE FROM Contact_Sources cs WHERE cs.id = ?");
 			ps.setLong(1, id);
 			ps.executeQuery();
 			ps.close();
@@ -148,5 +140,7 @@ public class UserDAO implements IEntityDAO<User>{
 			connectionPool.releaseConnection(c);
 		}
 	}
+	
+	
 
 }
