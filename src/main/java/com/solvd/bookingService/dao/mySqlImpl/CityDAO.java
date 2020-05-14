@@ -35,6 +35,7 @@ public class CityDAO implements IEntityDAO<City>{
 				City ci = new City();
 				ci.setId(rs.getLong("id"));
 				ci.setName(rs.getString("name"));
+				ci.setCountryId(rs.getLong("country_id"));
 				cities.add(ci);
 			}
 		} catch (ClassNotFoundException e) {
@@ -71,6 +72,7 @@ public class CityDAO implements IEntityDAO<City>{
 			ci = new City();
 			ci.setId(rs.getLong("id"));
 			ci.setName(rs.getString("name"));
+			ci.setCountryId(rs.getLong("country_id"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -98,7 +100,7 @@ public class CityDAO implements IEntityDAO<City>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Cities (name,country_id) VALUES (?,?)");
 			ps.setString(1,entity.getName());
-			ps.setLong(2, entity.getCountry().getId());
+			ps.setLong(2, entity.getCountryId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -125,7 +127,7 @@ public class CityDAO implements IEntityDAO<City>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Cities ci SET ci.name = ?, ci.country_id = ? WHERE ci.id = ?");
 			ps.setString(1,entity.getName());
-			ps.setLong(2, entity.getCountry().getId());
+			ps.setLong(2, entity.getCountryId());
 			ps.setLong(3, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {

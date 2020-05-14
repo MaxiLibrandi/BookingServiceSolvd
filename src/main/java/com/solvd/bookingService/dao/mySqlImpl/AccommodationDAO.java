@@ -34,9 +34,11 @@ public class AccommodationDAO implements IEntityDAO<Accommodation>{
 			while(rs.next()) {
 				Accommodation a = new Accommodation();
 				a.setId(rs.getLong("id"));
+				a.setHostId(rs.getLong("host_id"));
 				a.setDirection(rs.getString("direction"));
 				a.setDescription(rs.getString("description"));
 				a.setMaxCapacity(rs.getInt("max_capacity"));
+				a.setCityId(rs.getLong("city_id"));
 				accommodations.add(a);
 			}
 		} catch (ClassNotFoundException e) {
@@ -72,9 +74,11 @@ public class AccommodationDAO implements IEntityDAO<Accommodation>{
 			rs.next();
 			a = new Accommodation();
 			a.setId(rs.getLong("id"));
+			a.setHostId(rs.getLong("host_id"));
 			a.setDirection(rs.getString("direction"));
 			a.setDescription(rs.getString("description"));
 			a.setMaxCapacity(rs.getInt("max_capacity"));
+			a.setCityId(rs.getLong("city_id"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -101,11 +105,11 @@ public class AccommodationDAO implements IEntityDAO<Accommodation>{
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Accomodations (host_id,direction,description,max_capacity,city_id) VALUES (?,?,?,?,?)");
-			ps.setLong(1, entity.getHost().getId());
+			ps.setLong(1, entity.getHostId());
 			ps.setString(2, entity.getDirection());
 			ps.setString(3, entity.getDescription());
 			ps.setInt(4, entity.getMaxCapacity());
-			ps.setLong(5, entity.getCity().getId());
+			ps.setLong(5, entity.getCityId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -131,11 +135,11 @@ public class AccommodationDAO implements IEntityDAO<Accommodation>{
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Accommodations a SET a.host_id = ?, a.direction = ?, a.description = ?, a.max_capacity = ?, a.city_id = ? WHERE a.id = ?");
-			ps.setLong(1, entity.getHost().getId());
+			ps.setLong(1, entity.getHostId());
 			ps.setString(2, entity.getDirection());
 			ps.setString(3, entity.getDescription());
 			ps.setInt(4, entity.getMaxCapacity());
-			ps.setLong(5, entity.getCity().getId());
+			ps.setLong(5, entity.getCityId());
 			ps.setLong(6, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {

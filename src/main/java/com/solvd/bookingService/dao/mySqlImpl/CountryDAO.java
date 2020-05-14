@@ -35,6 +35,7 @@ public class CountryDAO implements IEntityDAO<Country>{
 				Country co = new Country();
 				co.setId(rs.getLong("id"));
 				co.setName(rs.getString("name"));
+				co.setContinentId(rs.getLong("continent_id"));
 				countries.add(co);
 			}
 		} catch (ClassNotFoundException e) {
@@ -71,6 +72,7 @@ public class CountryDAO implements IEntityDAO<Country>{
 			co = new Country();
 			co.setId(rs.getLong("id"));
 			co.setName(rs.getString("name"));
+			co.setContinentId(rs.getLong("continent_id"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -98,7 +100,7 @@ public class CountryDAO implements IEntityDAO<Country>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Countries (name,continent_id) VALUES (?,?)");
 			ps.setString(1,entity.getName());
-			ps.setLong(2, entity.getContinent().getId());
+			ps.setLong(2, entity.getContinentId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -125,7 +127,7 @@ public class CountryDAO implements IEntityDAO<Country>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Countries co SET co.name = ?, co.continent_id = ? WHERE co.id = ?");
 			ps.setString(1,entity.getName());
-			ps.setLong(2, entity.getContinent().getId());
+			ps.setLong(2, entity.getContinentId());
 			ps.setLong(3, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {

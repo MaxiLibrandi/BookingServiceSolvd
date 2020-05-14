@@ -35,6 +35,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 				AccommodationImage ai = new AccommodationImage();
 				ai.setId(rs.getLong("id"));
 				ai.setPath(rs.getString("path"));
+				ai.setAccommodationId(rs.getLong("accommodation_id"));
 				accommodationImages.add(ai);
 			}
 		} catch (ClassNotFoundException e) {
@@ -71,6 +72,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 			ai = new AccommodationImage();
 			ai.setId(rs.getLong("id"));
 			ai.setPath(rs.getString("path"));
+			ai.setAccommodationId(rs.getLong("accommodation_id"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -98,7 +100,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Accomodation_Images (path,accommodation_id) VALUES (?,?)");
 			ps.setString(1,entity.getPath());
-			ps.setLong(2,entity.getAccommodation().getId());
+			ps.setLong(2,entity.getAccommodationId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -125,7 +127,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Accommodation_Images ai SET ai.path = ?, ai.accommodation_id = ? WHERE ai.id = ?");
 			ps.setString(1,entity.getPath());
-			ps.setLong(2,entity.getAccommodation().getId());
+			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {

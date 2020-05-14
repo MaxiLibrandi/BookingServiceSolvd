@@ -34,6 +34,8 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 			while(rs.next()) {
 				AccommodationService asv = new AccommodationService();
 				asv.setId(rs.getLong("id"));
+				asv.setServiceId(rs.getLong("service_id"));
+				asv.setAccommodationId(rs.getLong("accommodation_id"));
 				accommodationServices.add(asv);
 			}
 		} catch (ClassNotFoundException e) {
@@ -69,6 +71,8 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 			rs.next();
 			asv = new AccommodationService();
 			asv.setId(rs.getLong("id"));
+			asv.setServiceId(rs.getLong("service_id"));
+			asv.setAccommodationId(rs.getLong("accommodation_id"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -95,8 +99,8 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Accomodation_Services (service_id,accommodation_id) VALUES (?,?)");
-			ps.setLong(1,entity.getService().getId());
-			ps.setLong(2,entity.getAccommodation().getId());
+			ps.setLong(1,entity.getServiceId());
+			ps.setLong(2,entity.getAccommodationId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -122,8 +126,8 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Accommodation_Services asv SET asv.service_id = ?, asv.accommodation_id = ? WHERE asv.id = ?");
-			ps.setLong(1,entity.getService().getId());
-			ps.setLong(2,entity.getAccommodation().getId());
+			ps.setLong(1,entity.getServiceId());
+			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {

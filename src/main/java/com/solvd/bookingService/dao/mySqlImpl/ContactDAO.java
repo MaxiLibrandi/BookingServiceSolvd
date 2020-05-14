@@ -34,6 +34,8 @@ public class ContactDAO implements IEntityDAO<Contact>{
 			while(rs.next()) {
 				Contact co = new Contact();
 				co.setId(rs.getLong("id"));
+				co.setUserId(rs.getLong("user_id"));
+				co.setContactSourceId(rs.getLong("contact_source_id"));
 				co.setContactData(rs.getString("contact_data"));
 				contacts.add(co);
 			}
@@ -70,6 +72,8 @@ public class ContactDAO implements IEntityDAO<Contact>{
 			rs.next();
 			co = new Contact();
 			co.setId(rs.getLong("id"));
+			co.setUserId(rs.getLong("user_id"));
+			co.setContactSourceId(rs.getLong("contact_source_id"));
 			co.setContactData(rs.getString("contact_data"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -97,8 +101,8 @@ public class ContactDAO implements IEntityDAO<Contact>{
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Contacts (user_id,contact_source_id,contact_data) VALUES (?,?,?)");
-			ps.setLong(1, entity.getUser().getId());
-			ps.setLong(2, entity.getContactSource().getId());
+			ps.setLong(1, entity.getUserId());
+			ps.setLong(2, entity.getContactSourceId());
 			ps.setString(3, entity.getContactData());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
@@ -125,8 +129,8 @@ public class ContactDAO implements IEntityDAO<Contact>{
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Contacts co SET co.user_id = ?, co.contact_source_id = ?, co.contact_data = ? WHERE co.id = ?");
-			ps.setLong(1, entity.getUser().getId());
-			ps.setLong(2, entity.getContactSource().getId());
+			ps.setLong(1, entity.getUserId());
+			ps.setLong(2, entity.getContactSourceId());
 			ps.setString(3, entity.getContactData());
 			ps.setLong(4, entity.getId());
 			ps.executeQuery();

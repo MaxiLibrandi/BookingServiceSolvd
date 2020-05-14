@@ -35,6 +35,8 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 			while(rs.next()) {
 				AccommodationRule ar = new AccommodationRule();
 				ar.setId(rs.getLong("id"));
+				ar.setRuleId(rs.getLong("rule_id"));
+				ar.setAccommodationId(rs.getLong("accommodation_id"));
 				accommodationRules.add(ar);
 			}
 		} catch (ClassNotFoundException e) {
@@ -70,6 +72,8 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 			rs.next();
 			ar = new AccommodationRule();
 			ar.setId(rs.getLong("id"));
+			ar.setRuleId(rs.getLong("rule_id"));
+			ar.setAccommodationId(rs.getLong("accommodation_id"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -96,8 +100,8 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Accomodation_Rules (rule_id,accommodation_id) VALUES (?,?)");
-			ps.setLong(1,entity.getRule().getId());
-			ps.setLong(2,entity.getAccommodation().getId());
+			ps.setLong(1,entity.getRuleId());
+			ps.setLong(2,entity.getAccommodationId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -123,8 +127,8 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Accommodation_Rules ar SET ar.rule_id = ?, ar.accommodation_id = ? WHERE ar.id = ?");
-			ps.setLong(1,entity.getRule().getId());
-			ps.setLong(2,entity.getAccommodation().getId());
+			ps.setLong(1,entity.getRuleId());
+			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {

@@ -35,9 +35,12 @@ public class ReservationDAO implements IEntityDAO<Reservation>{
 			while(rs.next()) {
 				Reservation r = new Reservation();
 				r.setId(rs.getLong("id"));
+				r.setGuestId(rs.getLong("guest_id"));
+				r.setAccommodationId(rs.getLong("accommodation_id"));
 				r.setDateFrom(rs.getDate("date_from").toLocalDate());
 				r.setDateTo(rs.getDate("date_to").toLocalDate());
 				r.setPrice(rs.getFloat("price"));
+				r.setReservationStatusId(rs.getLong("reservation_status_id"));
 				r.setRating(rs.getInt("rating"));
 				reservations.add(r);
 			}
@@ -74,9 +77,12 @@ public class ReservationDAO implements IEntityDAO<Reservation>{
 			rs.next();
 			r = new Reservation();
 			r.setId(rs.getLong("id"));
+			r.setGuestId(rs.getLong("guest_id"));
+			r.setAccommodationId(rs.getLong("accommodation_id"));
 			r.setDateFrom(rs.getDate("date_from").toLocalDate());
 			r.setDateTo(rs.getDate("date_to").toLocalDate());
 			r.setPrice(rs.getFloat("price"));
+			r.setReservationStatusId(rs.getLong("reservation_status_id"));
 			r.setRating(rs.getInt("rating"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -104,12 +110,12 @@ public class ReservationDAO implements IEntityDAO<Reservation>{
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Reservations (guest_id,accommodation_id,date_from,date_to,price,reservation_status,rating) VALUES (?,?,?,?,?,?,?)");
-			ps.setLong(1, entity.getGuest().getId());
-			ps.setLong(2, entity.getAccommodation().getId());
+			ps.setLong(1, entity.getGuestId());
+			ps.setLong(2, entity.getAccommodationId());
 			ps.setDate(3, Date.valueOf(entity.getDateFrom()));
 			ps.setDate(4, Date.valueOf(entity.getDateTo()));
 			ps.setFloat(5, entity.getPrice());
-			ps.setLong(6, entity.getReservationStatus().getId());
+			ps.setLong(6, entity.getReservationStatusId());
 			ps.setInt(7, entity.getRating());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
@@ -136,12 +142,12 @@ public class ReservationDAO implements IEntityDAO<Reservation>{
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Reservations r SET r.guest_id = ?, r.accommodation_id = ?, r.date_from = ?, r.date_to = ?, r.price = ?, r.reservation_status_id = ?, r.rating = ? WHERE r.id = ?");
-			ps.setLong(1, entity.getGuest().getId());
-			ps.setLong(2, entity.getAccommodation().getId());
+			ps.setLong(1, entity.getGuestId());
+			ps.setLong(2, entity.getAccommodationId());
 			ps.setDate(3, Date.valueOf(entity.getDateFrom()));
 			ps.setDate(4, Date.valueOf(entity.getDateTo()));
 			ps.setFloat(5, entity.getPrice());
-			ps.setLong(6, entity.getReservationStatus().getId());
+			ps.setLong(6, entity.getReservationStatusId());
 			ps.setInt(7, entity.getRating());
 			ps.setLong(8, entity.getId());
 			ps.executeQuery();

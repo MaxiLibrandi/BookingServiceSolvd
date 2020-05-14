@@ -35,6 +35,8 @@ public class RoomDAO implements IEntityDAO<Room>{
 				Room ro = new Room();
 				ro.setId(rs.getLong("id"));
 				ro.setDescription(rs.getString("description"));
+				ro.setAccommodationId(rs.getLong("accommodation_id"));
+				ro.setRoomTypeId(rs.getLong("room_type_id"));
 				rooms.add(ro);
 			}
 		} catch (ClassNotFoundException e) {
@@ -71,6 +73,8 @@ public class RoomDAO implements IEntityDAO<Room>{
 			ro = new Room();
 			ro.setId(rs.getLong("id"));
 			ro.setDescription(rs.getString("description"));
+			ro.setAccommodationId(rs.getLong("accommodation_id"));
+			ro.setRoomTypeId(rs.getLong("room_type_id"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -98,8 +102,8 @@ public class RoomDAO implements IEntityDAO<Room>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Rooms (description,accommodation_id,room_type_id) VALUES (?,?,?)");
 			ps.setString(1,entity.getDescription());
-			ps.setLong(2,entity.getAccommodation().getId());
-			ps.setLong(3,entity.getRoomType().getId());
+			ps.setLong(2,entity.getAccommodationId());
+			ps.setLong(3,entity.getRoomTypeId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -126,8 +130,8 @@ public class RoomDAO implements IEntityDAO<Room>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Rooms ro SET ro.description = ?, ro.accommodation_id = ?, ro.room_type_id = ? WHERE ro.id = ?");
 			ps.setString(1,entity.getDescription());
-			ps.setLong(2,entity.getAccommodation().getId());
-			ps.setLong(3,entity.getRoomType().getId());
+			ps.setLong(2,entity.getAccommodationId());
+			ps.setLong(3,entity.getRoomTypeId());
 			ps.setLong(4, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
