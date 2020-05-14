@@ -11,10 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.solvd.bookingService.connectionPool.ConnectionPool;
-import com.solvd.bookingService.dao.IEntityDAO;
+import com.solvd.bookingService.dao.IAccommodationDAO;
 import com.solvd.bookingService.models.accommodation.Accommodation;
 
-public class AccommodationDAO implements IEntityDAO<Accommodation>{
+public class AccommodationDAO implements IAccommodationDAO{
 	
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -183,5 +183,44 @@ public class AccommodationDAO implements IEntityDAO<Accommodation>{
 			connectionPool.releaseConnection(c);
 		}
 	}
-
+	
+@Override
+	public List<Accommodation> getAccommodationsByCityId(Long cityId) {
+	Connection c = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+	List<Accommodation> accommodations = new ArrayList<Accommodation>();
+	try {
+		Class.forName(ConnectionPool.DB_DRIVER);
+		c = connectionPool.getConnection();
+		ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.city_id = ?");
+		ps.setLong(1, cityId);
+		rs = ps.executeQuery();
+		while(rs.next()) {
+			Accommodation a = new Accommodation();
+			a.setId(rs.getLong("id"));
+			a.setHostId(rs.getLong("host_id"));
+			a.setDirection(rs.getString("direction"));
+			a.setDescription(rs.getString("description"));
+			a.setMaxCapacity(rs.getInt("max_capacity"));
+			a.setCityId(rs.getLong("city_id"));
+			accommodations.add(a);
+		}
+	} catch (ClassNotFoundException e) {
+		LOGGER.error(e);
+	} catch (InterruptedException e) {
+		LOGGER.error(e);
+	} catch (SQLException e) {
+		LOGGER.error(e);
+	} finally {
+		try {
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		connectionPool.releaseConnection(c);
+	}
+	return accommodations;
+	}
 }

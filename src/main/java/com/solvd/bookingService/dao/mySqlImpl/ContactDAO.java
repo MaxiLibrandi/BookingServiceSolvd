@@ -11,10 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.solvd.bookingService.connectionPool.ConnectionPool;
-import com.solvd.bookingService.dao.IEntityDAO;
+import com.solvd.bookingService.dao.IContactDAO;
 import com.solvd.bookingService.models.user.Contact;
 
-public class ContactDAO implements IEntityDAO<Contact>{
+public class ContactDAO implements IContactDAO{
 	
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -176,4 +176,79 @@ public class ContactDAO implements IEntityDAO<Contact>{
 		}
 	}
 
+	@Override
+	public List<Contact> getContactsByUserId(Long userId) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Contact> contacts = new ArrayList<Contact>();
+		try {
+			Class.forName(ConnectionPool.DB_DRIVER);
+			c = connectionPool.getConnection();
+			ps = c.prepareStatement("SELECT * FROM Contacts co WHERE co.user_id = ?");
+			ps.setLong(1, userId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Contact co = new Contact();
+				co.setId(rs.getLong("id"));
+				co.setUserId(rs.getLong("user_id"));
+				co.setContactSourceId(rs.getLong("contact_source_id"));
+				co.setContactData(rs.getString("contact_data"));
+				contacts.add(co);
+			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
+		} catch (InterruptedException e) {
+			LOGGER.error(e);
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				LOGGER.error(e);
+			}
+			connectionPool.releaseConnection(c);
+		}
+		return contacts;
+	}
+
+	@Override
+	public List<Contact> getContactsByContactSourcesId(Long contactSourceId){
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Contact> contacts = new ArrayList<Contact>();
+		try {
+			Class.forName(ConnectionPool.DB_DRIVER);
+			c = connectionPool.getConnection();
+			ps = c.prepareStatement("SELECT * FROM Contacts co WHERE co.contact_source_id = ?");
+			ps.setLong(1, contactSourceId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Contact co = new Contact();
+				co.setId(rs.getLong("id"));
+				co.setUserId(rs.getLong("user_id"));
+				co.setContactSourceId(rs.getLong("contact_source_id"));
+				co.setContactData(rs.getString("contact_data"));
+				contacts.add(co);
+			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
+		} catch (InterruptedException e) {
+			LOGGER.error(e);
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				LOGGER.error(e);
+			}
+			connectionPool.releaseConnection(c);
+		}
+		return contacts;
+	}
 }

@@ -11,8 +11,12 @@ LEFT JOIN Reservation_Status rs
 ON r.reservation_status_id = rs.id 
 LEFT JOIN Accommodations a 
 ON r.accommodation_id = a.id
-LEFT JOIN Users u1 // Ask if it's correct for getting host data. What about contact? 
-ON a.host_id = u1.id 
+LEFT JOIN Users u1
+ON a.host_id = u1.id
+LEFT JOIN Contacts c1
+ON u1.id = c1.user_id
+LEFT JOIN Contact_Soirces cs1
+ON c1.contact_source_id = cs1.id  
 LEFT JOIN Accommodation_Rules ar
 ON a.id = ar.accommodation_id
 LEFT JOIN Rules ru
