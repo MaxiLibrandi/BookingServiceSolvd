@@ -1,12 +1,10 @@
 package com.solvd.bookingService.models.accommodation;
 
-import com.solvd.bookingService.models.information.RoomType;
-
 public class Room {
 	private Long id;
 	private String description;
-	private Accommodation accommodation;
-	private RoomType roomType; 
+	private Long accommodationId;
+	private Long roomTypeId; 
 	
 	public Room() {
 		
@@ -20,12 +18,12 @@ public class Room {
 		return description;
 	}
 	
-	public Accommodation getAccommodation() {
-		return accommodation;
+	public Long getAccommodationId() {
+		return accommodationId;
 	}
 	
-	public RoomType getRoomType() {
-		return roomType;
+	public Long getRoomTypeId() {
+		return roomTypeId;
 	}
 	
 	public void setId(Long id) {
@@ -36,11 +34,11 @@ public class Room {
 		this.description = description;
 	}
 	
-	public void setAccommodation(Accommodation accommodation) {
-		this.accommodation = accommodation;
+	public void setAccommodationId(Long accommodationId) {
+		this.accommodationId = accommodationId;
 	}
 	
-	public void setRoomType(RoomType roomType) {
-		this.roomType = roomType;
+	public void setRoomTypeId(Long roomTypeId) {
+		this.roomTypeId = roomTypeId;
 	}
 }

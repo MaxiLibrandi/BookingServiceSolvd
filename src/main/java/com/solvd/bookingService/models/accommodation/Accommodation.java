@@ -1,15 +1,21 @@
 package com.solvd.bookingService.models.accommodation;
 
-import com.solvd.bookingService.models.localization.City;
-import com.solvd.bookingService.models.user.User;
+import java.util.List;
+
+import com.solvd.bookingService.models.reservation.Reservation;
 
 public class Accommodation {
 	private Long id; 
-	private User host;
+	private Long hostId;
 	private String direction; 
 	private String description; 
 	private Integer maxCapacity;
-	private City city; 
+	private Long cityId; 
+	private List<AccommodationRule> accommodationRules;
+	private List<AccommodationService> accommodationServices;
+	private List<AccommodationImage> accommodationImages;
+	private List<Room> rooms;
+	private List<Reservation> reservations; 
 	
 	public Accommodation() {
 		
@@ -19,8 +25,8 @@ public class Accommodation {
 		return id;
 	}
 	
-	public User getHost() {
-		return host;
+	public Long getHostId() {
+		return hostId;
 	}
 	
 	public String getDirection() {
@@ -35,16 +41,36 @@ public class Accommodation {
 		return maxCapacity;
 	}
 	
-	public City getCity() {
-		return city;
+	public Long getCityId() {
+		return cityId;
+	}
+	
+	public List<AccommodationImage> getAccommodationImages() {
+		return accommodationImages;
+	}
+	
+	public List<AccommodationRule> getAccommodationRules() {
+		return accommodationRules;
+	}
+	
+	public List<AccommodationService> getAccommodationServices() {
+		return accommodationServices;
+	}
+	
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+	
+	public List<Room> getRooms() {
+		return rooms;
 	}
 	
 	public void setId(Long id) {
 		this.id = id;
 	}
 	
-	public void setHost(User host) {
-		this.host = host;
+	public void setHostId(Long hostId) {
+		this.hostId = hostId;
 	}
 	
 	public void setDescription(String description) {
@@ -59,7 +85,27 @@ public class Accommodation {
 		this.maxCapacity = maxCapacity;
 	}
 	
-	public void setCity(City city) {
-		this.city = city;
+	public void setCityId(Long cityId) {
+		this.cityId = cityId;
+	}
+	
+	public void setAccommodationImages(List<AccommodationImage> accommodationImages) {
+		this.accommodationImages = accommodationImages;
+	}
+	
+	public void setAccommodationRules(List<AccommodationRule> accommodationRules) {
+		this.accommodationRules = accommodationRules;
+	}
+	
+	public void setAccommodationServices(List<AccommodationService> accommodationServices) {
+		this.accommodationServices = accommodationServices;
+	}
+	
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+	
+	public void setRooms(List<Room> rooms) {
+		this.rooms = rooms;
 	}
 }

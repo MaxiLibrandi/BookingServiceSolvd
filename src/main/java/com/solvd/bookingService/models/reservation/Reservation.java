@@ -2,17 +2,14 @@ package com.solvd.bookingService.models.reservation;
 
 import java.time.LocalDate;
 
-import com.solvd.bookingService.models.accommodation.Accommodation;
-import com.solvd.bookingService.models.user.User;
-
 public class Reservation {
 	private Long id;
-	private User guest; 
-	private Accommodation accommodation; 
+	private Long guestId; 
+	private Long accommodationId; 
 	private LocalDate dateFrom;
 	private LocalDate dateTo;
 	private Float price;
-	private ReservationStatus reservationStatus;
+	private Long reservationStatusId;
 	private Integer rating;
 	
 	public Reservation() {
@@ -23,12 +20,12 @@ public class Reservation {
 		return id;
 	}
 	
-	public User getGuest() {
-		return guest;
+	public Long getGuestId() {
+		return guestId;
 	}
 	
-	public Accommodation getAccommodation() {
-		return accommodation;
+	public Long getAccommodationId() {
+		return accommodationId;
 	}
 	
 	public LocalDate getDateFrom() {
@@ -43,8 +40,8 @@ public class Reservation {
 		return price;
 	}
 	
-	public ReservationStatus getReservationStatus() {
-		return reservationStatus;
+	public Long getReservationStatusId() {
+		return reservationStatusId;
 	}
 	
 	public Integer getRating() {
@@ -55,12 +52,12 @@ public class Reservation {
 		this.id = id;
 	}
 	
-	public void setGuest(User guest) {
-		this.guest = guest;
+	public void setGuestId(Long guestId) {
+		this.guestId = guestId;
 	}
 	
-	public void setAccommodation(Accommodation accommodation) {
-		this.accommodation = accommodation;
+	public void setAccommodationId(Long accommodationId) {
+		this.accommodationId = accommodationId;
 	}
 	
 	public void setDateFrom(LocalDate dateFrom) {
@@ -75,8 +72,8 @@ public class Reservation {
 		this.price = price;
 	}
 	
-	public void setReservationStatus(ReservationStatus reservationStatus) {
-		this.reservationStatus = reservationStatus;
+	public void setReservationStatusId(Long reservationStatusId) {
+		this.reservationStatusId = reservationStatusId;
 	}
 	
 	public void setRating(Integer rating) {

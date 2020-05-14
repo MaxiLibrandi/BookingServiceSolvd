@@ -3,7 +3,7 @@ package com.solvd.bookingService.models.accommodation;
 public class AccommodationImage {
 	private Long id;
 	private String path;
-	private Accommodation accommodation; 
+	private Long accommodationId; 
 	
 	public AccommodationImage() {
 		
@@ -17,8 +17,8 @@ public class AccommodationImage {
 		return path;
 	}
 	
-	public Accommodation getAccommodation() {
-		return accommodation;
+	public Long getAccommodationId() {
+		return accommodationId;
 	}
 	
 	public void setId(Long id) {
@@ -29,7 +29,7 @@ public class AccommodationImage {
 		this.path = path;
 	}
 	
-	public void setAccommodation(Accommodation accommodation) {
-		this.accommodation = accommodation;
+	public void setAccommodationId(Long accommodationId) {
+		this.accommodationId = accommodationId;
 	}
 }

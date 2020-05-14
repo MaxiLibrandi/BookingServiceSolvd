@@ -1,9 +1,13 @@
 package com.solvd.bookingService.models.localization;
 
+import java.util.List;
+import com.solvd.bookingService.models.accommodation.Accommodation;
+
 public class City {
 	private Long id;
 	private String name;
-	private Country country;
+	private Long countryId;
+	private List<Accommodation> accommodations;
 
 	public City() {
 		
@@ -17,8 +21,12 @@ public class City {
 		return name;
 	}
 	
-	public Country getCountry() {
-		return country;
+	public Long getCountryId() {
+		return countryId;
+	}
+	
+	public List<Accommodation> getAccommodations() {
+		return accommodations;
 	}
 	
 	public void setId(Long id) {
@@ -29,7 +37,11 @@ public class City {
 		this.name = name;
 	}
 	
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setCountryId(Long countryId) {
+		this.countryId = countryId;
+	}
+	
+	public void setAccommodations(List<Accommodation> accommodations) {
+		this.accommodations = accommodations;
 	}
 }

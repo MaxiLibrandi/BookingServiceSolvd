@@ -2,8 +2,8 @@ package com.solvd.bookingService.models.user;
 
 public class Contact {
 	private Long id;
-	private User user;
-	private ContactSource contactSource;
+	private Long userId;
+	private Long contactSourceId;
 	private String contactData;
 	
 	public Contact() {
@@ -14,12 +14,12 @@ public class Contact {
 		return id;
 	}
 	
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 	
-	public ContactSource getContactSource() {
-		return contactSource;
+	public Long getContactSourceId() {
+		return contactSourceId;
 	}
 	
 	public String getContactData() {
@@ -30,12 +30,12 @@ public class Contact {
 		this.id = id;
 	}
 	
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	
-	public void setContactSource(ContactSource contactSource) {
-		this.contactSource = contactSource;
+	public void setContactSourceId(Long contactSourceId) {
+		this.contactSourceId = contactSourceId;
 	}
 	
 	public void setContactData(String contactData) {
