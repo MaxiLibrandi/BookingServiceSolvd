@@ -12,30 +12,30 @@ import org.apache.logging.log4j.Logger;
 
 import com.solvd.bookingService.connectionPool.ConnectionPool;
 import com.solvd.bookingService.dao.IEntityDAO;
-import com.solvd.bookingService.models.user.ContactSource;
+import com.solvd.bookingService.models.information.RoomType;
 
-public class ContactSourceDAO implements IEntityDAO<ContactSource>{
+public class RoomTypeDAO implements IEntityDAO<RoomType>{
 
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-	private static final Logger LOGGER = LogManager.getLogger(ContactSourceDAO.class);
-
+	private static final Logger LOGGER = LogManager.getLogger(RoomTypeDAO.class);
+	
 	@Override
-	public List<ContactSource> getEntities() {
+	public List<RoomType> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<ContactSource> contactSources = new ArrayList<ContactSource>();
+		List<RoomType> roomTypes = new ArrayList<RoomType>();
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Contact_Sources");
+			ps = c.prepareStatement("SELECT * FROM Room_Types");
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				ContactSource cs = new ContactSource();
-				cs.setId(rs.getLong("id"));
-				cs.setSource(rs.getString("source"));
-				contactSources.add(cs);
+				RoomType rt = new RoomType();
+				rt.setId(rs.getLong("id"));
+				rt.setType(rs.getString("type"));
+				roomTypes.add(rt);
 			}
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -52,25 +52,25 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			}
 			connectionPool.releaseConnection(c);
 		}
-		return contactSources;
+		return roomTypes;
 	}
 
 	@Override
-	public ContactSource getEntityById(Long id) {
+	public RoomType getEntityById(Long id) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ContactSource cs = null;
+		RoomType rt = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Contact_Sources cs WHERE cs.id = ?");
+			ps = c.prepareStatement("SELECT * FROM Room_Types rt WHERE rt.id = ?");
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			cs = new ContactSource();
-			cs.setId(rs.getLong("id"));
-			cs.setSource(rs.getString("source"));
+			rt = new RoomType();
+			rt.setId(rs.getLong("id"));
+			rt.setType(rs.getString("type"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -86,18 +86,18 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			}
 			connectionPool.releaseConnection(c);
 		}
-		return cs;
+		return rt;
 	}
 
 	@Override
-	public void save(ContactSource entity) {
+	public void save(RoomType entity) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Contact_Sources (source) VALUES (?)");
-			ps.setString(1, entity.getSource());
+			ps = c.prepareStatement("INSERT INTO Room_Types (type) VALUES (?)");
+			ps.setString(1,entity.getType());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -116,14 +116,14 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 	}
 
 	@Override
-	public void update(ContactSource entity) {
+	public void update(RoomType entity) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Contact_Sources cs SET cs.source = ? WHERE cs.id = ?");
-			ps.setString(1, entity.getSource());
+			ps = c.prepareStatement("UPDATE Room_Types rt SET rt.type = ? WHERE rt.id = ?");
+			ps.setString(1,entity.getType());
 			ps.setLong(2, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
@@ -149,7 +149,7 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Contact_Sources cs WHERE cs.id = ?");
+			ps = c.prepareStatement("DELETE FROM Room_Types rt WHERE rt.id = ?");
 			ps.setLong(1, id);
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
@@ -167,7 +167,5 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			connectionPool.releaseConnection(c);
 		}
 	}
-	
-	
 
 }

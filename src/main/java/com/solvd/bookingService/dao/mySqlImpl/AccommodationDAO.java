@@ -12,30 +12,32 @@ import org.apache.logging.log4j.Logger;
 
 import com.solvd.bookingService.connectionPool.ConnectionPool;
 import com.solvd.bookingService.dao.IEntityDAO;
-import com.solvd.bookingService.models.user.ContactSource;
+import com.solvd.bookingService.models.accommodation.Accommodation;
 
-public class ContactSourceDAO implements IEntityDAO<ContactSource>{
-
+public class AccommodationDAO implements IEntityDAO<Accommodation>{
+	
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
-	private static final Logger LOGGER = LogManager.getLogger(ContactSourceDAO.class);
+	private static final Logger LOGGER = LogManager.getLogger(AccommodationDAO.class);
 
 	@Override
-	public List<ContactSource> getEntities() {
+	public List<Accommodation> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<ContactSource> contactSources = new ArrayList<ContactSource>();
+		List<Accommodation> accommodations = new ArrayList<Accommodation>();
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Contact_Sources");
+			ps = c.prepareStatement("SELECT * FROM Accommodations");
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				ContactSource cs = new ContactSource();
-				cs.setId(rs.getLong("id"));
-				cs.setSource(rs.getString("source"));
-				contactSources.add(cs);
+				Accommodation a = new Accommodation();
+				a.setId(rs.getLong("id"));
+				a.setDirection(rs.getString("direction"));
+				a.setDescription(rs.getString("description"));
+				a.setMaxCapacity(rs.getInt("max_capacity"));
+				accommodations.add(a);
 			}
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -52,25 +54,27 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			}
 			connectionPool.releaseConnection(c);
 		}
-		return contactSources;
+		return accommodations;
 	}
 
 	@Override
-	public ContactSource getEntityById(Long id) {
+	public Accommodation getEntityById(Long id) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ContactSource cs = null;
+		Accommodation a = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Contact_Sources cs WHERE cs.id = ?");
+			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.id = ?");
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			cs = new ContactSource();
-			cs.setId(rs.getLong("id"));
-			cs.setSource(rs.getString("source"));
+			a = new Accommodation();
+			a.setId(rs.getLong("id"));
+			a.setDirection(rs.getString("direction"));
+			a.setDescription(rs.getString("description"));
+			a.setMaxCapacity(rs.getInt("max_capacity"));
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -86,18 +90,22 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			}
 			connectionPool.releaseConnection(c);
 		}
-		return cs;
+		return a;
 	}
 
 	@Override
-	public void save(ContactSource entity) {
+	public void save(Accommodation entity) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Contact_Sources (source) VALUES (?)");
-			ps.setString(1, entity.getSource());
+			ps = c.prepareStatement("INSERT INTO Accomodations (host_id,direction,description,max_capacity,city_id) VALUES (?,?,?,?,?)");
+			ps.setLong(1, entity.getHost().getId());
+			ps.setString(2, entity.getDirection());
+			ps.setString(3, entity.getDescription());
+			ps.setInt(4, entity.getMaxCapacity());
+			ps.setLong(5, entity.getCity().getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -116,15 +124,19 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 	}
 
 	@Override
-	public void update(ContactSource entity) {
+	public void update(Accommodation entity) {
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Contact_Sources cs SET cs.source = ? WHERE cs.id = ?");
-			ps.setString(1, entity.getSource());
-			ps.setLong(2, entity.getId());
+			ps = c.prepareStatement("UPDATE Accommodations a SET a.host_id = ?, a.direction = ?, a.description = ?, a.max_capacity = ?, a.city_id = ? WHERE a.id = ?");
+			ps.setLong(1, entity.getHost().getId());
+			ps.setString(2, entity.getDirection());
+			ps.setString(3, entity.getDescription());
+			ps.setInt(4, entity.getMaxCapacity());
+			ps.setLong(5, entity.getCity().getId());
+			ps.setLong(6, entity.getId());
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
@@ -149,7 +161,7 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 		try {
 			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Contact_Sources cs WHERE cs.id = ?");
+			ps = c.prepareStatement("DELETE FROM Accommodations a WHERE a.id = ?");
 			ps.setLong(1, id);
 			ps.executeQuery();
 		} catch (ClassNotFoundException e) {
@@ -167,7 +179,5 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			connectionPool.releaseConnection(c);
 		}
 	}
-	
-	
 
 }
