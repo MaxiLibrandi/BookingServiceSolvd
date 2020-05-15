@@ -1,5 +1,7 @@
 package com.solvd.bookingService.services;
 
+import java.util.List;
+
 import com.solvd.bookingService.dao.mySqlImpl.ContactDAO;
 import com.solvd.bookingService.dao.mySqlImpl.ContactSourceDAO;
 import com.solvd.bookingService.models.user.ContactSource;
@@ -9,12 +11,33 @@ public class ContactSourceService {
 	private ContactSourceDAO contactSourceDAO;
 	private ContactDAO contactDAO;
 	
-	public ContactSource getContactSourceById(Long id) {
+	public ContactSourceService() {
 		contactSourceDAO = new ContactSourceDAO();
+	}
+	
+	public List<ContactSource> getContactSources(){
+		List<ContactSource> contactSources = contactSourceDAO.getEntities();
+		contactDAO = new ContactDAO();
+		contactSources.stream().forEach(contactSource -> contactSource.setContacts(contactDAO.getContactsByContactSourcesId(contactSource.getId())));
+		return contactSources;
+	}
+	
+	public ContactSource getContactSourceById(Long id) {
 		ContactSource cs = contactSourceDAO.getEntityById(id);
 		contactDAO = new ContactDAO();
 		cs.setContacts(contactDAO.getContactsByContactSourcesId(id));
 		return cs;
 	}
 
+	public void save(ContactSource newContactSource) {
+		contactSourceDAO.save(newContactSource);
+	}
+	
+	public void update(ContactSource updatedContactSource) {
+		contactSourceDAO.update(updatedContactSource);
+	}
+	
+	public void delete(Long contactSourceId) {
+		contactSourceDAO.delete(contactSourceId);
+	}
 }
