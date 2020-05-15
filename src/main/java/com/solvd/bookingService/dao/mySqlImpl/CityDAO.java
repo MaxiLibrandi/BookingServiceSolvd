@@ -11,10 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.solvd.bookingService.connectionPool.ConnectionPool;
-import com.solvd.bookingService.dao.IEntityDAO;
+import com.solvd.bookingService.dao.ICityDAO;
 import com.solvd.bookingService.models.localization.City;
 
-public class CityDAO implements IEntityDAO<City>{
+public class CityDAO implements ICityDAO{
 
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -172,4 +172,40 @@ public class CityDAO implements IEntityDAO<City>{
 		}
 	}
 
+	@Override
+	public List<City> getCitiesByCountryId(Long countryId) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<City> cities = new ArrayList<City>();
+		try {
+			Class.forName(ConnectionPool.DB_DRIVER);
+			c = connectionPool.getConnection();
+			ps = c.prepareStatement("SELECT * FROM Cities ci WHERE ci.country_id = ?");
+			ps.setLong(1, countryId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				City ci = new City();
+				ci.setId(rs.getLong("id"));
+				ci.setName(rs.getString("name"));
+				ci.setCountryId(rs.getLong("country_id"));
+				cities.add(ci);
+			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
+		} catch (InterruptedException e) {
+			LOGGER.error(e);
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				LOGGER.error(e);
+			}
+			connectionPool.releaseConnection(c);
+		}
+		return cities;
+	}
 }

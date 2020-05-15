@@ -11,10 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.solvd.bookingService.connectionPool.ConnectionPool;
-import com.solvd.bookingService.dao.IEntityDAO;
+import com.solvd.bookingService.dao.ICountryDAO;
 import com.solvd.bookingService.models.localization.Country;
 
-public class CountryDAO implements IEntityDAO<Country>{
+public class CountryDAO implements ICountryDAO{
 	
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -170,5 +170,42 @@ public class CountryDAO implements IEntityDAO<Country>{
 			}
 			connectionPool.releaseConnection(c);
 		}
+	}
+	
+	@Override
+	public List<Country> getCountriesByContinentId(Long continentId) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Country> countries = new ArrayList<Country>();
+		try {
+			Class.forName(ConnectionPool.DB_DRIVER);
+			c = connectionPool.getConnection();
+			ps = c.prepareStatement("SELECT * FROM Countries co WHERE co.continent_id = ?");
+			ps.setLong(1, continentId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Country co = new Country();
+				co.setId(rs.getLong("id"));
+				co.setName(rs.getString("name"));
+				co.setContinentId(rs.getLong("continent_id"));
+				countries.add(co);
+			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
+		} catch (InterruptedException e) {
+			LOGGER.error(e);
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				LOGGER.error(e);
+			}
+			connectionPool.releaseConnection(c);
+		}
+		return countries;
 	}
 }

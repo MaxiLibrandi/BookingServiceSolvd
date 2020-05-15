@@ -186,41 +186,81 @@ public class AccommodationDAO implements IAccommodationDAO{
 	
 @Override
 	public List<Accommodation> getAccommodationsByCityId(Long cityId) {
-	Connection c = null;
-	PreparedStatement ps = null;
-	ResultSet rs = null;
-	List<Accommodation> accommodations = new ArrayList<Accommodation>();
-	try {
-		Class.forName(ConnectionPool.DB_DRIVER);
-		c = connectionPool.getConnection();
-		ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.city_id = ?");
-		ps.setLong(1, cityId);
-		rs = ps.executeQuery();
-		while(rs.next()) {
-			Accommodation a = new Accommodation();
-			a.setId(rs.getLong("id"));
-			a.setHostId(rs.getLong("host_id"));
-			a.setDirection(rs.getString("direction"));
-			a.setDescription(rs.getString("description"));
-			a.setMaxCapacity(rs.getInt("max_capacity"));
-			a.setCityId(rs.getLong("city_id"));
-			accommodations.add(a);
-		}
-	} catch (ClassNotFoundException e) {
-		LOGGER.error(e);
-	} catch (InterruptedException e) {
-		LOGGER.error(e);
-	} catch (SQLException e) {
-		LOGGER.error(e);
-	} finally {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Accommodation> accommodations = new ArrayList<Accommodation>();
 		try {
-			rs.close();
-			ps.close();
+			Class.forName(ConnectionPool.DB_DRIVER);
+			c = connectionPool.getConnection();
+			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.city_id = ?");
+			ps.setLong(1, cityId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Accommodation a = new Accommodation();
+				a.setId(rs.getLong("id"));
+				a.setHostId(rs.getLong("host_id"));
+				a.setDirection(rs.getString("direction"));
+				a.setDescription(rs.getString("description"));
+				a.setMaxCapacity(rs.getInt("max_capacity"));
+				a.setCityId(rs.getLong("city_id"));
+				accommodations.add(a);
+			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
+		} catch (InterruptedException e) {
+			LOGGER.error(e);
 		} catch (SQLException e) {
 			LOGGER.error(e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				LOGGER.error(e);
+			}
+			connectionPool.releaseConnection(c);
 		}
-		connectionPool.releaseConnection(c);
+		return accommodations;
 	}
-	return accommodations;
+
+	@Override
+	public List<Accommodation> getAccommodationsByHostId(Long hostId) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Accommodation> accommodations = new ArrayList<Accommodation>();
+		try {
+			Class.forName(ConnectionPool.DB_DRIVER);
+			c = connectionPool.getConnection();
+			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.host_id = ?");
+			ps.setLong(1, hostId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Accommodation a = new Accommodation();
+				a.setId(rs.getLong("id"));
+				a.setHostId(rs.getLong("host_id"));
+				a.setDirection(rs.getString("direction"));
+				a.setDescription(rs.getString("description"));
+				a.setMaxCapacity(rs.getInt("max_capacity"));
+				a.setCityId(rs.getLong("city_id"));
+				accommodations.add(a);
+			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
+		} catch (InterruptedException e) {
+			LOGGER.error(e);
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				LOGGER.error(e);
+			}
+			connectionPool.releaseConnection(c);
+		}
+		return accommodations;
 	}
 }

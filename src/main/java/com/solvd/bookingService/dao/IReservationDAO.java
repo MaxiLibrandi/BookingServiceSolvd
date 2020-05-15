@@ -7,4 +7,5 @@ import com.solvd.bookingService.models.reservation.Reservation;
 public interface IReservationDAO extends IEntityDAO<Reservation>{
 	
 	public List<Reservation> getReservationsByReservationStatusId(Long reservationStatusId);
+	public List<Reservation> getReservationsByGuestId(Long guestId);
 }

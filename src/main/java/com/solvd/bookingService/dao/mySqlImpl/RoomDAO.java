@@ -11,10 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.solvd.bookingService.connectionPool.ConnectionPool;
-import com.solvd.bookingService.dao.IEntityDAO;
+import com.solvd.bookingService.dao.IRoomDAO;
 import com.solvd.bookingService.models.accommodation.Room;
 
-public class RoomDAO implements IEntityDAO<Room>{
+public class RoomDAO implements IRoomDAO{
 	
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
@@ -176,4 +176,41 @@ public class RoomDAO implements IEntityDAO<Room>{
 		}
 	}
 
+	@Override
+	public List<Room> getRoomsByRoomTypeId(Long roomTypeId) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Room> rooms = new ArrayList<Room>();
+		try {
+			Class.forName(ConnectionPool.DB_DRIVER);
+			c = connectionPool.getConnection();
+			ps = c.prepareStatement("SELECT * FROM Rooms ro WHERE ro.room_type_id = ?");
+			ps.setLong(1,roomTypeId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Room ro = new Room();
+				ro.setId(rs.getLong("id"));
+				ro.setDescription(rs.getString("description"));
+				ro.setAccommodationId(rs.getLong("accommodation_id"));
+				ro.setRoomTypeId(rs.getLong("room_type_id"));
+				rooms.add(ro);
+			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
+		} catch (InterruptedException e) {
+			LOGGER.error(e);
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				LOGGER.error(e);
+			}
+			connectionPool.releaseConnection(c);
+		}
+		return rooms;
+	}
 }

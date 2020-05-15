@@ -5,8 +5,9 @@ import com.solvd.bookingService.dao.mySqlImpl.ReservationStatusDAO;
 import com.solvd.bookingService.models.reservation.ReservationStatus;
 
 public class ReservationStatusService {
-	private ReservationDAO reservationDAO;
+	
 	private ReservationStatusDAO reservationStatusDAO;
+	private ReservationDAO reservationDAO;
 	
 	public ReservationStatus getReservationStatusById(Long id) {
 		reservationStatusDAO = new ReservationStatusDAO();

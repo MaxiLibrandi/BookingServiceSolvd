@@ -234,4 +234,46 @@ public class ReservationDAO implements IReservationDAO{
 		}
 		return reservations;
 	}
+	
+	@Override
+	public List<Reservation> getReservationsByGuestId(Long guestId) {
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		List<Reservation> reservations = new ArrayList<Reservation>();
+		try {
+			Class.forName(ConnectionPool.DB_DRIVER);
+			c = connectionPool.getConnection();
+			ps = c.prepareStatement("SELECT * FROM Reservations r WHERE r.guest_id = ?");
+			ps.setLong(1,guestId);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Reservation r = new Reservation();
+				r.setId(rs.getLong("id"));
+				r.setGuestId(rs.getLong("guest_id"));
+				r.setAccommodationId(rs.getLong("accommodation_id"));
+				r.setDateFrom(rs.getDate("date_from").toLocalDate());
+				r.setDateTo(rs.getDate("date_to").toLocalDate());
+				r.setPrice(rs.getFloat("price"));
+				r.setReservationStatusId(rs.getLong("reservation_status_id"));
+				r.setRating(rs.getInt("rating"));
+				reservations.add(r);
+			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
+		} catch (InterruptedException e) {
+			LOGGER.error(e);
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+			} catch (SQLException e) {
+				LOGGER.error(e);
+			}
+			connectionPool.releaseConnection(c);
+		}
+		return reservations;
+	}
 }
