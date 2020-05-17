@@ -13,10 +13,10 @@ public class ConnectionPool {
 	private BlockingQueue<Connection> connections;
 	private Integer connectionsCount;
 	public static final Integer POOL_SIZE = 5;
-	private static final String DB_URL = "jdbc:mysql://localhost";
+	private static final String DB_URL = "jdbc:mysql://192.168.99.100:33060";
 	private static final String DB_USERNAME = "root";
-	private static final String DB_PASSWORD = "root";
-	public static final String DB_DRIVER = "com.mysql.jdbc.Driver";
+	private static final String DB_PASSWORD = "secret";
+	public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
 	
 	private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 	

@@ -1,0 +1,3 @@
+2020-05-17 20:07:21 DEBUG Runner:39 - [com.solvd.bookingService.models.reservation.ReservationStatus@4612b856, com.solvd.bookingService.models.reservation.ReservationStatus@22875539, com.solvd.bookingService.models.reservation.ReservationStatus@5674e1f2]
+2020-05-17 20:07:21 DEBUG Runner:57 - [com.solvd.bookingService.models.information.RoomType@49c6c24f, com.solvd.bookingService.models.information.RoomType@6fe1b4fb, com.solvd.bookingService.models.information.RoomType@79351f41]
+2020-05-17 20:07:21 DEBUG Runner:74 - [com.solvd.bookingService.models.user.User@cd1d761, com.solvd.bookingService.models.user.User@68be8808]

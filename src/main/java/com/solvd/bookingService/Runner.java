@@ -17,6 +17,9 @@ public class Runner {
 	
 	public static void main(String[] args) {	
 		
+		DBConfigurationService dbConfigurationService = new DBConfigurationService();
+		dbConfigurationService.initDB();
+		
 		ReservationStatusService reservationStatusService = new ReservationStatusService();
 		ReservationStatus reservationStatus;
 		
