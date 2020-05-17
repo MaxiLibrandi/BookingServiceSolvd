@@ -101,7 +101,7 @@ public class CityDAO implements ICityDAO{
 			ps = c.prepareStatement("INSERT INTO Cities (name,country_id) VALUES (?,?)");
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getCountryId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -129,7 +129,7 @@ public class CityDAO implements ICityDAO{
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getCountryId());
 			ps.setLong(3, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -155,7 +155,7 @@ public class CityDAO implements ICityDAO{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Cities ci WHERE ci.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

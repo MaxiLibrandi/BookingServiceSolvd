@@ -110,7 +110,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 			ps.setString(3, entity.getDescription());
 			ps.setInt(4, entity.getMaxCapacity());
 			ps.setLong(5, entity.getCityId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -141,7 +141,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 			ps.setInt(4, entity.getMaxCapacity());
 			ps.setLong(5, entity.getCityId());
 			ps.setLong(6, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -167,7 +167,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Accommodations a WHERE a.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

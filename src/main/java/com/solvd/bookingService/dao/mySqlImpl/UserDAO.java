@@ -104,7 +104,7 @@ public class UserDAO implements IEntityDAO<User>{
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getLastName());
 			ps.setDate(3, Date.valueOf(entity.getBirthDate()));
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -133,7 +133,7 @@ public class UserDAO implements IEntityDAO<User>{
 			ps.setString(2, entity.getLastName());
 			ps.setDate(3, Date.valueOf(entity.getBirthDate()));
 			ps.setLong(4, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -159,7 +159,7 @@ public class UserDAO implements IEntityDAO<User>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Users u WHERE u.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

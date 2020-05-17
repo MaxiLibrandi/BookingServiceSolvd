@@ -104,7 +104,7 @@ public class RoomDAO implements IRoomDAO{
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3,entity.getRoomTypeId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -133,7 +133,7 @@ public class RoomDAO implements IRoomDAO{
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3,entity.getRoomTypeId());
 			ps.setLong(4, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -159,7 +159,7 @@ public class RoomDAO implements IRoomDAO{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Rooms ro WHERE ro.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

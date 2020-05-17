@@ -104,7 +104,7 @@ public class ContactDAO implements IContactDAO{
 			ps.setLong(1, entity.getUserId());
 			ps.setLong(2, entity.getContactSourceId());
 			ps.setString(3, entity.getContactData());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -133,7 +133,7 @@ public class ContactDAO implements IContactDAO{
 			ps.setLong(2, entity.getContactSourceId());
 			ps.setString(3, entity.getContactData());
 			ps.setLong(4, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -159,7 +159,7 @@ public class ContactDAO implements IContactDAO{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Contacts co WHERE co.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

@@ -98,7 +98,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Rules (description) VALUES (?)");
 			ps.setString(1,entity.getDescription());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -125,7 +125,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 			ps = c.prepareStatement("UPDATE Rules ru SET ru.description = ? WHERE ru.id = ?");
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -151,7 +151,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Rules ru WHERE ru.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

@@ -98,7 +98,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Room_Types (type) VALUES (?)");
 			ps.setString(1,entity.getType());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -125,7 +125,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 			ps = c.prepareStatement("UPDATE Room_Types rt SET rt.type = ? WHERE rt.id = ?");
 			ps.setString(1,entity.getType());
 			ps.setLong(2, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -151,7 +151,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Room_Types rt WHERE rt.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

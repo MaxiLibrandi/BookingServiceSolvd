@@ -98,7 +98,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Services (description) VALUES (?)");
 			ps.setString(1,entity.getDescription());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -125,7 +125,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 			ps = c.prepareStatement("UPDATE Services s SET s.description = ? WHERE s.id = ?");
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -151,7 +151,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Services s WHERE s.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

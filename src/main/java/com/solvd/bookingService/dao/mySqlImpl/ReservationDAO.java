@@ -117,7 +117,7 @@ public class ReservationDAO implements IReservationDAO{
 			ps.setFloat(5, entity.getPrice());
 			ps.setLong(6, entity.getReservationStatusId());
 			ps.setInt(7, entity.getRating());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -150,7 +150,7 @@ public class ReservationDAO implements IReservationDAO{
 			ps.setLong(6, entity.getReservationStatusId());
 			ps.setInt(7, entity.getRating());
 			ps.setLong(8, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -176,7 +176,7 @@ public class ReservationDAO implements IReservationDAO{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Reservations r WHERE r.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

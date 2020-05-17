@@ -98,7 +98,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Reservation_Status (status) VALUES (?)");
 			ps.setString(1,entity.getStatus());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -125,7 +125,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 			ps = c.prepareStatement("UPDATE Reservation_Status rst SET rst.status = ? WHERE rst.id = ?");
 			ps.setString(1, entity.getStatus());
 			ps.setLong(2, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -151,7 +151,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Reservation_Status rst WHERE rst.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

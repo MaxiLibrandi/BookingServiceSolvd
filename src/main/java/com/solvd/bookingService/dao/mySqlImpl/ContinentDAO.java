@@ -98,7 +98,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Continents (name) VALUES (?)");
 			ps.setString(1,entity.getName());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -125,7 +125,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 			ps = c.prepareStatement("UPDATE Continents con SET con.name = ? WHERE con.id = ?");
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -151,7 +151,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Continents con WHERE con.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

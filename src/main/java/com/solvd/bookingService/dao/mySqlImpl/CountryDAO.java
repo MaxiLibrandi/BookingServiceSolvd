@@ -101,7 +101,7 @@ public class CountryDAO implements ICountryDAO{
 			ps = c.prepareStatement("INSERT INTO Countries (name,continent_id) VALUES (?,?)");
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getContinentId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -129,7 +129,7 @@ public class CountryDAO implements ICountryDAO{
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getContinentId());
 			ps.setLong(3, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -155,7 +155,7 @@ public class CountryDAO implements ICountryDAO{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Countries co WHERE co.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {

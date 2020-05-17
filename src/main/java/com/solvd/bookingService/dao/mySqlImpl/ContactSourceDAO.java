@@ -98,7 +98,7 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Contact_Sources (source) VALUES (?)");
 			ps.setString(1, entity.getSource());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -125,7 +125,7 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			ps = c.prepareStatement("UPDATE Contact_Sources cs SET cs.source = ? WHERE cs.id = ?");
 			ps.setString(1, entity.getSource());
 			ps.setLong(2, entity.getId());
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
@@ -151,7 +151,7 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Contact_Sources cs WHERE cs.id = ?");
 			ps.setLong(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		} catch (InterruptedException e) {
