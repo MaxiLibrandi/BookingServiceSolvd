@@ -35,6 +35,11 @@ public class Runner {
 		reservationStatus.setStatus("accepted");
 		reservationStatusService.save(reservationStatus);
 		
+		reservationStatus.setStatus("waiting");
+		reservationStatusService.update(reservationStatus);
+		
+		reservationStatusService.delete(Integer.toUnsignedLong(1));
+		
 		LOGGER.debug(reservationStatusService.getReservationStatus().toString());
 		
 		RoomTypeService roomTypeService = new RoomTypeService();
@@ -53,6 +58,11 @@ public class Runner {
 		roomTypeService.save(roomType);
 		
 
+		roomType.setType("Kitchen");
+		roomTypeService.update(roomType);
+		
+		roomTypeService.delete(Integer.toUnsignedLong(1));
+
 		LOGGER.debug(roomTypeService.getRoomTypes().toString());
 		
 		UserService userService = new UserService();
@@ -69,6 +79,11 @@ public class Runner {
 		user.setLastName("Wilson");
 		user.setBirthDate(LocalDate.of(1987, 9, 17));
 		userService.save(user);
+		
+		user.setName("John");
+		userService.update(user);
+		
+		userService.delete(Integer.toUnsignedLong(1));
 		
 		LOGGER.debug(userService.getUsers().toString());
 	}
