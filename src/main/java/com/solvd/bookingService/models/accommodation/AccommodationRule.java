@@ -32,4 +32,9 @@ public class AccommodationRule {
 	public void setAccommodationId(Long accommodationId) {
 		this.accommodationId = accommodationId;
 	}
+	
+	@Override
+	public String toString() {
+		return "AccommodationRule id: " + this.id + " |accommodationId: " + this.accommodationId + " |ruleId: " + this.ruleId;
+	}
 }

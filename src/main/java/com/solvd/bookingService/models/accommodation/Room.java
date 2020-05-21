@@ -41,4 +41,9 @@ public class Room {
 	public void setRoomTypeId(Long roomTypeId) {
 		this.roomTypeId = roomTypeId;
 	}
+	
+	@Override
+	public String toString() {
+		return "Room id: " + this.id + " |accommodationId: " + this.accommodationId + " |roomTypeId: " + this.roomTypeId;
+	}
 }

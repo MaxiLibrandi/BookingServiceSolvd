@@ -34,4 +34,9 @@ public class Continent {
 	public void setCountries(List<Country> countries) {
 		this.countries = countries;
 	}
+	
+	@Override
+	public String toString() {
+		return "Continent id: " + this.id + " |name: " + this.name;
+	}
 }

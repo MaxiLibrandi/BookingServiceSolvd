@@ -108,4 +108,9 @@ public class Accommodation {
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
+	
+	@Override
+	public String toString() {
+		return "Accommodation id: " + this.id + " |hostId: " + this.hostId + " |direction: " + this.direction + " |description: " + this.description + " |maxCapacity: " + this.maxCapacity + " |cityId: " + this.cityId;
+	}
 }

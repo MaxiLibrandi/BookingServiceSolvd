@@ -44,4 +44,9 @@ public class City {
 	public void setAccommodations(List<Accommodation> accommodations) {
 		this.accommodations = accommodations;
 	}
+	
+	@Override
+	public String toString() {
+		return "City id: " + this.id + " |name: " + this.name + " |countryId: " + this.countryId;
+	}
 }

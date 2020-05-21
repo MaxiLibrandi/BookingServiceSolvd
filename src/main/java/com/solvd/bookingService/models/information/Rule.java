@@ -36,4 +36,9 @@ public class Rule {
 	public void setAccommodationRules(List<AccommodationRule> accommodationRules) {
 		this.accommodationRules = accommodationRules;
 	}
+	
+	@Override
+	public String toString() {
+		return "Rule id: " + this.id + " |description: " + this.description;
+	}
 }

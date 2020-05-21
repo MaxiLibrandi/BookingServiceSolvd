@@ -43,4 +43,9 @@ public class Country {
 	public void setCities(List<City> cities) {
 		this.cities = cities;
 	}
+	
+	@Override
+	public String toString() {
+		return "Country id: " + this.id + " |name: " + this.name + " |continentId: " + this.continentId;
+	}
 }

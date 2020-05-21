@@ -75,4 +75,9 @@ public class User {
 	public void setAccommodations(List<Accommodation> accommodations) {
 		this.accommodations = accommodations;
 	}
+	
+	@Override
+	public String toString() {
+		return "User id: " + this.id + " |name: " + this.name + " |lastName: " + this.lastName + " |birthDate: " + this.birthDate;
+	}
 }

@@ -34,4 +34,9 @@ public class ReservationStatus {
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
+	
+	@Override
+	public String toString() {
+		return "ReservationStatus id: " + this.id + " |status: " + this.status;
+	}
 }

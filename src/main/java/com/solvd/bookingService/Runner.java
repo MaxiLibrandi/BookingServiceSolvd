@@ -92,6 +92,7 @@ public class Runner {
 		LOGGER.debug(userService.getUsers().toString());
 		*/
 		
+		//STAX PARSER
 		StAXParser pars = new StAXParser();
 		List<User> users = null;
 		try {
@@ -103,15 +104,15 @@ public class Runner {
 		}
 		
 		for(User u : users) {
-			LOGGER.debug("USER: " + u.getId() + " | " + u.getName() + " | " + u.getLastName() + " | " + u.getBirthDate().toString());
+			LOGGER.debug(u.toString());
 			for (Contact c : u.getContacts()) {
-				LOGGER.debug("CONTACT: " + c.getId() + " | "+ c.getUserId() + " | " + c.getContactSourceId() + " | " + c.getContactData());
+				LOGGER.debug(c.toString());
 			}
 			for (Reservation r : u.getReservations()) {
-				LOGGER.debug("RESERVATION: " + r.getId() + " | "+ r.getGuestId() + " | " + r.getAccommodationId() + " | " + r.getDateFrom() + " | " + r.getDateTo() + " | " + r.getPrice() + " | " + r.getReservationStatusId() + " | " + r.getRating());
+				LOGGER.debug(r.toString());
 			}
 			for (Accommodation a : u.getAccommodations()) {
-				LOGGER.debug("ACCOMMODATION: " + a.getId() + " | " + a.getHostId() + " | " + a.getDirection() + " | " + a.getDescription() + " | " + a.getMaxCapacity() + " | " + a.getCityId());
+				LOGGER.debug(a.toString());
 			}
 		}
 	}

@@ -34,4 +34,9 @@ public class ContactSource {
 	public void setContacts(List<Contact> contacts) {
 		this.contacts = contacts;
 	}
+	
+	@Override
+	public String toString() {
+		return "ContactSource id: " + this.id + " |source: " + this.source;
+	}
 }

@@ -36,4 +36,9 @@ public class Service {
 	public void setAccommodationServices(List<AccommodationService> accommodationServices) {
 		this.accommodationServices = accommodationServices;
 	}
+	
+	@Override
+	public String toString() {
+		return "Service id: " + this.id + " |description: " + this.description;
+	}
 }

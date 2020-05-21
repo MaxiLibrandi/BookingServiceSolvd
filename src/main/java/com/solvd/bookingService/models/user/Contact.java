@@ -41,4 +41,9 @@ public class Contact {
 	public void setContactData(String contactData) {
 		this.contactData = contactData;
 	}
+	
+	@Override
+	public String toString() {
+		return "Contact id: " + this.id + " |userId: " + this.userId + " |contactSourceId: " + this.contactSourceId + " |contactData: " + this.contactData;	
+	}
 }

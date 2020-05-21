@@ -36,4 +36,9 @@ public class RoomType {
 	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
+	
+	@Override
+	public String toString() {
+		return "RoomType id: " + this.id + " |type: " + this.type;
+	}
 }

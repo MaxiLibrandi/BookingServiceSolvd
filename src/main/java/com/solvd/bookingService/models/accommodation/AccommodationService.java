@@ -32,4 +32,9 @@ public class AccommodationService {
 	public void setAccommodationId(Long accommodationId) {
 		this.accommodationId = accommodationId;
 	}
+	
+	@Override
+	public String toString() {
+		return "AccommodationService id: " + this.id + " |accommodationId: " + this.accommodationId + " |serviceId: " + this.serviceId;
+	}
 }
