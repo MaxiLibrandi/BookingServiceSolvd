@@ -1,3 +1,33 @@
-2020-05-17 20:07:21 DEBUG Runner:39 - [com.solvd.bookingService.models.reservation.ReservationStatus@4612b856, com.solvd.bookingService.models.reservation.ReservationStatus@22875539, com.solvd.bookingService.models.reservation.ReservationStatus@5674e1f2]
-2020-05-17 20:07:21 DEBUG Runner:57 - [com.solvd.bookingService.models.information.RoomType@49c6c24f, com.solvd.bookingService.models.information.RoomType@6fe1b4fb, com.solvd.bookingService.models.information.RoomType@79351f41]
-2020-05-17 20:07:21 DEBUG Runner:74 - [com.solvd.bookingService.models.user.User@cd1d761, com.solvd.bookingService.models.user.User@68be8808]
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: name
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: last_name
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: birth_date
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: contact_source_id
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: contact_data
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: contact_source_id
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: contact_data
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: accommodation_id
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: date_from
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: date_to
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: price
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: reservation_status_id
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: accommodation_id
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: date_from
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: date_to
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: price
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: reservation_status_id
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: direction
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: description
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: max_capacity
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: city_id
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: direction
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: description
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: max_capacity
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: city_id
+2020-05-21 12:35:50 ERROR StAXParser:171 - No match for end tag: users
+2020-05-21 12:35:50 DEBUG Runner:106 - USER: 1 | Maxi | Librandi | 1997-08-03
+2020-05-21 12:35:50 DEBUG Runner:108 - CONTACT: 1 | 1 | 1 | maximolibrandi@hotmail.com
+2020-05-21 12:35:50 DEBUG Runner:108 - CONTACT: 2 | 1 | 2 | 2281585831
+2020-05-21 12:35:50 DEBUG Runner:111 - RESERVATION: 1 | 1 | 1 | 2020-05-21 | 2020-05-23 | 300.0 | 2 | null
+2020-05-21 12:35:50 DEBUG Runner:111 - RESERVATION: 2 | 1 | 2 | 2020-05-25 | 2020-05-28 | 400.0 | 1 | null
+2020-05-21 12:35:50 DEBUG Runner:114 - ACCOMMODATION: 5 | 1 | Enry St 122 | Awesome room | 2 | 1
+2020-05-21 12:35:50 DEBUG Runner:114 - ACCOMMODATION: 6 | 1 | Johns St 321 | great house for your family | 5 | 1

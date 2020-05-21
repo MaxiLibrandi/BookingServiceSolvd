@@ -1,22 +1,26 @@
 package com.solvd.bookingService;
 
 import java.time.LocalDate;
+import java.util.List;
+
+import javax.xml.stream.XMLStreamException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.solvd.bookingService.models.accommodation.Accommodation;
 import com.solvd.bookingService.models.information.*;
 import com.solvd.bookingService.models.reservation.*;
 import com.solvd.bookingService.models.user.*;
 import com.solvd.bookingService.services.*;
+import com.solvd.bookingService.staxParser.StAXParser;
 
 public class Runner {
 
 	private static final Logger LOGGER = LogManager.getLogger(Runner.class);
 
-	
 	public static void main(String[] args) {	
-		
+		/*
 		DBConfigurationService dbConfigurationService = new DBConfigurationService();
 		dbConfigurationService.initDB();
 		
@@ -86,5 +90,29 @@ public class Runner {
 		userService.delete(Integer.toUnsignedLong(1));
 		
 		LOGGER.debug(userService.getUsers().toString());
+		*/
+		
+		StAXParser pars = new StAXParser();
+		List<User> users = null;
+		try {
+			users = pars.getUsersFromXML("src/main/resources/users.xml");
+		} catch (NumberFormatException e) {
+			LOGGER.error(e);
+		} catch (XMLStreamException e) {
+			LOGGER.error(e);
+		}
+		
+		for(User u : users) {
+			LOGGER.debug("USER: " + u.getId() + " | " + u.getName() + " | " + u.getLastName() + " | " + u.getBirthDate().toString());
+			for (Contact c : u.getContacts()) {
+				LOGGER.debug("CONTACT: " + c.getId() + " | "+ c.getUserId() + " | " + c.getContactSourceId() + " | " + c.getContactData());
+			}
+			for (Reservation r : u.getReservations()) {
+				LOGGER.debug("RESERVATION: " + r.getId() + " | "+ r.getGuestId() + " | " + r.getAccommodationId() + " | " + r.getDateFrom() + " | " + r.getDateTo() + " | " + r.getPrice() + " | " + r.getReservationStatusId() + " | " + r.getRating());
+			}
+			for (Accommodation a : u.getAccommodations()) {
+				LOGGER.debug("ACCOMMODATION: " + a.getId() + " | " + a.getHostId() + " | " + a.getDirection() + " | " + a.getDescription() + " | " + a.getMaxCapacity() + " | " + a.getCityId());
+			}
+		}
 	}
 }
