@@ -20,7 +20,6 @@ public class Runner {
 	private static final Logger LOGGER = LogManager.getLogger(Runner.class);
 
 	public static void main(String[] args) {	
-		/*
 		DBConfigurationService dbConfigurationService = new DBConfigurationService();
 		dbConfigurationService.initDB();
 		
@@ -44,7 +43,7 @@ public class Runner {
 		
 		reservationStatusService.delete(Integer.toUnsignedLong(1));
 		
-		LOGGER.debug(reservationStatusService.getReservationStatus().toString());
+		reservationStatusService.getReservationStatus().stream().forEach(rs -> LOGGER.debug(rs.toString()));
 		
 		RoomTypeService roomTypeService = new RoomTypeService();
 		RoomType roomType;
@@ -60,14 +59,13 @@ public class Runner {
 		roomType = new RoomType();
 		roomType.setType("Living Room");
 		roomTypeService.save(roomType);
-		
 
 		roomType.setType("Kitchen");
 		roomTypeService.update(roomType);
 		
 		roomTypeService.delete(Integer.toUnsignedLong(1));
 
-		LOGGER.debug(roomTypeService.getRoomTypes().toString());
+		roomTypeService.getRoomTypes().stream().forEach(rt -> LOGGER.debug(rt.toString()));
 		
 		UserService userService = new UserService();
 		User user;
@@ -89,14 +87,13 @@ public class Runner {
 		
 		userService.delete(Integer.toUnsignedLong(1));
 		
-		LOGGER.debug(userService.getUsers().toString());
-		*/
+		userService.getUsers().stream().forEach(u -> LOGGER.debug(u.toString()));
 		
 		//STAX PARSER
-		StAXParser pars = new StAXParser();
+		StAXParser parser = new StAXParser();
 		List<User> users = null;
 		try {
-			users = pars.getUsersFromXML("src/main/resources/users.xml");
+			users = parser.getUsersFromXML("src/main/resources/users.xml");
 		} catch (NumberFormatException e) {
 			LOGGER.error(e);
 		} catch (XMLStreamException e) {
