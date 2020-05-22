@@ -4,28 +4,29 @@ import com.solvd.bookingService.models.localization.Continent;
 
 import java.util.List;
 
+import com.solvd.bookingService.dao.ICountryDAO;
+import com.solvd.bookingService.dao.IEntityDAO;
 import com.solvd.bookingService.dao.mySqlImpl.ContinentDAO;
 import com.solvd.bookingService.dao.mySqlImpl.CountryDAO;
 
 public class ContinentService {
 	
-	private ContinentDAO continentDAO;
-	private CountryDAO countryDAO;
+	private IEntityDAO<Continent> continentDAO;
+	private ICountryDAO countryDAO;
 	
 	public ContinentService() {
 		continentDAO = new ContinentDAO();
+		countryDAO = new CountryDAO();
 	}
 	
 	public List<Continent> getContinents(){
 		List<Continent> continents = continentDAO.getEntities();
-		countryDAO = new CountryDAO();
 		continents.stream().forEach(continent -> continent.setCountries(countryDAO.getCountriesByContinentId(continent.getId())));
 		return continents;
 	}
 	
 	public Continent getContinentById(Long id) {
 		Continent con = continentDAO.getEntityById(id);
-		countryDAO = new CountryDAO();
 		con.setCountries(countryDAO.getCountriesByContinentId(id));
 		return con;
 	}

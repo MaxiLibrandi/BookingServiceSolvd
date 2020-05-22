@@ -2,29 +2,30 @@ package com.solvd.bookingService.services;
 
 import java.util.List;
 
+import com.solvd.bookingService.dao.IEntityDAO;
+import com.solvd.bookingService.dao.IReservationDAO;
 import com.solvd.bookingService.dao.mySqlImpl.ReservationDAO;
 import com.solvd.bookingService.dao.mySqlImpl.ReservationStatusDAO;
 import com.solvd.bookingService.models.reservation.ReservationStatus;
 
 public class ReservationStatusService {
 	
-	private ReservationStatusDAO reservationStatusDAO;
-	private ReservationDAO reservationDAO;
+	private IEntityDAO<ReservationStatus> reservationStatusDAO;
+	private IReservationDAO reservationDAO;
 	
 	public ReservationStatusService() {
 		reservationStatusDAO = new ReservationStatusDAO();
+		reservationDAO = new ReservationDAO();
 	}
 	
 	public List<ReservationStatus> getReservationStatus(){
 		List<ReservationStatus> reservationStatus = reservationStatusDAO.getEntities();
-		reservationDAO = new ReservationDAO();
 		reservationStatus.stream().forEach(rs -> rs.setReservations(reservationDAO.getReservationsByReservationStatusId(rs.getId())));
 		return reservationStatus;
 	}
 	
 	public ReservationStatus getReservationStatusById(Long id) {
 		ReservationStatus rs = reservationStatusDAO.getEntityById(id);
-		reservationDAO = new ReservationDAO();
 		rs.setReservations(reservationDAO.getReservationsByReservationStatusId(id));
 		return rs;
 	}

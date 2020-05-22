@@ -1,13 +1,17 @@
 package com.solvd.bookingService.services;
 
+import com.solvd.bookingService.dao.IDBConfigurationDAO;
 import com.solvd.bookingService.dao.mySqlImpl.DBConfigurationDAO;
 
 public class DBConfigurationService {
 	
-	private DBConfigurationDAO dbConfigurationDAO;
+	private IDBConfigurationDAO dbConfigurationDAO;
+	
+	public DBConfigurationService() {
+		dbConfigurationDAO = new DBConfigurationDAO();
+	}
 	
 	public void initDB() {
-		dbConfigurationDAO = new DBConfigurationDAO();
 		dbConfigurationDAO.initDB();
 	}
 }
