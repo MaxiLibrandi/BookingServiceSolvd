@@ -30,6 +30,24 @@ public class ReservationDAO implements IReservationDAO{
 	private static final String GET_BY_GUEST_ID = "SELECT * FROM Reservations r WHERE r.guest_id = ?";
 	
 	@Override
+	public Reservation buildModel(ResultSet rs) {
+		Reservation r = new Reservation();
+		try {
+			r.setId(rs.getLong("id"));
+			r.setGuestId(rs.getLong("guest_id"));
+			r.setAccommodationId(rs.getLong("accommodation_id"));
+			r.setDateFrom(rs.getDate("date_from").toLocalDate());
+			r.setDateTo(rs.getDate("date_to").toLocalDate());
+			r.setPrice(rs.getFloat("price"));
+			r.setReservationStatusId(rs.getLong("reservation_status_id"));
+			r.setRating(rs.getInt("rating"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return r;
+	}
+	
+	@Override
 	public List<Reservation> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -40,15 +58,7 @@ public class ReservationDAO implements IReservationDAO{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Reservation r = new Reservation();
-				r.setId(rs.getLong("id"));
-				r.setGuestId(rs.getLong("guest_id"));
-				r.setAccommodationId(rs.getLong("accommodation_id"));
-				r.setDateFrom(rs.getDate("date_from").toLocalDate());
-				r.setDateTo(rs.getDate("date_to").toLocalDate());
-				r.setPrice(rs.getFloat("price"));
-				r.setReservationStatusId(rs.getLong("reservation_status_id"));
-				r.setRating(rs.getInt("rating"));
+				Reservation r = buildModel(rs);
 				reservations.add(r);
 			}
 		} catch (InterruptedException e) {
@@ -85,15 +95,7 @@ public class ReservationDAO implements IReservationDAO{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			r = new Reservation();
-			r.setId(rs.getLong("id"));
-			r.setGuestId(rs.getLong("guest_id"));
-			r.setAccommodationId(rs.getLong("accommodation_id"));
-			r.setDateFrom(rs.getDate("date_from").toLocalDate());
-			r.setDateTo(rs.getDate("date_to").toLocalDate());
-			r.setPrice(rs.getFloat("price"));
-			r.setReservationStatusId(rs.getLong("reservation_status_id"));
-			r.setRating(rs.getInt("rating"));
+			r = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -213,15 +215,7 @@ public class ReservationDAO implements IReservationDAO{
 			ps.setLong(1, reservationStatusId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Reservation r = new Reservation();
-				r.setId(rs.getLong("id"));
-				r.setGuestId(rs.getLong("guest_id"));
-				r.setAccommodationId(rs.getLong("accommodation_id"));
-				r.setDateFrom(rs.getDate("date_from").toLocalDate());
-				r.setDateTo(rs.getDate("date_to").toLocalDate());
-				r.setPrice(rs.getFloat("price"));
-				r.setReservationStatusId(rs.getLong("reservation_status_id"));
-				r.setRating(rs.getInt("rating"));
+				Reservation r = buildModel(rs);
 				reservations.add(r);
 			}
 		} catch (InterruptedException e) {
@@ -258,15 +252,7 @@ public class ReservationDAO implements IReservationDAO{
 			ps.setLong(1,guestId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Reservation r = new Reservation();
-				r.setId(rs.getLong("id"));
-				r.setGuestId(rs.getLong("guest_id"));
-				r.setAccommodationId(rs.getLong("accommodation_id"));
-				r.setDateFrom(rs.getDate("date_from").toLocalDate());
-				r.setDateTo(rs.getDate("date_to").toLocalDate());
-				r.setPrice(rs.getFloat("price"));
-				r.setReservationStatusId(rs.getLong("reservation_status_id"));
-				r.setRating(rs.getInt("rating"));
+				Reservation r = buildModel(rs);
 				reservations.add(r);
 			}
 		} catch (InterruptedException e) {

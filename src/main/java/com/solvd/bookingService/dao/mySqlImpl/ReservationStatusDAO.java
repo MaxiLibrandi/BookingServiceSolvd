@@ -27,6 +27,18 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 	private static final String DELETE = "DELETE FROM Reservation_Status rst WHERE rst.id = ?";
 	
 	@Override
+	public ReservationStatus buildModel(ResultSet rs) {
+		ReservationStatus rst = new ReservationStatus();
+		try {
+			rst.setId(rs.getLong("id"));
+			rst.setStatus(rs.getString("status"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return rst;
+	}
+	
+	@Override
 	public List<ReservationStatus> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,9 +49,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				ReservationStatus rst = new ReservationStatus();
-				rst.setId(rs.getLong("id"));
-				rst.setStatus(rs.getString("status"));
+				ReservationStatus rst = buildModel(rs);
 				reservationStatus.add(rst);
 			}
 		} catch (InterruptedException e) {
@@ -76,9 +86,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			rst = new ReservationStatus();
-			rst.setId(rs.getLong("id"));
-			rst.setStatus(rs.getString("status"));
+			rst = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -173,6 +181,4 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 			}
 		}
 	}
-	
-	
 }

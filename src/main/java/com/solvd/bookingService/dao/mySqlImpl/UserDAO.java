@@ -27,6 +27,20 @@ public class UserDAO implements IEntityDAO<User>{
 	private static final String DELETE = "DELETE FROM Users u WHERE u.id = ?";
 	
 	@Override
+	public User buildModel(ResultSet rs) {
+		User u = new User();
+		try {
+			u.setId(rs.getLong("id"));
+			u.setName(rs.getString("name"));
+			u.setLastName(rs.getString("last_name"));
+			u.setBirthDate(rs.getDate("birth_date").toLocalDate());
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return u;
+	}
+	
+	@Override
 	public List<User> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,11 +51,7 @@ public class UserDAO implements IEntityDAO<User>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				User u = new User();
-				u.setId(rs.getLong("id"));
-				u.setName(rs.getString("name"));
-				u.setLastName(rs.getString("last_name"));
-				u.setBirthDate(rs.getDate("birth_date").toLocalDate());
+				User u = buildModel(rs);
 				users.add(u);
 			}
 		} catch (InterruptedException e) {
@@ -78,11 +88,7 @@ public class UserDAO implements IEntityDAO<User>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			user = new User();
-			user.setId(rs.getLong("id"));
-			user.setName(rs.getString("name"));
-			user.setLastName(rs.getString("last_name"));
-			user.setBirthDate(rs.getDate("birth_date").toLocalDate());
+			user = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

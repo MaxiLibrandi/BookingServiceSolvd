@@ -27,6 +27,18 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 	private static final String DELETE = "DELETE FROM Room_Types rt WHERE rt.id = ?";
 	
 	@Override
+	public RoomType buildModel(ResultSet rs) {
+		RoomType rt = new RoomType();
+		try {
+			rt.setId(rs.getLong("id"));
+			rt.setType(rs.getString("type"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return rt;
+	}
+	
+	@Override
 	public List<RoomType> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,9 +49,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				RoomType rt = new RoomType();
-				rt.setId(rs.getLong("id"));
-				rt.setType(rs.getString("type"));
+				RoomType rt = buildModel(rs);
 				roomTypes.add(rt);
 			}
 		} catch (InterruptedException e) {
@@ -76,9 +86,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			rt = new RoomType();
-			rt.setId(rs.getLong("id"));
-			rt.setType(rs.getString("type"));
+			rt = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -173,5 +181,4 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 			}
 		}
 	}
-
 }

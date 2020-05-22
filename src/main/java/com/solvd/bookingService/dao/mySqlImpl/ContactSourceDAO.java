@@ -27,6 +27,18 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 	private static final String DELETE = "DELETE FROM Contact_Sources cs WHERE cs.id = ?";
 
 	@Override
+	public ContactSource buildModel(ResultSet rs) {
+		ContactSource cs = new ContactSource();
+		try {
+			cs.setId(rs.getLong("id"));
+			cs.setSource(rs.getString("source"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return cs;
+	}
+	
+	@Override
 	public List<ContactSource> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,9 +49,7 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				ContactSource cs = new ContactSource();
-				cs.setId(rs.getLong("id"));
-				cs.setSource(rs.getString("source"));
+				ContactSource cs = buildModel(rs);
 				contactSources.add(cs);
 			}
 		} catch (InterruptedException e) {
@@ -76,9 +86,7 @@ public class ContactSourceDAO implements IEntityDAO<ContactSource>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			cs = new ContactSource();
-			cs.setId(rs.getLong("id"));
-			cs.setSource(rs.getString("source"));
+			cs = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

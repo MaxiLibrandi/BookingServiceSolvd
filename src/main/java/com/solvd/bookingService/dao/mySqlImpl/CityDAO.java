@@ -28,6 +28,19 @@ public class CityDAO implements ICityDAO{
 	private static final String GET_BY_COUNTRY_ID = "SELECT * FROM Cities ci WHERE ci.country_id = ?";
 	
 	@Override
+	public City buildModel(ResultSet rs) {
+		City ci = new City();
+		try {
+			ci.setId(rs.getLong("id"));
+			ci.setName(rs.getString("name"));
+			ci.setCountryId(rs.getLong("country_id"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return ci;
+	}
+	
+	@Override
 	public List<City> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -38,10 +51,7 @@ public class CityDAO implements ICityDAO{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				City ci = new City();
-				ci.setId(rs.getLong("id"));
-				ci.setName(rs.getString("name"));
-				ci.setCountryId(rs.getLong("country_id"));
+				City ci = buildModel(rs);
 				cities.add(ci);
 			}
 		} catch (InterruptedException e) {
@@ -78,10 +88,7 @@ public class CityDAO implements ICityDAO{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			ci = new City();
-			ci.setId(rs.getLong("id"));
-			ci.setName(rs.getString("name"));
-			ci.setCountryId(rs.getLong("country_id"));
+			ci = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -191,10 +198,7 @@ public class CityDAO implements ICityDAO{
 			ps.setLong(1, countryId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				City ci = new City();
-				ci.setId(rs.getLong("id"));
-				ci.setName(rs.getString("name"));
-				ci.setCountryId(rs.getLong("country_id"));
+				City ci = buildModel(rs);
 				cities.add(ci);
 			}
 		} catch (InterruptedException e) {

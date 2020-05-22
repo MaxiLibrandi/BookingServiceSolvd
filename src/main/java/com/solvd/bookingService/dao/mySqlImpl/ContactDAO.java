@@ -29,6 +29,20 @@ public class ContactDAO implements IContactDAO{
 	private static final String GET_BY_CONTACT_SOURCE_ID = "SELECT * FROM Contacts co WHERE co.contact_source_id = ?";
 
 	@Override
+	public Contact buildModel(ResultSet rs) {
+		Contact co = new Contact();
+		try {
+			co.setId(rs.getLong("id"));
+			co.setUserId(rs.getLong("user_id"));
+			co.setContactSourceId(rs.getLong("contact_source_id"));
+			co.setContactData(rs.getString("contact_data"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return co;
+	}
+	
+	@Override
 	public List<Contact> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -39,11 +53,7 @@ public class ContactDAO implements IContactDAO{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Contact co = new Contact();
-				co.setId(rs.getLong("id"));
-				co.setUserId(rs.getLong("user_id"));
-				co.setContactSourceId(rs.getLong("contact_source_id"));
-				co.setContactData(rs.getString("contact_data"));
+				Contact co = buildModel(rs);
 				contacts.add(co);
 			}
 		} catch (InterruptedException e) {
@@ -80,11 +90,7 @@ public class ContactDAO implements IContactDAO{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			co = new Contact();
-			co.setId(rs.getLong("id"));
-			co.setUserId(rs.getLong("user_id"));
-			co.setContactSourceId(rs.getLong("contact_source_id"));
-			co.setContactData(rs.getString("contact_data"));
+			co = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -196,11 +202,7 @@ public class ContactDAO implements IContactDAO{
 			ps.setLong(1, userId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Contact co = new Contact();
-				co.setId(rs.getLong("id"));
-				co.setUserId(rs.getLong("user_id"));
-				co.setContactSourceId(rs.getLong("contact_source_id"));
-				co.setContactData(rs.getString("contact_data"));
+				Contact co = buildModel(rs);
 				contacts.add(co);
 			}
 		} catch (InterruptedException e) {
@@ -237,11 +239,7 @@ public class ContactDAO implements IContactDAO{
 			ps.setLong(1, contactSourceId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Contact co = new Contact();
-				co.setId(rs.getLong("id"));
-				co.setUserId(rs.getLong("user_id"));
-				co.setContactSourceId(rs.getLong("contact_source_id"));
-				co.setContactData(rs.getString("contact_data"));
+				Contact co = buildModel(rs);
 				contacts.add(co);
 			}
 		} catch (InterruptedException e) {

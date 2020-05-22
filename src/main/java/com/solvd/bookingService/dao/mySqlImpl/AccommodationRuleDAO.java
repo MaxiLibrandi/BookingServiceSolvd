@@ -28,6 +28,19 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 	private static final String DELETE = "DELETE FROM Accommodation_Rules ar WHERE ar.id = ?";
 
 	@Override
+	public AccommodationRule buildModel(ResultSet rs) {
+		AccommodationRule ar = new AccommodationRule();
+		try {
+			ar.setId(rs.getLong("id"));
+			ar.setRuleId(rs.getLong("rule_id"));
+			ar.setAccommodationId(rs.getLong("accommodation_id"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return ar;
+	}
+	
+	@Override
 	public List<AccommodationRule> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -38,10 +51,7 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				AccommodationRule ar = new AccommodationRule();
-				ar.setId(rs.getLong("id"));
-				ar.setRuleId(rs.getLong("rule_id"));
-				ar.setAccommodationId(rs.getLong("accommodation_id"));
+				AccommodationRule ar = buildModel(rs);
 				accommodationRules.add(ar);
 			}
 		} catch (InterruptedException e) {
@@ -78,10 +88,7 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			ar = new AccommodationRule();
-			ar.setId(rs.getLong("id"));
-			ar.setRuleId(rs.getLong("rule_id"));
-			ar.setAccommodationId(rs.getLong("accommodation_id"));
+			ar = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

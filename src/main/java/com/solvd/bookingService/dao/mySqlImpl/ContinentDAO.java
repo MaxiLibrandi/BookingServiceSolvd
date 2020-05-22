@@ -27,6 +27,18 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 	private static final String DELETE = "DELETE FROM Continents con WHERE con.id = ?";
 
 	@Override
+	public Continent buildModel(ResultSet rs) {
+		Continent con = new Continent();
+		try {
+			con.setId(rs.getLong("id"));
+			con.setName(rs.getString("name"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return con;
+	}
+	
+	@Override
 	public List<Continent> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,9 +49,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Continent con = new Continent();
-				con.setId(rs.getLong("id"));
-				con.setName(rs.getString("name"));
+				Continent con = buildModel(rs);
 				continents.add(con);
 			}
 		} catch (InterruptedException e) {
@@ -76,9 +86,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			con = new Continent();
-			con.setId(rs.getLong("id"));
-			con.setName(rs.getString("name"));
+			con = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

@@ -27,6 +27,19 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 	private static final String DELETE = "DELETE FROM Accommodation_Images ai WHERE ai.id = ?";
 
 	@Override
+	public AccommodationImage buildModel(ResultSet rs) {
+		AccommodationImage ai = new AccommodationImage();
+		try {
+			ai.setId(rs.getLong("id"));
+			ai.setPath(rs.getString("path"));
+			ai.setAccommodationId(rs.getLong("accommodation_id"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return ai;
+	}
+	
+	@Override
 	public List<AccommodationImage> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,10 +50,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				AccommodationImage ai = new AccommodationImage();
-				ai.setId(rs.getLong("id"));
-				ai.setPath(rs.getString("path"));
-				ai.setAccommodationId(rs.getLong("accommodation_id"));
+				AccommodationImage ai = buildModel(rs);
 				accommodationImages.add(ai);
 			}
 		} catch (InterruptedException e) {
@@ -77,10 +87,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			ai = new AccommodationImage();
-			ai.setId(rs.getLong("id"));
-			ai.setPath(rs.getString("path"));
-			ai.setAccommodationId(rs.getLong("accommodation_id"));
+			ai = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

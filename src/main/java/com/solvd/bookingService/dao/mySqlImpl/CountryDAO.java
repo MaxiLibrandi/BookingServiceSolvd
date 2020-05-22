@@ -28,6 +28,19 @@ public class CountryDAO implements ICountryDAO{
 	private static final String GET_BY_CONTINENT_ID = "SELECT * FROM Countries co WHERE co.continent_id = ?";
 	
 	@Override
+	public Country buildModel(ResultSet rs) {
+		Country co = new Country();
+		try {
+			co.setId(rs.getLong("id"));
+			co.setName(rs.getString("name"));
+			co.setContinentId(rs.getLong("continent_id"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return co;
+	}
+	
+	@Override
 	public List<Country> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -38,10 +51,7 @@ public class CountryDAO implements ICountryDAO{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Country co = new Country();
-				co.setId(rs.getLong("id"));
-				co.setName(rs.getString("name"));
-				co.setContinentId(rs.getLong("continent_id"));
+				Country co = buildModel(rs);
 				countries.add(co);
 			}
 		} catch (InterruptedException e) {
@@ -78,10 +88,7 @@ public class CountryDAO implements ICountryDAO{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			co = new Country();
-			co.setId(rs.getLong("id"));
-			co.setName(rs.getString("name"));
-			co.setContinentId(rs.getLong("continent_id"));
+			co = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -191,10 +198,7 @@ public class CountryDAO implements ICountryDAO{
 			ps.setLong(1, continentId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Country co = new Country();
-				co.setId(rs.getLong("id"));
-				co.setName(rs.getString("name"));
-				co.setContinentId(rs.getLong("continent_id"));
+				Country co = buildModel(rs);
 				countries.add(co);
 			}
 		} catch (InterruptedException e) {

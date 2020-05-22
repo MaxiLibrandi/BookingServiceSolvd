@@ -27,6 +27,18 @@ public class ServiceDAO implements IEntityDAO<Service>{
 	private static final String DELETE = "DELETE FROM Services s WHERE s.id = ?";
 	
 	@Override
+	public Service buildModel(ResultSet rs) {
+		Service s = new Service();
+		try {
+			s.setId(rs.getLong("id"));
+			s.setDescription(rs.getString("description"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return s;
+	}
+	
+	@Override
 	public List<Service> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,9 +49,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Service s = new Service();
-				s.setId(rs.getLong("id"));
-				s.setDescription(rs.getString("description"));
+				Service s = buildModel(rs);
 				services.add(s);
 			}
 		} catch (InterruptedException e) {
@@ -76,9 +86,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			s = new Service();
-			s.setId(rs.getLong("id"));
-			s.setDescription(rs.getString("description"));
+			s = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

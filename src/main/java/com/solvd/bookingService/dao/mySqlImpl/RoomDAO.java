@@ -28,6 +28,20 @@ public class RoomDAO implements IRoomDAO{
 	private static final String GET_BY_ROOM_TYPE_ID = "SELECT * FROM Rooms ro WHERE ro.room_type_id = ?";
 	
 	@Override
+	public Room buildModel(ResultSet rs) {
+		Room ro = new Room();
+		try {
+			ro.setId(rs.getLong("id"));
+			ro.setDescription(rs.getString("description"));
+			ro.setAccommodationId(rs.getLong("accommodation_id"));
+			ro.setRoomTypeId(rs.getLong("room_type_id"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return ro;
+	}
+	
+	@Override
 	public List<Room> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -38,11 +52,7 @@ public class RoomDAO implements IRoomDAO{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Room ro = new Room();
-				ro.setId(rs.getLong("id"));
-				ro.setDescription(rs.getString("description"));
-				ro.setAccommodationId(rs.getLong("accommodation_id"));
-				ro.setRoomTypeId(rs.getLong("room_type_id"));
+				Room ro = buildModel(rs);
 				rooms.add(ro);
 			}
 		} catch (InterruptedException e) {
@@ -79,11 +89,7 @@ public class RoomDAO implements IRoomDAO{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			ro = new Room();
-			ro.setId(rs.getLong("id"));
-			ro.setDescription(rs.getString("description"));
-			ro.setAccommodationId(rs.getLong("accommodation_id"));
-			ro.setRoomTypeId(rs.getLong("room_type_id"));
+			ro = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -195,11 +201,7 @@ public class RoomDAO implements IRoomDAO{
 			ps.setLong(1,roomTypeId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Room ro = new Room();
-				ro.setId(rs.getLong("id"));
-				ro.setDescription(rs.getString("description"));
-				ro.setAccommodationId(rs.getLong("accommodation_id"));
-				ro.setRoomTypeId(rs.getLong("room_type_id"));
+				Room ro = buildModel(rs);
 				rooms.add(ro);
 			}
 		} catch (InterruptedException e) {

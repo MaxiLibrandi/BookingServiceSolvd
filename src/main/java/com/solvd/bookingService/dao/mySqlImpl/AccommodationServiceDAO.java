@@ -27,6 +27,19 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 	private static final String DELETE = "DELETE FROM Accommodation_Services asv WHERE asv.id = ?";
 	
 	@Override
+	public AccommodationService buildModel(ResultSet rs) {
+		AccommodationService asv = new AccommodationService();
+		try {
+			asv.setId(rs.getLong("id"));
+			asv.setServiceId(rs.getLong("service_id"));
+			asv.setAccommodationId(rs.getLong("accommodation_id"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return asv;
+	}
+	
+	@Override
 	public List<AccommodationService> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,10 +50,7 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				AccommodationService asv = new AccommodationService();
-				asv.setId(rs.getLong("id"));
-				asv.setServiceId(rs.getLong("service_id"));
-				asv.setAccommodationId(rs.getLong("accommodation_id"));
+				AccommodationService asv = buildModel(rs);
 				accommodationServices.add(asv);
 			}
 		} catch (InterruptedException e) {
@@ -77,10 +87,7 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			asv = new AccommodationService();
-			asv.setId(rs.getLong("id"));
-			asv.setServiceId(rs.getLong("service_id"));
-			asv.setAccommodationId(rs.getLong("accommodation_id"));
+			asv = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

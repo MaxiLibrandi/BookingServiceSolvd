@@ -29,6 +29,22 @@ public class AccommodationDAO implements IAccommodationDAO{
 	private static final String GET_BY_HOST_ID = "SELECT * FROM Accommodations a WHERE a.host_id = ?";
 
 	@Override
+	public Accommodation buildModel(ResultSet rs) {
+		Accommodation a = new Accommodation();
+		try {
+			a.setId(rs.getLong("id"));
+			a.setHostId(rs.getLong("host_id"));
+			a.setDirection(rs.getString("direction"));
+			a.setDescription(rs.getString("description"));
+			a.setMaxCapacity(rs.getInt("max_capacity"));
+			a.setCityId(rs.getLong("city_id"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return a;
+	}
+	
+	@Override
 	public List<Accommodation> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -39,13 +55,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Accommodation a = new Accommodation();
-				a.setId(rs.getLong("id"));
-				a.setHostId(rs.getLong("host_id"));
-				a.setDirection(rs.getString("direction"));
-				a.setDescription(rs.getString("description"));
-				a.setMaxCapacity(rs.getInt("max_capacity"));
-				a.setCityId(rs.getLong("city_id"));
+				Accommodation a = buildModel(rs);
 				accommodations.add(a);
 			}
 		} catch (InterruptedException e) {
@@ -82,13 +92,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			a = new Accommodation();
-			a.setId(rs.getLong("id"));
-			a.setHostId(rs.getLong("host_id"));
-			a.setDirection(rs.getString("direction"));
-			a.setDescription(rs.getString("description"));
-			a.setMaxCapacity(rs.getInt("max_capacity"));
-			a.setCityId(rs.getLong("city_id"));
+			a = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -247,13 +251,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 			ps.setLong(1, hostId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Accommodation a = new Accommodation();
-				a.setId(rs.getLong("id"));
-				a.setHostId(rs.getLong("host_id"));
-				a.setDirection(rs.getString("direction"));
-				a.setDescription(rs.getString("description"));
-				a.setMaxCapacity(rs.getInt("max_capacity"));
-				a.setCityId(rs.getLong("city_id"));
+				Accommodation a = buildModel(rs);
 				accommodations.add(a);
 			}
 		} catch (InterruptedException e) {

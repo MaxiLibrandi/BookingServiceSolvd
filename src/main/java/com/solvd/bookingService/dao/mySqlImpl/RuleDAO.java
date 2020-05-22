@@ -27,6 +27,18 @@ public class RuleDAO implements IEntityDAO<Rule>{
 	private static final String DELETE = "DELETE FROM Rules ru WHERE ru.id = ?";
 
 	@Override
+	public Rule buildModel(ResultSet rs) {
+		Rule ru = new Rule();
+		try {
+			ru.setId(rs.getLong("id"));
+			ru.setDescription(rs.getString("description"));
+		} catch (SQLException e) {
+			LOGGER.error(e);
+		}
+		return ru;
+	}
+	
+	@Override
 	public List<Rule> getEntities() {
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -37,9 +49,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Rule ru = new Rule();
-				ru.setId(rs.getLong("id"));
-				ru.setDescription(rs.getString("description"));
+				Rule ru = buildModel(rs);
 				rules.add(ru);
 			}
 		} catch (InterruptedException e) {
@@ -76,9 +86,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
-			ru = new Rule();
-			ru.setId(rs.getLong("id"));
-			ru.setDescription(rs.getString("description"));
+			ru = buildModel(rs);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -173,5 +181,4 @@ public class RuleDAO implements IEntityDAO<Rule>{
 			}
 		}
 	}
-
 }
