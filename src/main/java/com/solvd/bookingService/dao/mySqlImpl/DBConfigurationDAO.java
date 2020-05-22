@@ -33,8 +33,9 @@ public class DBConfigurationDAO implements IDBConfigurationDAO{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 }

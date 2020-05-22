@@ -45,11 +45,17 @@ public class RoomDAO implements IRoomDAO{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return rooms;
 	}
@@ -78,11 +84,17 @@ public class RoomDAO implements IRoomDAO{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return ro;
 	}
@@ -107,8 +119,9 @@ public class RoomDAO implements IRoomDAO{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -133,8 +146,9 @@ public class RoomDAO implements IRoomDAO{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -156,8 +170,9 @@ public class RoomDAO implements IRoomDAO{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -187,11 +202,17 @@ public class RoomDAO implements IRoomDAO{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return rooms;
 	}

@@ -44,11 +44,17 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return accommodationServices;
 	}
@@ -76,11 +82,17 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return asv;
 	}
@@ -104,8 +116,9 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -129,8 +142,9 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -152,8 +166,9 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 

@@ -45,11 +45,17 @@ public class UserDAO implements IEntityDAO<User>{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return users;
 	}
@@ -78,11 +84,17 @@ public class UserDAO implements IEntityDAO<User>{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return user;
 	}
@@ -107,8 +119,9 @@ public class UserDAO implements IEntityDAO<User>{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -133,8 +146,9 @@ public class UserDAO implements IEntityDAO<User>{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -156,9 +170,9 @@ public class UserDAO implements IEntityDAO<User>{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
-
 }

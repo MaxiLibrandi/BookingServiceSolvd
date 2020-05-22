@@ -50,11 +50,17 @@ public class ReservationDAO implements IReservationDAO{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return reservations;
 	}
@@ -87,11 +93,17 @@ public class ReservationDAO implements IReservationDAO{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return r;
 	}
@@ -120,8 +132,9 @@ public class ReservationDAO implements IReservationDAO{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -150,8 +163,9 @@ public class ReservationDAO implements IReservationDAO{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -173,8 +187,9 @@ public class ReservationDAO implements IReservationDAO{
 				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			} finally {
+				connectionPool.releaseConnection(c);
 			}
-			connectionPool.releaseConnection(c);
 		}
 	}
 
@@ -208,11 +223,17 @@ public class ReservationDAO implements IReservationDAO{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return reservations;
 	}
@@ -247,11 +268,17 @@ public class ReservationDAO implements IReservationDAO{
 		} finally {
 			try {
 				rs.close();
-				ps.close();
 			} catch (SQLException e) {
 				LOGGER.error(e);
+			}finally {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					LOGGER.error(e);
+				}finally {
+					connectionPool.releaseConnection(c);
+				}
 			}
-			connectionPool.releaseConnection(c);
 		}
 		return reservations;
 	}
