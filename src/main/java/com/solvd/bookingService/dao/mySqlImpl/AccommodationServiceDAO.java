@@ -27,7 +27,6 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		ResultSet rs = null;
 		List<AccommodationService> accommodationServices = new ArrayList<AccommodationService>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Accommodation_Services");
 			rs = ps.executeQuery();
@@ -38,8 +37,6 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 				asv.setAccommodationId(rs.getLong("accommodation_id"));
 				accommodationServices.add(asv);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -63,7 +60,6 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		ResultSet rs = null;
 		AccommodationService asv = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Accommodation_Services asv WHERE asv.id = ?");
 			ps.setLong(1, id);
@@ -73,8 +69,6 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 			asv.setId(rs.getLong("id"));
 			asv.setServiceId(rs.getLong("service_id"));
 			asv.setAccommodationId(rs.getLong("accommodation_id"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -96,14 +90,11 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Accomodation_Services (service_id,accommodation_id) VALUES (?,?)");
 			ps.setLong(1,entity.getServiceId());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -123,15 +114,12 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Accommodation_Services asv SET asv.service_id = ?, asv.accommodation_id = ? WHERE asv.id = ?");
 			ps.setLong(1,entity.getServiceId());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -151,13 +139,10 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Accommodation_Services asv WHERE asv.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

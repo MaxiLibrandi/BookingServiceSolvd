@@ -27,7 +27,6 @@ public class UserDAO implements IEntityDAO<User>{
 		ResultSet rs = null;
 		List<User> users = new ArrayList<User>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Users");
 			rs = ps.executeQuery();
@@ -39,8 +38,6 @@ public class UserDAO implements IEntityDAO<User>{
 				u.setBirthDate(rs.getDate("birth_date").toLocalDate());
 				users.add(u);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -64,7 +61,6 @@ public class UserDAO implements IEntityDAO<User>{
 		ResultSet rs = null;
 		User user = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Users u WHERE u.id = ?");
 			ps.setLong(1, id);
@@ -75,8 +71,6 @@ public class UserDAO implements IEntityDAO<User>{
 			user.setName(rs.getString("name"));
 			user.setLastName(rs.getString("last_name"));
 			user.setBirthDate(rs.getDate("birth_date").toLocalDate());
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -98,15 +92,12 @@ public class UserDAO implements IEntityDAO<User>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Users (name, last_name, birth_date) VALUES (?,?,?)");
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getLastName());
 			ps.setDate(3, Date.valueOf(entity.getBirthDate()));
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -126,7 +117,6 @@ public class UserDAO implements IEntityDAO<User>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Users u SET u.name = ?, u.last_name = ?, u.birth_date = ? WHERE u.id = ?");
 			ps.setString(1, entity.getName());
@@ -134,8 +124,6 @@ public class UserDAO implements IEntityDAO<User>{
 			ps.setDate(3, Date.valueOf(entity.getBirthDate()));
 			ps.setLong(4, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -155,13 +143,10 @@ public class UserDAO implements IEntityDAO<User>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Users u WHERE u.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

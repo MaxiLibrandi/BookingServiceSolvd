@@ -27,7 +27,6 @@ public class CityDAO implements ICityDAO{
 		ResultSet rs = null;
 		List<City> cities = new ArrayList<City>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Cities");
 			rs = ps.executeQuery();
@@ -38,8 +37,6 @@ public class CityDAO implements ICityDAO{
 				ci.setCountryId(rs.getLong("country_id"));
 				cities.add(ci);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -63,7 +60,6 @@ public class CityDAO implements ICityDAO{
 		ResultSet rs = null;
 		City ci = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Cities ci WHERE ci.id = ?");
 			ps.setLong(1, id);
@@ -73,8 +69,6 @@ public class CityDAO implements ICityDAO{
 			ci.setId(rs.getLong("id"));
 			ci.setName(rs.getString("name"));
 			ci.setCountryId(rs.getLong("country_id"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -96,14 +90,11 @@ public class CityDAO implements ICityDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Cities (name,country_id) VALUES (?,?)");
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getCountryId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -123,15 +114,12 @@ public class CityDAO implements ICityDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Cities ci SET ci.name = ?, ci.country_id = ? WHERE ci.id = ?");
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getCountryId());
 			ps.setLong(3, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -151,13 +139,10 @@ public class CityDAO implements ICityDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Cities ci WHERE ci.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -179,7 +164,6 @@ public class CityDAO implements ICityDAO{
 		ResultSet rs = null;
 		List<City> cities = new ArrayList<City>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Cities ci WHERE ci.country_id = ?");
 			ps.setLong(1, countryId);
@@ -191,8 +175,6 @@ public class CityDAO implements ICityDAO{
 				ci.setCountryId(rs.getLong("country_id"));
 				cities.add(ci);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

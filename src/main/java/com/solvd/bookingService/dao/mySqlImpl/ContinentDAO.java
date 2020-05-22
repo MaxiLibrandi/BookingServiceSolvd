@@ -27,7 +27,6 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		ResultSet rs = null;
 		List<Continent> continents = new ArrayList<Continent>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Continents");
 			rs = ps.executeQuery();
@@ -37,8 +36,6 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 				con.setName(rs.getString("name"));
 				continents.add(con);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -62,7 +59,6 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		ResultSet rs = null;
 		Continent con = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Continents con WHERE con.id = ?");
 			ps.setLong(1, id);
@@ -71,8 +67,6 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 			con = new Continent();
 			con.setId(rs.getLong("id"));
 			con.setName(rs.getString("name"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -94,13 +88,10 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Continents (name) VALUES (?)");
 			ps.setString(1,entity.getName());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -120,14 +111,11 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Continents con SET con.name = ? WHERE con.id = ?");
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -147,13 +135,10 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Continents con WHERE con.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

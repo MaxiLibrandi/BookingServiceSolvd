@@ -27,7 +27,6 @@ public class CountryDAO implements ICountryDAO{
 		ResultSet rs = null;
 		List<Country> countries = new ArrayList<Country>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Countries");
 			rs = ps.executeQuery();
@@ -38,8 +37,6 @@ public class CountryDAO implements ICountryDAO{
 				co.setContinentId(rs.getLong("continent_id"));
 				countries.add(co);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -63,7 +60,6 @@ public class CountryDAO implements ICountryDAO{
 		ResultSet rs = null;
 		Country co = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Countries co WHERE co.id = ?");
 			ps.setLong(1, id);
@@ -73,8 +69,6 @@ public class CountryDAO implements ICountryDAO{
 			co.setId(rs.getLong("id"));
 			co.setName(rs.getString("name"));
 			co.setContinentId(rs.getLong("continent_id"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -96,14 +90,11 @@ public class CountryDAO implements ICountryDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Countries (name,continent_id) VALUES (?,?)");
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getContinentId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -123,15 +114,12 @@ public class CountryDAO implements ICountryDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Countries co SET co.name = ?, co.continent_id = ? WHERE co.id = ?");
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getContinentId());
 			ps.setLong(3, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -151,13 +139,10 @@ public class CountryDAO implements ICountryDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Countries co WHERE co.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -179,7 +164,6 @@ public class CountryDAO implements ICountryDAO{
 		ResultSet rs = null;
 		List<Country> countries = new ArrayList<Country>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Countries co WHERE co.continent_id = ?");
 			ps.setLong(1, continentId);
@@ -191,8 +175,6 @@ public class CountryDAO implements ICountryDAO{
 				co.setContinentId(rs.getLong("continent_id"));
 				countries.add(co);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

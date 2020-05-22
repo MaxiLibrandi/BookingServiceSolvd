@@ -27,7 +27,6 @@ public class ContactDAO implements IContactDAO{
 		ResultSet rs = null;
 		List<Contact> contacts = new ArrayList<Contact>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Contacts");
 			rs = ps.executeQuery();
@@ -39,8 +38,6 @@ public class ContactDAO implements IContactDAO{
 				co.setContactData(rs.getString("contact_data"));
 				contacts.add(co);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -64,7 +61,6 @@ public class ContactDAO implements IContactDAO{
 		ResultSet rs = null;
 		Contact co = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Contacts co WHERE co.id = ?");
 			ps.setLong(1, id);
@@ -75,8 +71,6 @@ public class ContactDAO implements IContactDAO{
 			co.setUserId(rs.getLong("user_id"));
 			co.setContactSourceId(rs.getLong("contact_source_id"));
 			co.setContactData(rs.getString("contact_data"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -98,15 +92,12 @@ public class ContactDAO implements IContactDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Contacts (user_id,contact_source_id,contact_data) VALUES (?,?,?)");
 			ps.setLong(1, entity.getUserId());
 			ps.setLong(2, entity.getContactSourceId());
 			ps.setString(3, entity.getContactData());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -126,7 +117,6 @@ public class ContactDAO implements IContactDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Contacts co SET co.user_id = ?, co.contact_source_id = ?, co.contact_data = ? WHERE co.id = ?");
 			ps.setLong(1, entity.getUserId());
@@ -134,8 +124,6 @@ public class ContactDAO implements IContactDAO{
 			ps.setString(3, entity.getContactData());
 			ps.setLong(4, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -155,13 +143,10 @@ public class ContactDAO implements IContactDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Contacts co WHERE co.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -183,7 +168,6 @@ public class ContactDAO implements IContactDAO{
 		ResultSet rs = null;
 		List<Contact> contacts = new ArrayList<Contact>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Contacts co WHERE co.user_id = ?");
 			ps.setLong(1, userId);
@@ -196,8 +180,6 @@ public class ContactDAO implements IContactDAO{
 				co.setContactData(rs.getString("contact_data"));
 				contacts.add(co);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -221,7 +203,6 @@ public class ContactDAO implements IContactDAO{
 		ResultSet rs = null;
 		List<Contact> contacts = new ArrayList<Contact>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Contacts co WHERE co.contact_source_id = ?");
 			ps.setLong(1, contactSourceId);
@@ -234,8 +215,6 @@ public class ContactDAO implements IContactDAO{
 				co.setContactData(rs.getString("contact_data"));
 				contacts.add(co);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

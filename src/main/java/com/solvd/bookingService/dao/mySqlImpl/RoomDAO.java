@@ -27,7 +27,6 @@ public class RoomDAO implements IRoomDAO{
 		ResultSet rs = null;
 		List<Room> rooms = new ArrayList<Room>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Rooms");
 			rs = ps.executeQuery();
@@ -39,8 +38,6 @@ public class RoomDAO implements IRoomDAO{
 				ro.setRoomTypeId(rs.getLong("room_type_id"));
 				rooms.add(ro);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -64,7 +61,6 @@ public class RoomDAO implements IRoomDAO{
 		ResultSet rs = null;
 		Room ro = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Rooms ro WHERE ro.id = ?");
 			ps.setLong(1, id);
@@ -75,8 +71,6 @@ public class RoomDAO implements IRoomDAO{
 			ro.setDescription(rs.getString("description"));
 			ro.setAccommodationId(rs.getLong("accommodation_id"));
 			ro.setRoomTypeId(rs.getLong("room_type_id"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -98,15 +92,12 @@ public class RoomDAO implements IRoomDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Rooms (description,accommodation_id,room_type_id) VALUES (?,?,?)");
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3,entity.getRoomTypeId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -126,7 +117,6 @@ public class RoomDAO implements IRoomDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Rooms ro SET ro.description = ?, ro.accommodation_id = ?, ro.room_type_id = ? WHERE ro.id = ?");
 			ps.setString(1,entity.getDescription());
@@ -134,8 +124,6 @@ public class RoomDAO implements IRoomDAO{
 			ps.setLong(3,entity.getRoomTypeId());
 			ps.setLong(4, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -155,13 +143,10 @@ public class RoomDAO implements IRoomDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Rooms ro WHERE ro.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -183,7 +168,6 @@ public class RoomDAO implements IRoomDAO{
 		ResultSet rs = null;
 		List<Room> rooms = new ArrayList<Room>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Rooms ro WHERE ro.room_type_id = ?");
 			ps.setLong(1,roomTypeId);
@@ -196,8 +180,6 @@ public class RoomDAO implements IRoomDAO{
 				ro.setRoomTypeId(rs.getLong("room_type_id"));
 				rooms.add(ro);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

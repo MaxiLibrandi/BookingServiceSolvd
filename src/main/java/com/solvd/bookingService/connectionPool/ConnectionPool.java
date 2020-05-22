@@ -16,7 +16,6 @@ public class ConnectionPool {
 	private static final String DB_URL = "jdbc:mysql://192.168.99.100:33060";
 	private static final String DB_USERNAME = "root";
 	private static final String DB_PASSWORD = "secret";
-	public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
 	
 	private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 	
@@ -39,11 +38,8 @@ public class ConnectionPool {
 	
 	private void initConnection() {
 		try {
-			Class.forName(DB_DRIVER);
 			connections.add(DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD));
 		} catch (SQLException e) {
-			LOGGER.error(e);
-		} catch (ClassNotFoundException e) {
 			LOGGER.error(e);
 		}
 	}

@@ -27,7 +27,6 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		ResultSet rs = null;
 		List<Service> services = new ArrayList<Service>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Services");
 			rs = ps.executeQuery();
@@ -37,8 +36,6 @@ public class ServiceDAO implements IEntityDAO<Service>{
 				s.setDescription(rs.getString("description"));
 				services.add(s);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -62,7 +59,6 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		ResultSet rs = null;
 		Service s = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Services s WHERE s.id = ?");
 			ps.setLong(1, id);
@@ -71,8 +67,6 @@ public class ServiceDAO implements IEntityDAO<Service>{
 			s = new Service();
 			s.setId(rs.getLong("id"));
 			s.setDescription(rs.getString("description"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -94,13 +88,10 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Services (description) VALUES (?)");
 			ps.setString(1,entity.getDescription());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -120,14 +111,11 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Services s SET s.description = ? WHERE s.id = ?");
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -147,13 +135,10 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Services s WHERE s.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

@@ -27,7 +27,6 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		ResultSet rs = null;
 		List<ReservationStatus> reservationStatus = new ArrayList<ReservationStatus>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Reservation_Status");
 			rs = ps.executeQuery();
@@ -37,8 +36,6 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 				rst.setStatus(rs.getString("status"));
 				reservationStatus.add(rst);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -62,7 +59,6 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		ResultSet rs = null;
 		ReservationStatus rst = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Reservation_Status rst WHERE rst.id = ?");
 			ps.setLong(1, id);
@@ -71,8 +67,6 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 			rst = new ReservationStatus();
 			rst.setId(rs.getLong("id"));
 			rst.setStatus(rs.getString("status"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -94,13 +88,10 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Reservation_Status (status) VALUES (?)");
 			ps.setString(1,entity.getStatus());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -120,14 +111,11 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Reservation_Status rst SET rst.status = ? WHERE rst.id = ?");
 			ps.setString(1, entity.getStatus());
 			ps.setLong(2, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -147,13 +135,10 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Reservation_Status rst WHERE rst.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

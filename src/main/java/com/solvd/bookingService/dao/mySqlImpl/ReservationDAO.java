@@ -28,7 +28,6 @@ public class ReservationDAO implements IReservationDAO{
 		ResultSet rs = null;
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Reservations");
 			rs = ps.executeQuery();
@@ -44,8 +43,6 @@ public class ReservationDAO implements IReservationDAO{
 				r.setRating(rs.getInt("rating"));
 				reservations.add(r);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -69,7 +66,6 @@ public class ReservationDAO implements IReservationDAO{
 		ResultSet rs = null;
 		Reservation r = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Reservations r WHERE r.id = ?");
 			ps.setLong(1, id);
@@ -84,8 +80,6 @@ public class ReservationDAO implements IReservationDAO{
 			r.setPrice(rs.getFloat("price"));
 			r.setReservationStatusId(rs.getLong("reservation_status_id"));
 			r.setRating(rs.getInt("rating"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -107,7 +101,6 @@ public class ReservationDAO implements IReservationDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Reservations (guest_id,accommodation_id,date_from,date_to,price,reservation_status,rating) VALUES (?,?,?,?,?,?,?)");
 			ps.setLong(1, entity.getGuestId());
@@ -118,8 +111,6 @@ public class ReservationDAO implements IReservationDAO{
 			ps.setLong(6, entity.getReservationStatusId());
 			ps.setInt(7, entity.getRating());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -139,7 +130,6 @@ public class ReservationDAO implements IReservationDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Reservations r SET r.guest_id = ?, r.accommodation_id = ?, r.date_from = ?, r.date_to = ?, r.price = ?, r.reservation_status_id = ?, r.rating = ? WHERE r.id = ?");
 			ps.setLong(1, entity.getGuestId());
@@ -151,8 +141,6 @@ public class ReservationDAO implements IReservationDAO{
 			ps.setInt(7, entity.getRating());
 			ps.setLong(8, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -172,13 +160,10 @@ public class ReservationDAO implements IReservationDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Reservations r WHERE r.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -200,7 +185,6 @@ public class ReservationDAO implements IReservationDAO{
 		ResultSet rs = null;
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Reservations r WHERE r.reservation_status_id = ?");
 			ps.setLong(1, reservationStatusId);
@@ -217,8 +201,6 @@ public class ReservationDAO implements IReservationDAO{
 				r.setRating(rs.getInt("rating"));
 				reservations.add(r);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -242,7 +224,6 @@ public class ReservationDAO implements IReservationDAO{
 		ResultSet rs = null;
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Reservations r WHERE r.guest_id = ?");
 			ps.setLong(1,guestId);
@@ -259,8 +240,6 @@ public class ReservationDAO implements IReservationDAO{
 				r.setRating(rs.getInt("rating"));
 				reservations.add(r);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {

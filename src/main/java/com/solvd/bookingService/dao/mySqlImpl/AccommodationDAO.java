@@ -27,7 +27,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 		ResultSet rs = null;
 		List<Accommodation> accommodations = new ArrayList<Accommodation>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Accommodations");
 			rs = ps.executeQuery();
@@ -41,8 +40,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 				a.setCityId(rs.getLong("city_id"));
 				accommodations.add(a);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -66,7 +63,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 		ResultSet rs = null;
 		Accommodation a = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.id = ?");
 			ps.setLong(1, id);
@@ -79,8 +75,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 			a.setDescription(rs.getString("description"));
 			a.setMaxCapacity(rs.getInt("max_capacity"));
 			a.setCityId(rs.getLong("city_id"));
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -102,7 +96,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("INSERT INTO Accomodations (host_id,direction,description,max_capacity,city_id) VALUES (?,?,?,?,?)");
 			ps.setLong(1, entity.getHostId());
@@ -111,8 +104,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 			ps.setInt(4, entity.getMaxCapacity());
 			ps.setLong(5, entity.getCityId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -132,7 +123,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("UPDATE Accommodations a SET a.host_id = ?, a.direction = ?, a.description = ?, a.max_capacity = ?, a.city_id = ? WHERE a.id = ?");
 			ps.setLong(1, entity.getHostId());
@@ -142,8 +132,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 			ps.setLong(5, entity.getCityId());
 			ps.setLong(6, entity.getId());
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -163,13 +151,10 @@ public class AccommodationDAO implements IAccommodationDAO{
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("DELETE FROM Accommodations a WHERE a.id = ?");
 			ps.setLong(1, id);
 			ps.executeUpdate();
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -191,7 +176,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 		ResultSet rs = null;
 		List<Accommodation> accommodations = new ArrayList<Accommodation>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.city_id = ?");
 			ps.setLong(1, cityId);
@@ -206,8 +190,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 				a.setCityId(rs.getLong("city_id"));
 				accommodations.add(a);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
@@ -231,7 +213,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 		ResultSet rs = null;
 		List<Accommodation> accommodations = new ArrayList<Accommodation>();
 		try {
-			Class.forName(ConnectionPool.DB_DRIVER);
 			c = connectionPool.getConnection();
 			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.host_id = ?");
 			ps.setLong(1, hostId);
@@ -246,8 +227,6 @@ public class AccommodationDAO implements IAccommodationDAO{
 				a.setCityId(rs.getLong("city_id"));
 				accommodations.add(a);
 			}
-		} catch (ClassNotFoundException e) {
-			LOGGER.error(e);
 		} catch (InterruptedException e) {
 			LOGGER.error(e);
 		} catch (SQLException e) {
