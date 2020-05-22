@@ -20,6 +20,13 @@ public class CityDAO implements ICityDAO{
 
 	private static final Logger LOGGER = LogManager.getLogger(CityDAO.class);
 	
+	private static final String GET_ALL = "SELECT * FROM Cities";
+	private static final String GET_BY_ID = "SELECT * FROM Cities ci WHERE ci.id = ?";
+	private static final String INSERT = "INSERT INTO Cities (name,country_id) VALUES (?,?)";
+	private static final String UPDATE = "UPDATE Cities ci SET ci.name = ?, ci.country_id = ? WHERE ci.id = ?";
+	private static final String DELETE = "DELETE FROM Cities ci WHERE ci.id = ?";
+	private static final String GET_BY_COUNTRY_ID = "SELECT * FROM Cities ci WHERE ci.country_id = ?";
+	
 	@Override
 	public List<City> getEntities() {
 		Connection c = null;
@@ -28,7 +35,7 @@ public class CityDAO implements ICityDAO{
 		List<City> cities = new ArrayList<City>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Cities");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				City ci = new City();
@@ -67,7 +74,7 @@ public class CityDAO implements ICityDAO{
 		City ci = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Cities ci WHERE ci.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -103,7 +110,7 @@ public class CityDAO implements ICityDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Cities (name,country_id) VALUES (?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getCountryId());
 			ps.executeUpdate();
@@ -128,7 +135,7 @@ public class CityDAO implements ICityDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Cities ci SET ci.name = ?, ci.country_id = ? WHERE ci.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getCountryId());
 			ps.setLong(3, entity.getId());
@@ -154,7 +161,7 @@ public class CityDAO implements ICityDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Cities ci WHERE ci.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -180,7 +187,7 @@ public class CityDAO implements ICityDAO{
 		List<City> cities = new ArrayList<City>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Cities ci WHERE ci.country_id = ?");
+			ps = c.prepareStatement(GET_BY_COUNTRY_ID);
 			ps.setLong(1, countryId);
 			rs = ps.executeQuery();
 			while(rs.next()) {

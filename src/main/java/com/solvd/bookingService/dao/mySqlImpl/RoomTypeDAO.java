@@ -20,6 +20,12 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 
 	private static final Logger LOGGER = LogManager.getLogger(RoomTypeDAO.class);
 	
+	private static final String GET_ALL = "SELECT * FROM Room_Types";
+	private static final String GET_BY_ID = "SELECT * FROM Room_Types rt WHERE rt.id = ?";
+	private static final String INSERT = "INSERT INTO Room_Types (type) VALUES (?)";
+	private static final String UPDATE = "UPDATE Room_Types rt SET rt.type = ? WHERE rt.id = ?";
+	private static final String DELETE = "DELETE FROM Room_Types rt WHERE rt.id = ?";
+	
 	@Override
 	public List<RoomType> getEntities() {
 		Connection c = null;
@@ -28,7 +34,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 		List<RoomType> roomTypes = new ArrayList<RoomType>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Room_Types");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				RoomType rt = new RoomType();
@@ -66,7 +72,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 		RoomType rt = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Room_Types rt WHERE rt.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -101,7 +107,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Room_Types (type) VALUES (?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getType());
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -125,7 +131,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Room_Types rt SET rt.type = ? WHERE rt.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1,entity.getType());
 			ps.setLong(2, entity.getId());
 			ps.executeUpdate();
@@ -150,7 +156,7 @@ public class RoomTypeDAO implements IEntityDAO<RoomType>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Room_Types rt WHERE rt.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

@@ -20,6 +20,13 @@ public class CountryDAO implements ICountryDAO{
 
 	private static final Logger LOGGER = LogManager.getLogger(CountryDAO.class);
 
+	private static final String GET_ALL = "SELECT * FROM Countries";
+	private static final String GET_BY_ID = "SELECT * FROM Countries co WHERE co.id = ?";
+	private static final String INSERT = "INSERT INTO Countries (name,continent_id) VALUES (?,?)";
+	private static final String UPDATE = "UPDATE Countries co SET co.name = ?, co.continent_id = ? WHERE co.id = ?";
+	private static final String DELETE = "DELETE FROM Countries co WHERE co.id = ?";
+	private static final String GET_BY_CONTINENT_ID = "SELECT * FROM Countries co WHERE co.continent_id = ?";
+	
 	@Override
 	public List<Country> getEntities() {
 		Connection c = null;
@@ -28,7 +35,7 @@ public class CountryDAO implements ICountryDAO{
 		List<Country> countries = new ArrayList<Country>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Countries");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Country co = new Country();
@@ -67,7 +74,7 @@ public class CountryDAO implements ICountryDAO{
 		Country co = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Countries co WHERE co.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -103,7 +110,7 @@ public class CountryDAO implements ICountryDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Countries (name,continent_id) VALUES (?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getContinentId());
 			ps.executeUpdate();
@@ -128,7 +135,7 @@ public class CountryDAO implements ICountryDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Countries co SET co.name = ?, co.continent_id = ? WHERE co.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getContinentId());
 			ps.setLong(3, entity.getId());
@@ -154,7 +161,7 @@ public class CountryDAO implements ICountryDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Countries co WHERE co.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -180,7 +187,7 @@ public class CountryDAO implements ICountryDAO{
 		List<Country> countries = new ArrayList<Country>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Countries co WHERE co.continent_id = ?");
+			ps = c.prepareStatement(GET_BY_CONTINENT_ID);
 			ps.setLong(1, continentId);
 			rs = ps.executeQuery();
 			while(rs.next()) {

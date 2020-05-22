@@ -21,6 +21,14 @@ public class ReservationDAO implements IReservationDAO{
 
 	private static final Logger LOGGER = LogManager.getLogger(ReservationDAO.class);
 
+	private static final String GET_ALL = "SELECT * FROM Reservations";
+	private static final String GET_BY_ID = "SELECT * FROM Reservations r WHERE r.id = ?";
+	private static final String INSERT = "INSERT INTO Reservations (guest_id,accommodation_id,date_from,date_to,price,reservation_status,rating) VALUES (?,?,?,?,?,?,?)";
+	private static final String UPDATE = "UPDATE Reservations r SET r.guest_id = ?, r.accommodation_id = ?, r.date_from = ?, r.date_to = ?, r.price = ?, r.reservation_status_id = ?, r.rating = ? WHERE r.id = ?";
+	private static final String DELETE = "DELETE FROM Reservations r WHERE r.id = ?";
+	private static final String GET_BY_RESERVATION_STATUS_ID = "SELECT * FROM Reservations r WHERE r.reservation_status_id = ?";
+	private static final String GET_BY_GUEST_ID = "SELECT * FROM Reservations r WHERE r.guest_id = ?";
+	
 	@Override
 	public List<Reservation> getEntities() {
 		Connection c = null;
@@ -29,7 +37,7 @@ public class ReservationDAO implements IReservationDAO{
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Reservations");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Reservation r = new Reservation();
@@ -73,7 +81,7 @@ public class ReservationDAO implements IReservationDAO{
 		Reservation r = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Reservations r WHERE r.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -114,7 +122,7 @@ public class ReservationDAO implements IReservationDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Reservations (guest_id,accommodation_id,date_from,date_to,price,reservation_status,rating) VALUES (?,?,?,?,?,?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setLong(1, entity.getGuestId());
 			ps.setLong(2, entity.getAccommodationId());
 			ps.setDate(3, Date.valueOf(entity.getDateFrom()));
@@ -144,7 +152,7 @@ public class ReservationDAO implements IReservationDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Reservations r SET r.guest_id = ?, r.accommodation_id = ?, r.date_from = ?, r.date_to = ?, r.price = ?, r.reservation_status_id = ?, r.rating = ? WHERE r.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setLong(1, entity.getGuestId());
 			ps.setLong(2, entity.getAccommodationId());
 			ps.setDate(3, Date.valueOf(entity.getDateFrom()));
@@ -175,7 +183,7 @@ public class ReservationDAO implements IReservationDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Reservations r WHERE r.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -201,7 +209,7 @@ public class ReservationDAO implements IReservationDAO{
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Reservations r WHERE r.reservation_status_id = ?");
+			ps = c.prepareStatement(GET_BY_RESERVATION_STATUS_ID);
 			ps.setLong(1, reservationStatusId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -246,7 +254,7 @@ public class ReservationDAO implements IReservationDAO{
 		List<Reservation> reservations = new ArrayList<Reservation>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Reservations r WHERE r.guest_id = ?");
+			ps = c.prepareStatement(GET_BY_GUEST_ID);
 			ps.setLong(1,guestId);
 			rs = ps.executeQuery();
 			while(rs.next()) {

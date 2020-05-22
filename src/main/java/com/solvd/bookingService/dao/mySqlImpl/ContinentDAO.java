@@ -19,6 +19,12 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	private static final Logger LOGGER = LogManager.getLogger(ContinentDAO.class);
+	
+	private static final String GET_ALL = "SELECT * FROM Continents";
+	private static final String GET_BY_ID = "SELECT * FROM Continents con WHERE con.id = ?";
+	private static final String INSERT = "INSERT INTO Continents (name) VALUES (?)";
+	private static final String UPDATE = "UPDATE Continents con SET con.name = ? WHERE con.id = ?";
+	private static final String DELETE = "DELETE FROM Continents con WHERE con.id = ?";
 
 	@Override
 	public List<Continent> getEntities() {
@@ -28,7 +34,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		List<Continent> continents = new ArrayList<Continent>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Continents");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Continent con = new Continent();
@@ -66,7 +72,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		Continent con = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Continents con WHERE con.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -101,7 +107,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Continents (name) VALUES (?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getName());
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -125,7 +131,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Continents con SET con.name = ? WHERE con.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1,entity.getName());
 			ps.setLong(2, entity.getId());
 			ps.executeUpdate();
@@ -150,7 +156,7 @@ public class ContinentDAO implements IEntityDAO<Continent>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Continents con WHERE con.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

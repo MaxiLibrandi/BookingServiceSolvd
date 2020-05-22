@@ -20,6 +20,12 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	private static final Logger LOGGER = LogManager.getLogger(AccommodationRuleDAO.class);
+	
+	private static final String GET_ALL = "SELECT * FROM Accommodation_Rules";
+	private static final String GET_BY_ID = "SELECT * FROM Accommodation_Rules ar WHERE ar.id = ?";
+	private static final String INSERT = "INSERT INTO Accomodation_Rules (rule_id,accommodation_id) VALUES (?,?)";
+	private static final String UPDATE = "UPDATE Accommodation_Rules ar SET ar.rule_id = ?, ar.accommodation_id = ? WHERE ar.id = ?";
+	private static final String DELETE = "DELETE FROM Accommodation_Rules ar WHERE ar.id = ?";
 
 	@Override
 	public List<AccommodationRule> getEntities() {
@@ -29,7 +35,7 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 		List<AccommodationRule> accommodationRules = new ArrayList<AccommodationRule>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodation_Rules");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				AccommodationRule ar = new AccommodationRule();
@@ -68,7 +74,7 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 		AccommodationRule ar = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodation_Rules ar WHERE ar.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -104,7 +110,7 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Accomodation_Rules (rule_id,accommodation_id) VALUES (?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setLong(1,entity.getRuleId());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.executeUpdate();
@@ -129,7 +135,7 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Accommodation_Rules ar SET ar.rule_id = ?, ar.accommodation_id = ? WHERE ar.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setLong(1,entity.getRuleId());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3, entity.getId());
@@ -155,7 +161,7 @@ public class AccommodationRuleDAO implements IEntityDAO<AccommodationRule>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Accommodation_Rules ar WHERE ar.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

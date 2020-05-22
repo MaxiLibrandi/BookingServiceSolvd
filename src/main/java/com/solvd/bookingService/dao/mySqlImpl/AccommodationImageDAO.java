@@ -19,6 +19,12 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	private static final Logger LOGGER = LogManager.getLogger(AccommodationImageDAO.class);
+	
+	private static final String GET_ALL = "SELECT * FROM Accommodation_Images";
+	private static final String GET_BY_ID = "SELECT * FROM Accommodation_Images ai WHERE ai.id = ?";
+	private static final String INSERT = "INSERT INTO Accomodation_Images (path,accommodation_id) VALUES (?,?)";
+	private static final String UPDATE = "UPDATE Accommodation_Images ai SET ai.path = ?, ai.accommodation_id = ? WHERE ai.id = ?";
+	private static final String DELETE = "DELETE FROM Accommodation_Images ai WHERE ai.id = ?";
 
 	@Override
 	public List<AccommodationImage> getEntities() {
@@ -28,7 +34,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 		List<AccommodationImage> accommodationImages = new ArrayList<AccommodationImage>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodation_Images");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				AccommodationImage ai = new AccommodationImage();
@@ -67,7 +73,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 		AccommodationImage ai = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodation_Images ai WHERE ai.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -103,7 +109,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Accomodation_Images (path,accommodation_id) VALUES (?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getPath());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.executeUpdate();
@@ -128,7 +134,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Accommodation_Images ai SET ai.path = ?, ai.accommodation_id = ? WHERE ai.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1,entity.getPath());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3, entity.getId());
@@ -154,7 +160,7 @@ public class AccommodationImageDAO implements IEntityDAO<AccommodationImage>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Accommodation_Images ai WHERE ai.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

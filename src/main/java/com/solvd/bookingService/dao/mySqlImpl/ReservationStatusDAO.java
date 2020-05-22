@@ -20,6 +20,12 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 
 	private static final Logger LOGGER = LogManager.getLogger(ReservationStatusDAO.class);
 
+	private static final String GET_ALL = "SELECT * FROM Reservation_Status";
+	private static final String GET_BY_ID = "SELECT * FROM Reservation_Status rst WHERE rst.id = ?";
+	private static final String INSERT = "INSERT INTO Reservation_Status (status) VALUES (?)";
+	private static final String UPDATE = "UPDATE Reservation_Status rst SET rst.status = ? WHERE rst.id = ?";
+	private static final String DELETE = "DELETE FROM Reservation_Status rst WHERE rst.id = ?";
+	
 	@Override
 	public List<ReservationStatus> getEntities() {
 		Connection c = null;
@@ -28,7 +34,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		List<ReservationStatus> reservationStatus = new ArrayList<ReservationStatus>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Reservation_Status");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				ReservationStatus rst = new ReservationStatus();
@@ -66,7 +72,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		ReservationStatus rst = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Reservation_Status rst WHERE rst.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -101,7 +107,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Reservation_Status (status) VALUES (?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getStatus());
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -125,7 +131,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Reservation_Status rst SET rst.status = ? WHERE rst.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1, entity.getStatus());
 			ps.setLong(2, entity.getId());
 			ps.executeUpdate();
@@ -150,7 +156,7 @@ public class ReservationStatusDAO implements IEntityDAO<ReservationStatus>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Reservation_Status rst WHERE rst.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

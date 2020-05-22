@@ -20,6 +20,12 @@ public class UserDAO implements IEntityDAO<User>{
 
 	private static final Logger LOGGER = LogManager.getLogger(UserDAO.class);
 
+	private static final String GET_ALL = "SELECT * FROM Users";
+	private static final String GET_BY_ID = "SELECT * FROM Users u WHERE u.id = ?";
+	private static final String INSERT = "INSERT INTO Users (name, last_name, birth_date) VALUES (?,?,?)";
+	private static final String UPDATE = "UPDATE Users u SET u.name = ?, u.last_name = ?, u.birth_date = ? WHERE u.id = ?";
+	private static final String DELETE = "DELETE FROM Users u WHERE u.id = ?";
+	
 	@Override
 	public List<User> getEntities() {
 		Connection c = null;
@@ -28,7 +34,7 @@ public class UserDAO implements IEntityDAO<User>{
 		List<User> users = new ArrayList<User>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Users");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				User u = new User();
@@ -68,7 +74,7 @@ public class UserDAO implements IEntityDAO<User>{
 		User user = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Users u WHERE u.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -105,7 +111,7 @@ public class UserDAO implements IEntityDAO<User>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Users (name, last_name, birth_date) VALUES (?,?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getLastName());
 			ps.setDate(3, Date.valueOf(entity.getBirthDate()));
@@ -131,7 +137,7 @@ public class UserDAO implements IEntityDAO<User>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Users u SET u.name = ?, u.last_name = ?, u.birth_date = ? WHERE u.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1, entity.getName());
 			ps.setString(2, entity.getLastName());
 			ps.setDate(3, Date.valueOf(entity.getBirthDate()));
@@ -158,7 +164,7 @@ public class UserDAO implements IEntityDAO<User>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Users u WHERE u.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

@@ -20,6 +20,12 @@ public class ServiceDAO implements IEntityDAO<Service>{
 
 	private static final Logger LOGGER = LogManager.getLogger(ServiceDAO.class);
 
+	private static final String GET_ALL = "SELECT * FROM Services";
+	private static final String GET_BY_ID = "SELECT * FROM Services s WHERE s.id = ?";
+	private static final String INSERT = "INSERT INTO Services (description) VALUES (?)";
+	private static final String UPDATE = "UPDATE Services s SET s.description = ? WHERE s.id = ?";
+	private static final String DELETE = "DELETE FROM Services s WHERE s.id = ?";
+	
 	@Override
 	public List<Service> getEntities() {
 		Connection c = null;
@@ -28,7 +34,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		List<Service> services = new ArrayList<Service>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Services");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Service s = new Service();
@@ -66,7 +72,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		Service s = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Services s WHERE s.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -101,7 +107,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Services (description) VALUES (?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getDescription());
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -125,7 +131,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Services s SET s.description = ? WHERE s.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2, entity.getId());
 			ps.executeUpdate();
@@ -150,7 +156,7 @@ public class ServiceDAO implements IEntityDAO<Service>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Services s WHERE s.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

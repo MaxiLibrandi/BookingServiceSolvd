@@ -20,6 +20,13 @@ public class RoomDAO implements IRoomDAO{
 
 	private static final Logger LOGGER = LogManager.getLogger(RoomDAO.class);
 
+	private static final String GET_ALL = "SELECT * FROM Rooms";
+	private static final String GET_BY_ID = "SELECT * FROM Rooms ro WHERE ro.id = ?";
+	private static final String INSERT = "INSERT INTO Rooms (description,accommodation_id,room_type_id) VALUES (?,?,?)";
+	private static final String UPDATE = "UPDATE Rooms ro SET ro.description = ?, ro.accommodation_id = ?, ro.room_type_id = ? WHERE ro.id = ?";
+	private static final String DELETE = "DELETE FROM Rooms ro WHERE ro.id = ?";
+	private static final String GET_BY_ROOM_TYPE_ID = "SELECT * FROM Rooms ro WHERE ro.room_type_id = ?";
+	
 	@Override
 	public List<Room> getEntities() {
 		Connection c = null;
@@ -28,7 +35,7 @@ public class RoomDAO implements IRoomDAO{
 		List<Room> rooms = new ArrayList<Room>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Rooms");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Room ro = new Room();
@@ -68,7 +75,7 @@ public class RoomDAO implements IRoomDAO{
 		Room ro = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Rooms ro WHERE ro.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -105,7 +112,7 @@ public class RoomDAO implements IRoomDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Rooms (description,accommodation_id,room_type_id) VALUES (?,?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3,entity.getRoomTypeId());
@@ -131,7 +138,7 @@ public class RoomDAO implements IRoomDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Rooms ro SET ro.description = ?, ro.accommodation_id = ?, ro.room_type_id = ? WHERE ro.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3,entity.getRoomTypeId());
@@ -158,7 +165,7 @@ public class RoomDAO implements IRoomDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Rooms ro WHERE ro.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -184,7 +191,7 @@ public class RoomDAO implements IRoomDAO{
 		List<Room> rooms = new ArrayList<Room>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Rooms ro WHERE ro.room_type_id = ?");
+			ps = c.prepareStatement(GET_BY_ROOM_TYPE_ID);
 			ps.setLong(1,roomTypeId);
 			rs = ps.executeQuery();
 			while(rs.next()) {

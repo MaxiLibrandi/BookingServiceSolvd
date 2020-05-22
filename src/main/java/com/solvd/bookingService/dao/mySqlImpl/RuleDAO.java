@@ -19,6 +19,12 @@ public class RuleDAO implements IEntityDAO<Rule>{
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	private static final Logger LOGGER = LogManager.getLogger(RuleDAO.class);
+	
+	private static final String GET_ALL = "SELECT * FROM Rules";
+	private static final String GET_BY_ID = "SELECT * FROM Rules ru WHERE ru.id = ?";
+	private static final String INSERT = "INSERT INTO Rules (description) VALUES (?)";
+	private static final String UPDATE = "UPDATE Rules ru SET ru.description = ? WHERE ru.id = ?";
+	private static final String DELETE = "DELETE FROM Rules ru WHERE ru.id = ?";
 
 	@Override
 	public List<Rule> getEntities() {
@@ -28,7 +34,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 		List<Rule> rules = new ArrayList<Rule>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Rules");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Rule ru = new Rule();
@@ -66,7 +72,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 		Rule ru = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Rules ru WHERE ru.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -101,7 +107,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Rules (description) VALUES (?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setString(1,entity.getDescription());
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -125,7 +131,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Rules ru SET ru.description = ? WHERE ru.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setString(1,entity.getDescription());
 			ps.setLong(2, entity.getId());
 			ps.executeUpdate();
@@ -150,7 +156,7 @@ public class RuleDAO implements IEntityDAO<Rule>{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Rules ru WHERE ru.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

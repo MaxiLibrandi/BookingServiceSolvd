@@ -19,6 +19,14 @@ public class ContactDAO implements IContactDAO{
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	private static final Logger LOGGER = LogManager.getLogger(ContactDAO.class);
+	
+	private static final String GET_ALL = "SELECT * FROM Contacts";
+	private static final String GET_BY_ID = "SELECT * FROM Contacts co WHERE co.id = ?";
+	private static final String INSERT = "INSERT INTO Contacts (user_id,contact_source_id,contact_data) VALUES (?,?,?)";
+	private static final String UPDATE = "UPDATE Contacts co SET co.user_id = ?, co.contact_source_id = ?, co.contact_data = ? WHERE co.id = ?";
+	private static final String DELETE = "DELETE FROM Contacts co WHERE co.id = ?";
+	private static final String GET_BY_USER_ID = "SELECT * FROM Contacts co WHERE co.user_id = ?";
+	private static final String GET_BY_CONTACT_SOURCE_ID = "SELECT * FROM Contacts co WHERE co.contact_source_id = ?";
 
 	@Override
 	public List<Contact> getEntities() {
@@ -28,7 +36,7 @@ public class ContactDAO implements IContactDAO{
 		List<Contact> contacts = new ArrayList<Contact>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Contacts");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Contact co = new Contact();
@@ -68,7 +76,7 @@ public class ContactDAO implements IContactDAO{
 		Contact co = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Contacts co WHERE co.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -105,7 +113,7 @@ public class ContactDAO implements IContactDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Contacts (user_id,contact_source_id,contact_data) VALUES (?,?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setLong(1, entity.getUserId());
 			ps.setLong(2, entity.getContactSourceId());
 			ps.setString(3, entity.getContactData());
@@ -131,7 +139,7 @@ public class ContactDAO implements IContactDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Contacts co SET co.user_id = ?, co.contact_source_id = ?, co.contact_data = ? WHERE co.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setLong(1, entity.getUserId());
 			ps.setLong(2, entity.getContactSourceId());
 			ps.setString(3, entity.getContactData());
@@ -158,7 +166,7 @@ public class ContactDAO implements IContactDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Contacts co WHERE co.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -184,7 +192,7 @@ public class ContactDAO implements IContactDAO{
 		List<Contact> contacts = new ArrayList<Contact>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Contacts co WHERE co.user_id = ?");
+			ps = c.prepareStatement(GET_BY_USER_ID);
 			ps.setLong(1, userId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -225,7 +233,7 @@ public class ContactDAO implements IContactDAO{
 		List<Contact> contacts = new ArrayList<Contact>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Contacts co WHERE co.contact_source_id = ?");
+			ps = c.prepareStatement(GET_BY_CONTACT_SOURCE_ID);
 			ps.setLong(1, contactSourceId);
 			rs = ps.executeQuery();
 			while(rs.next()) {

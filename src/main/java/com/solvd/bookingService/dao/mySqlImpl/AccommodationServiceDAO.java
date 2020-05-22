@@ -19,7 +19,13 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	private static final Logger LOGGER = LogManager.getLogger(AccommodationServiceDAO.class);
-
+	
+	private static final String GET_ALL = "SELECT * FROM Accommodation_Services";
+	private static final String GET_BY_ID = "SELECT * FROM Accommodation_Services asv WHERE asv.id = ?";
+	private static final String INSERT = "INSERT INTO Accomodation_Services (service_id,accommodation_id) VALUES (?,?)";
+	private static final String UPDATE = "UPDATE Accommodation_Services asv SET asv.service_id = ?, asv.accommodation_id = ? WHERE asv.id = ?";
+	private static final String DELETE = "DELETE FROM Accommodation_Services asv WHERE asv.id = ?";
+	
 	@Override
 	public List<AccommodationService> getEntities() {
 		Connection c = null;
@@ -28,7 +34,7 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		List<AccommodationService> accommodationServices = new ArrayList<AccommodationService>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodation_Services");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				AccommodationService asv = new AccommodationService();
@@ -67,7 +73,7 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		AccommodationService asv = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodation_Services asv WHERE asv.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -103,7 +109,7 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Accomodation_Services (service_id,accommodation_id) VALUES (?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setLong(1,entity.getServiceId());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.executeUpdate();
@@ -128,7 +134,7 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Accommodation_Services asv SET asv.service_id = ?, asv.accommodation_id = ? WHERE asv.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setLong(1,entity.getServiceId());
 			ps.setLong(2,entity.getAccommodationId());
 			ps.setLong(3, entity.getId());
@@ -154,7 +160,7 @@ public class AccommodationServiceDAO implements IEntityDAO<AccommodationService>
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Accommodation_Services asv WHERE asv.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {

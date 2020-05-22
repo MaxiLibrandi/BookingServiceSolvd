@@ -16,13 +16,15 @@ public class DBConfigurationDAO implements IDBConfigurationDAO{
 	
 	private static final Logger LOGGER = LogManager.getLogger(DBConfigurationDAO.class);
 	
+	private static final String USE_QUERY = "USE booking_service_db";
+	
 	@Override
 	public void initDB() {
 		Connection c = null;
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("USE booking_service_db");
+			ps = c.prepareStatement(USE_QUERY);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
 			LOGGER.error(e);

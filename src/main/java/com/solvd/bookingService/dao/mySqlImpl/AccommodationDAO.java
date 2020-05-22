@@ -19,6 +19,14 @@ public class AccommodationDAO implements IAccommodationDAO{
 	private ConnectionPool connectionPool = ConnectionPool.getInstance();
 
 	private static final Logger LOGGER = LogManager.getLogger(AccommodationDAO.class);
+	
+	private static final String GET_ALL = "SELECT * FROM Accommodations";
+	private static final String GET_BY_ID = "SELECT * FROM Accommodations a WHERE a.id = ?";
+	private static final String INSERT = "INSERT INTO Accomodations (host_id,direction,description,max_capacity,city_id) VALUES (?,?,?,?,?)";
+	private static final String UPDATE = "UPDATE Accommodations a SET a.host_id = ?, a.direction = ?, a.description = ?, a.max_capacity = ?, a.city_id = ? WHERE a.id = ?";
+	private static final String DELETE = "DELETE FROM Accommodations a WHERE a.id = ?";
+	private static final String GET_BY_CITY_ID = "SELECT * FROM Accommodations a WHERE a.city_id = ?";
+	private static final String GET_BY_HOST_ID = "SELECT * FROM Accommodations a WHERE a.host_id = ?";
 
 	@Override
 	public List<Accommodation> getEntities() {
@@ -28,7 +36,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 		List<Accommodation> accommodations = new ArrayList<Accommodation>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodations");
+			ps = c.prepareStatement(GET_ALL);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Accommodation a = new Accommodation();
@@ -70,7 +78,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 		Accommodation a = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.id = ?");
+			ps = c.prepareStatement(GET_BY_ID);
 			ps.setLong(1, id);
 			rs = ps.executeQuery();
 			rs.next();
@@ -109,7 +117,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("INSERT INTO Accomodations (host_id,direction,description,max_capacity,city_id) VALUES (?,?,?,?,?)");
+			ps = c.prepareStatement(INSERT);
 			ps.setLong(1, entity.getHostId());
 			ps.setString(2, entity.getDirection());
 			ps.setString(3, entity.getDescription());
@@ -137,7 +145,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("UPDATE Accommodations a SET a.host_id = ?, a.direction = ?, a.description = ?, a.max_capacity = ?, a.city_id = ? WHERE a.id = ?");
+			ps = c.prepareStatement(UPDATE);
 			ps.setLong(1, entity.getHostId());
 			ps.setString(2, entity.getDirection());
 			ps.setString(3, entity.getDescription());
@@ -166,7 +174,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 		PreparedStatement ps = null;
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("DELETE FROM Accommodations a WHERE a.id = ?");
+			ps = c.prepareStatement(DELETE);
 			ps.setLong(1, id);
 			ps.executeUpdate();
 		} catch (InterruptedException e) {
@@ -192,7 +200,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 		List<Accommodation> accommodations = new ArrayList<Accommodation>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.city_id = ?");
+			ps = c.prepareStatement(GET_BY_CITY_ID);
 			ps.setLong(1, cityId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
@@ -235,7 +243,7 @@ public class AccommodationDAO implements IAccommodationDAO{
 		List<Accommodation> accommodations = new ArrayList<Accommodation>();
 		try {
 			c = connectionPool.getConnection();
-			ps = c.prepareStatement("SELECT * FROM Accommodations a WHERE a.host_id = ?");
+			ps = c.prepareStatement(GET_BY_HOST_ID);
 			ps.setLong(1, hostId);
 			rs = ps.executeQuery();
 			while(rs.next()) {
