@@ -8,6 +8,7 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.solvd.bookingService.jaxb.UserJAXBParser;
 import com.solvd.bookingService.models.accommodation.Accommodation;
 import com.solvd.bookingService.models.information.*;
 import com.solvd.bookingService.models.reservation.*;
@@ -20,6 +21,7 @@ public class Runner {
 	private static final Logger LOGGER = LogManager.getLogger(Runner.class);
 
 	public static void main(String[] args) {	
+		/*
 		DBConfigurationService dbConfigurationService = new DBConfigurationService();
 		dbConfigurationService.initDB();
 		
@@ -90,6 +92,7 @@ public class Runner {
 		userService.getUsers().stream().forEach(u -> LOGGER.debug(u.toString()));
 		
 		//STAX PARSER
+		
 		StAXParser parser = new StAXParser();
 		List<User> users = null;
 		try {
@@ -112,5 +115,10 @@ public class Runner {
 				LOGGER.debug(a.toString());
 			}
 		}
+		*/
+		
+		//JAXB Parser
+		UserJAXBParser userParser = new UserJAXBParser("src/main/resources/users.xml");
+		LOGGER.info(userParser.jaxbXMLToUsers());
 	}
 }

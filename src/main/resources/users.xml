@@ -1,47 +1,5 @@
-<users>
-	<user id="1">
-		<name>Maxi</name>
-		<last_name>Librandi</last_name>
-		<birth_date>1997-08-03</birth_date>
-		<contacts>
-			<contact id="1">
-				<contact_source_id>1</contact_source_id>
-				<contact_data>maximolibrandi@hotmail.com</contact_data>
-			</contact>
-			<contact id="2">
-				<contact_source_id>2</contact_source_id>
-				<contact_data>2281585831</contact_data>
-			</contact>
-		</contacts>
-		<reservations>
-			<reservation id="1">
-				<accommodation_id>1</accommodation_id>
-				<date_from>2020-05-21</date_from>
-				<date_to>2020-05-23</date_to>
-				<price>300.0</price>
-				<reservation_status_id>2</reservation_status_id>
-			</reservation>
-			<reservation id="2">
-				<accommodation_id>2</accommodation_id>
-				<date_from>2020-05-25</date_from>
-				<date_to>2020-05-28</date_to>
-				<price>400.0</price>
-				<reservation_status_id>1</reservation_status_id>
-			</reservation>
-		</reservations>
-		<accommodations>
-			<accommodation id="5">
-				<direction>Enry St 122</direction>
-				<description>Awesome room</description>
-				<max_capacity>2</max_capacity>
-				<city_id>1</city_id>
-			</accommodation>
-			<accommodation id="6">
-				<direction>Johns St 321</direction>
-				<description>great house for your family</description>
-				<max_capacity>5</max_capacity>
-				<city_id>1</city_id>
-			</accommodation>
-		</accommodations>
-	</user>
-</users>
+<user id="1">
+	<name>Maxi</name>
+	<last_name>Librandi</last_name>
+	<birth_date>03/08/1997</birth_date>
+</user>

@@ -3,9 +3,16 @@ package com.solvd.bookingService.models.user;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.solvd.bookingService.jaxb.adapters.LocalDateAdapter;
 import com.solvd.bookingService.models.accommodation.Accommodation;
 import com.solvd.bookingService.models.reservation.Reservation;
 
+@XmlRootElement(name = "user")
 public class User {
 	private Long id;
 	private String name;
@@ -15,23 +22,27 @@ public class User {
 	private List<Reservation> reservations;
 	private List<Accommodation> accommodations;
 	
-	
 	public User() {
 		
 	}
-	
+
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
-	
+
+	@XmlElement
 	public String getName() {
 		return name;
 	}
-	
+
+	@XmlElement(name = "last_name")
 	public String getLastName() {
 		return lastName;
 	}
-	
+
+	@XmlElement(name = "birth_date")
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
