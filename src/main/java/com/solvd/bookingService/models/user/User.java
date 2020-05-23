@@ -6,6 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.solvd.bookingService.jaxb.adapters.LocalDateAdapter;
@@ -13,6 +15,7 @@ import com.solvd.bookingService.models.accommodation.Accommodation;
 import com.solvd.bookingService.models.reservation.Reservation;
 
 @XmlRootElement(name = "user")
+@XmlType(propOrder = {"name", "lastName", "birthDate"})
 public class User {
 	private Long id;
 	private String name;
@@ -47,14 +50,17 @@ public class User {
 		return birthDate;
 	}
 	
+	@XmlTransient
 	public List<Contact> getContacts() {
 		return contacts;
 	}
-	
+
+	@XmlTransient
 	public List<Reservation> getReservations() {
 		return reservations;
 	}
-	
+
+	@XmlTransient
 	public List<Accommodation> getAccommodations() {
 		return accommodations;
 	}

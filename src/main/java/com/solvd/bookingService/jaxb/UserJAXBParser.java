@@ -1,11 +1,13 @@
 package com.solvd.bookingService.jaxb;
 
 import java.io.File;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,18 +23,20 @@ public class UserJAXBParser {
 		this.filename = filename;
 	}
 	
-	public User jaxbXMLToUsers() {
-		User u = null;
+	public List<User> jaxbXMLToUser() {
+		List<User> users = null;
 		try {
-            JAXBContext context = JAXBContext.newInstance(User.class);
+            JAXBContext context = JAXBContext.newInstance(Wrapper.class,User.class);
             Unmarshaller un = context.createUnmarshaller();
-            u = (User) un.unmarshal(new File(filename));
+			Wrapper<User> wrapper = (Wrapper<User>) un.unmarshal(new StreamSource(filename),Wrapper.class).getValue();
+            users = wrapper.getItems();
         } catch (JAXBException e) {
         	LOGGER.error(e);
         }
-        return u;
+        return users;
 	}
 	
+	//DO THE MARSHAL FOR LIST OF USERS
 	public void jaxbUserToXML(User u) {
 		try {
             JAXBContext context = JAXBContext.newInstance(User.class);

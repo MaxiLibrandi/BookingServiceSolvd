@@ -119,6 +119,12 @@ public class Runner {
 		
 		//JAXB Parser
 		UserJAXBParser userParser = new UserJAXBParser("src/main/resources/users.xml");
-		LOGGER.info(userParser.jaxbXMLToUsers());
+		List<User> users = userParser.jaxbXMLToUser();
+		
+		for(User us : users) {
+			LOGGER.info(us.toString());
+		}
+		
+		//userParser.jaxbUserToXML(u);
 	}
 }
