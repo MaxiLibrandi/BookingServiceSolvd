@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <users>
-	<user id="1">
-		<name>Maxi</name>
-		<last_name>Librandi</last_name>
-		<birth_date>03/08/1997</birth_date>
-	</user>
-	<user id="2">
-		<name>Ga</name>
-		<last_name>Gaiba</last_name>
-		<birth_date>20/08/1987</birth_date>
-	</user>
+    <user id="1">
+        <name>Maxi</name>
+        <last_name>Librandi</last_name>
+        <birth_date>03/08/1997</birth_date>
+    </user>
+    <user id="2">
+        <name>Ga</name>
+        <last_name>Gaiba</last_name>
+        <birth_date>20/08/1987</birth_date>
+    </user>
 </users>
