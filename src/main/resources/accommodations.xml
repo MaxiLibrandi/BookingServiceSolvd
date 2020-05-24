@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accommodations>
+    <accommodation id="1">
+        <host_id>1</host_id>
+        <direction>San Martin 1333</direction>
+        <description>Sweet home for your holidays</description>
+        <max_capacity>5</max_capacity>
+        <city_id>1</city_id>
+    </accommodation>
+    <accommodation id="2">
+        <host_id>1</host_id>
+        <direction>Mexico 74</direction>
+        <description>Big house to enjoy this beautiful landscape</description>
+        <max_capacity>6</max_capacity>
+        <city_id>2</city_id>
+    </accommodation>
+    <accommodation id="3">
+        <host_id>1</host_id>
+        <direction>Burgos 621</direction>
+        <description>Cozy apartment for students</description>
+        <max_capacity>2</max_capacity>
+        <city_id>2</city_id>
+    </accommodation>
+</accommodations>

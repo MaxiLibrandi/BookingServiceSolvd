@@ -102,6 +102,6 @@ public class Reservation {
 	
 	@Override
 	public String toString() {
-		return "Reservation id: " + this.id + " |guestId: " + this.guestId + " |accommodationId: " + this.accommodationId + " |dateFrom: " + this.dateFrom + " |dateTo: " + this.dateTo + " |price:" + this.price + " |reservationStatusId: " + this.reservationStatusId + " |rating" + this.rating;
+		return "Reservation id: " + this.id + " |guestId: " + this.guestId + " |accommodationId: " + this.accommodationId + " |dateFrom: " + this.dateFrom + " |dateTo: " + this.dateTo + " |price:" + this.price + " |reservationStatusId: " + this.reservationStatusId + " |rating: " + this.rating;
 	}
 }

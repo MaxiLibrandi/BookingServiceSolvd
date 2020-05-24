@@ -5,6 +5,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "country")
@@ -33,7 +34,8 @@ public class Country {
 	public Long getContinentId() {
 		return continentId;
 	}
-	
+
+	@XmlTransient
 	public List<City> getCities() {
 		return cities;
 	}

@@ -8,9 +8,15 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.solvd.bookingService.jaxb.AccommodationJAXBParser;
+import com.solvd.bookingService.jaxb.CityJAXBParser;
+import com.solvd.bookingService.jaxb.CountryJAXBParser;
+import com.solvd.bookingService.jaxb.ReservationJAXBParser;
 import com.solvd.bookingService.jaxb.UserJAXBParser;
 import com.solvd.bookingService.models.accommodation.Accommodation;
 import com.solvd.bookingService.models.information.*;
+import com.solvd.bookingService.models.localization.City;
+import com.solvd.bookingService.models.localization.Country;
 import com.solvd.bookingService.models.reservation.*;
 import com.solvd.bookingService.models.user.*;
 import com.solvd.bookingService.services.*;
@@ -120,13 +126,30 @@ public class Runner {
 		*/
 		
 		//JAXB Parser
-		UserJAXBParser userParser = new UserJAXBParser("src/main/resources/users.xml");
-		List<User> users = userParser.jaxbXMLToUser();
 		
-		for(User u : users) {
-			LOGGER.info(u.toString());
-		}
+		AccommodationJAXBParser jaxbAccommodation = new AccommodationJAXBParser("src/main/resources/accommodations.xml");
+		List<Accommodation> accommodations = jaxbAccommodation.XMLToAccommodations();
+		accommodations.stream().forEach(a -> LOGGER.info(a.toString()));
+		jaxbAccommodation.AccommodationsToXML(accommodations);
 		
-		userParser.jaxbUserToXML(users);
+		CityJAXBParser jaxbCity = new CityJAXBParser("src/main/resources/cities.xml");
+		List<City> cities = jaxbCity.XMLToCities();
+		cities.stream().forEach(c -> LOGGER.info(c.toString()));
+		jaxbCity.CitiesToXML(cities);
+		
+		CountryJAXBParser jaxbCountry = new CountryJAXBParser("src/main/resources/countries.xml");
+		List<Country> countries = jaxbCountry.XMLToCountries();
+		countries.stream().forEach(co -> LOGGER.info(co.toString()));
+		jaxbCountry.CountriesToXML(countries);
+		
+		ReservationJAXBParser jaxbReservation = new ReservationJAXBParser("src/main/resources/reservations.xml");
+		List<Reservation> reservations = jaxbReservation.XMLToReservations();
+		reservations.stream().forEach(r -> LOGGER.info(r.toString()));
+		jaxbReservation.ReservationsToXML(reservations);
+		
+		UserJAXBParser jaxbUser = new UserJAXBParser("src/main/resources/users.xml");
+		List<User> users = jaxbUser.XMLToUsers();
+		users.stream().forEach(u -> LOGGER.info(u.toString()));
+		jaxbUser.UsersToXML(users);
 	}
 }

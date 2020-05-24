@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<reservations>
+    <reservation id="1">
+        <guest_id>2</guest_id>
+        <accommodation_id>1</accommodation_id>
+        <date_from>24/05/2020</date_from>
+        <date_to>26/05/2020</date_to>
+        <price>300.0</price>
+        <reservation_status_id>1</reservation_status_id>
+    </reservation>
+    <reservation id="2">
+        <guest_id>2</guest_id>
+        <accommodation_id>2</accommodation_id>
+        <date_from>25/12/2020</date_from>
+        <date_to>26/01/2021</date_to>
+        <price>3000.0</price>
+        <reservation_status_id>2</reservation_status_id>
+    </reservation>
+    <reservation id="3">
+        <guest_id>2</guest_id>
+        <accommodation_id>3</accommodation_id>
+        <date_from>24/04/2020</date_from>
+        <date_to>28/04/2020</date_to>
+        <price>400.0</price>
+        <reservation_status_id>3</reservation_status_id>
+        <rating>5</rating>
+    </reservation>
+</reservations>

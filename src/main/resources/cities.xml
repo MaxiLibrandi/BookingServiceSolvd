@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cities>
+    <city id="1">
+        <name>Tandil</name>
+        <country_id>1</country_id>
+    </city>
+    <city id="2">
+        <name>Azul</name>
+        <country_id>1</country_id>
+    </city>
+</cities>

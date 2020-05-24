@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<countries>
+    <country id="1">
+        <name>Argentina</name>
+        <continent_id>1</continent_id>
+    </country>
+    <country id="2">
+        <name>Brasil</name>
+        <continent_id>1</continent_id>
+    </country>
+    <country id="3">
+        <name>Chile</name>
+        <continent_id>1</continent_id>
+    </country>
+    <country id="4">
+        <name>Uruguay</name>
+        <continent_id>1</continent_id>
+    </country>
+</countries>

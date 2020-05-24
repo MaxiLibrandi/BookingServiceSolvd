@@ -1,2 +1,14 @@
-2020-05-24 11:33:55 INFO  Runner:125 - User id: 1 |name: Maxi |lastName: Librandi |birthDate: 1997-08-03
-2020-05-24 11:33:55 INFO  Runner:125 - User id: 2 |name: Ga |lastName: Gaiba |birthDate: 1987-08-20
+2020-05-24 13:05:26 INFO  Runner:132 - Accommodation id: 1 |hostId: 1 |direction: San Martin 1333 |description: Sweet home for your holidays |maxCapacity: 5 |cityId: 1
+2020-05-24 13:05:26 INFO  Runner:132 - Accommodation id: 2 |hostId: 1 |direction: Mexico 74 |description: Big house to enjoy this beautiful landscape |maxCapacity: 6 |cityId: 2
+2020-05-24 13:05:26 INFO  Runner:132 - Accommodation id: 3 |hostId: 1 |direction: Burgos 621 |description: Cozy apartment for students |maxCapacity: 2 |cityId: 2
+2020-05-24 13:05:26 INFO  Runner:137 - City id: 1 |name: Tandil |countryId: 1
+2020-05-24 13:05:26 INFO  Runner:137 - City id: 2 |name: Azul |countryId: 1
+2020-05-24 13:05:26 INFO  Runner:142 - Country id: 1 |name: Argentina |continentId: 1
+2020-05-24 13:05:26 INFO  Runner:142 - Country id: 2 |name: Brasil |continentId: 1
+2020-05-24 13:05:26 INFO  Runner:142 - Country id: 3 |name: Chile |continentId: 1
+2020-05-24 13:05:26 INFO  Runner:142 - Country id: 4 |name: Uruguay |continentId: 1
+2020-05-24 13:05:26 INFO  Runner:147 - Reservation id: 1 |guestId: 2 |accommodationId: 1 |dateFrom: 2020-05-24 |dateTo: 2020-05-26 |price:300.0 |reservationStatusId: 1 |rating: null
+2020-05-24 13:05:26 INFO  Runner:147 - Reservation id: 2 |guestId: 2 |accommodationId: 2 |dateFrom: 2020-12-25 |dateTo: 2021-01-26 |price:3000.0 |reservationStatusId: 2 |rating: null
+2020-05-24 13:05:26 INFO  Runner:147 - Reservation id: 3 |guestId: 2 |accommodationId: 3 |dateFrom: 2020-04-24 |dateTo: 2020-04-28 |price:400.0 |reservationStatusId: 3 |rating: 5
+2020-05-24 13:05:26 INFO  Runner:152 - User id: 1 |name: Maximo |lastName: Librandi |birthDate: 1997-08-03
+2020-05-24 13:05:26 INFO  Runner:152 - User id: 2 |name: Johny |lastName: Walker |birthDate: 1987-08-17

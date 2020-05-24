@@ -17,20 +17,21 @@ import org.apache.logging.log4j.Logger;
 import com.solvd.bookingService.models.user.User;
 
 public class UserJAXBParser {
-	private String filename;
+	
+	private String fileName;
 	
 	private static final Logger LOGGER = LogManager.getLogger(UserJAXBParser.class);
 
-	public UserJAXBParser(String filename) {
-		this.filename = filename;
+	public UserJAXBParser(String fileName) {
+		this.fileName = fileName;
 	}
 	
-	public List<User> jaxbXMLToUser() {
+	public List<User> XMLToUsers() {
 		List<User> users = null;
 		try {
 			JAXBContext context = JAXBContext.newInstance(Wrapper.class, User.class);
             Unmarshaller un = context.createUnmarshaller();
-            Wrapper<User> wrapper = (Wrapper<User>) un.unmarshal(new StreamSource(filename),Wrapper.class).getValue();
+            Wrapper<User> wrapper = (Wrapper<User>) un.unmarshal(new StreamSource(fileName),Wrapper.class).getValue();
             users = wrapper.getItems();
         } catch (JAXBException e) {
         	LOGGER.error(e);
@@ -38,7 +39,7 @@ public class UserJAXBParser {
         return users;
 	}
 	  
-	public void jaxbUserToXML(List<User> users) {
+	public void UsersToXML(List<User> users) {
 		try {
             JAXBContext context = JAXBContext.newInstance(Wrapper.class, User.class);
             Marshaller m = context.createMarshaller();
@@ -47,7 +48,7 @@ public class UserJAXBParser {
             wrapper.setItems(users);
             QName qName = new QName("users");
             JAXBElement<Wrapper> jaxbElement = new JAXBElement<Wrapper>(qName, Wrapper.class ,wrapper);
-            m.marshal(jaxbElement,new File(filename));
+            m.marshal(jaxbElement,new File(fileName));
         } catch (JAXBException e) {
         	LOGGER.error(e);
         }
