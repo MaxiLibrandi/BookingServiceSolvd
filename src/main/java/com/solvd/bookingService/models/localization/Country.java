@@ -2,6 +2,13 @@ package com.solvd.bookingService.models.localization;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "country")
+@XmlType(propOrder = {"name", "continentId"})
 public class Country {
 	private Long id;
 	private String name; 
@@ -12,14 +19,17 @@ public class Country {
 		
 	}
 	
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
 	
+	@XmlElement
 	public String getName() {
 		return name;
 	}
 	
+	@XmlElement(name = "continent_id")
 	public Long getContinentId() {
 		return continentId;
 	}

@@ -2,8 +2,16 @@ package com.solvd.bookingService.models.accommodation;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+
 import com.solvd.bookingService.models.reservation.Reservation;
 
+@XmlRootElement(name = "accommodation")
+@XmlType(propOrder = {"hostId", "direction", "description", "maxCapacity", "cityId"})
 public class Accommodation {
 	private Long id; 
 	private Long hostId;
@@ -21,46 +29,57 @@ public class Accommodation {
 		
 	}
 	
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
 	
+	@XmlElement(name = "host_id")
 	public Long getHostId() {
 		return hostId;
 	}
-	
+
+	@XmlElement
 	public String getDirection() {
 		return direction;
 	}
-	
+
+	@XmlElement
 	public String getDescription() {
 		return description;
 	}
 
+	@XmlElement(name = "max_capacity")
 	public Integer getMaxCapacity() {
 		return maxCapacity;
 	}
-	
+
+	@XmlElement(name = "city_id")
 	public Long getCityId() {
 		return cityId;
 	}
 	
+	@XmlTransient
 	public List<AccommodationImage> getAccommodationImages() {
 		return accommodationImages;
 	}
-	
+
+	@XmlTransient
 	public List<AccommodationRule> getAccommodationRules() {
 		return accommodationRules;
 	}
-	
+
+	@XmlTransient
 	public List<AccommodationService> getAccommodationServices() {
 		return accommodationServices;
 	}
-	
+
+	@XmlTransient
 	public List<Reservation> getReservations() {
 		return reservations;
 	}
-	
+
+	@XmlTransient
 	public List<Room> getRooms() {
 		return rooms;
 	}

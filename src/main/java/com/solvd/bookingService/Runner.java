@@ -90,9 +90,11 @@ public class Runner {
 		userService.delete(Integer.toUnsignedLong(1));
 		
 		userService.getUsers().stream().forEach(u -> LOGGER.debug(u.toString()));
+		*/
+		
 		
 		//STAX PARSER
-		
+		/*
 		StAXParser parser = new StAXParser();
 		List<User> users = null;
 		try {

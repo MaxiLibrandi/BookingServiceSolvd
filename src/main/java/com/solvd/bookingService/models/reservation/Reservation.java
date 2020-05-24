@@ -2,6 +2,16 @@ package com.solvd.bookingService.models.reservation;
 
 import java.time.LocalDate;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import com.solvd.bookingService.jaxb.adapters.LocalDateAdapter;
+
+@XmlRootElement(name = "reservation")
+@XmlType(propOrder = {"guestId", "accommodationId", "dateFrom", "dateTo", "price", "reservationStatusId", "rating"})
 public class Reservation {
 	private Long id;
 	private Long guestId; 
@@ -15,35 +25,45 @@ public class Reservation {
 	public Reservation() {
 		
 	}
-	
+
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
-	
+
+	@XmlElement(name = "guest_id")
 	public Long getGuestId() {
 		return guestId;
 	}
-	
+
+	@XmlElement(name = "accommodation_id")
 	public Long getAccommodationId() {
 		return accommodationId;
 	}
 	
+	@XmlElement(name = "date_from")
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getDateFrom() {
 		return dateFrom;
 	}
 	
+	@XmlElement(name = "date_to")
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	public LocalDate getDateTo() {
 		return dateTo;
 	}
-	
+
+	@XmlElement
 	public Float getPrice() {
 		return price;
 	}
-	
+
+	@XmlElement(name = "reservation_status_id")
 	public Long getReservationStatusId() {
 		return reservationStatusId;
 	}
-	
+
+	@XmlElement
 	public Integer getRating() {
 		return rating;
 	}
