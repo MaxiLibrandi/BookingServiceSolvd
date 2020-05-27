@@ -1,0 +1,25 @@
+[ {
+  "id" : 1,
+  "hostId" : 2,
+  "direction" : "San martin 1333",
+  "description" : "Sweet apartment for your family",
+  "maxCapacity" : 2,
+  "cityId" : 1,
+  "accommodationRules" : null,
+  "accommodationServices" : null,
+  "accommodationImages" : null,
+  "rooms" : null,
+  "reservations" : null
+}, {
+  "id" : 2,
+  "hostId" : 2,
+  "direction" : "Burgos 621",
+  "description" : "Big house",
+  "maxCapacity" : 6,
+  "cityId" : 2,
+  "accommodationRules" : null,
+  "accommodationServices" : null,
+  "accommodationImages" : null,
+  "rooms" : null,
+  "reservations" : null
+} ]

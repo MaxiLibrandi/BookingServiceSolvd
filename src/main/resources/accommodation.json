@@ -1,0 +1,16 @@
+[{
+	"id": 1,
+	"hostId": 2,
+	"direction": "San martin 1333",
+	"description": "Sweet apartment for your family",
+	"maxCapacity": 2,
+	"cityId": 1
+},
+{
+	"id": 2,
+	"hostId": 2,
+	"direction": "Burgos 621",
+	"description": "Big house",
+	"maxCapacity": 6,
+	"cityId": 2
+}]

@@ -1,5 +1,7 @@
 package com.solvd.bookingService;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -8,11 +10,18 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.solvd.bookingService.jaxb.AccommodationJAXBParser;
 import com.solvd.bookingService.jaxb.CityJAXBParser;
 import com.solvd.bookingService.jaxb.CountryJAXBParser;
 import com.solvd.bookingService.jaxb.ReservationJAXBParser;
 import com.solvd.bookingService.jaxb.UserJAXBParser;
+import com.solvd.bookingService.jaxb.Wrapper;
 import com.solvd.bookingService.models.accommodation.Accommodation;
 import com.solvd.bookingService.models.information.*;
 import com.solvd.bookingService.models.localization.City;
@@ -151,5 +160,33 @@ public class Runner {
 		List<User> users = jaxbUser.XMLToUsers();
 		users.stream().forEach(u -> LOGGER.info(u.toString()));
 		jaxbUser.UsersToXML(users);
+		
+		//JACKSON PARSER
+		
+		ObjectMapper objMapper = new ObjectMapper();
+		
+		List<Accommodation> jsonAccommodations = null;
+		try {
+			jsonAccommodations = objMapper.readValue(new File("src/main/resources/accommodation.json"), new TypeReference<List<Accommodation>>(){});
+		} catch (JsonParseException e) {
+			LOGGER.error(e);
+		} catch (JsonMappingException e) {
+			LOGGER.error(e);
+		} catch (IOException e) {
+			LOGGER.error(e);
+		}
+		jsonAccommodations.stream().forEach(a -> LOGGER.info(a.toString()));
+		
+		objMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+		
+		try {
+			objMapper.writeValue(new File("src/main/resources/newAccommodation.json"), jsonAccommodations);
+		} catch (JsonGenerationException e) {
+			LOGGER.error(e);
+		} catch (JsonMappingException e) {
+			LOGGER.error(e);
+		} catch (IOException e) {
+			LOGGER.error(e);
+		}		
 	}
 }
