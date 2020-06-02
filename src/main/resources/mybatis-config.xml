@@ -8,10 +8,10 @@
 		<environment id="stage">
 			<transactionManager type="JDBC"/>
 			<dataSource type="POOLED">
-				<property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-				<property name="url" value="jdbc:mysql://192.168.99.100:33060/booking_service_db"/>
-				<property name="username" value="root"/>
-				<property name="password" value="secret"/>
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
 			</dataSource>
 		</environment>
 	</environments>

@@ -10,6 +10,26 @@
 	</resultMap>
 
 	<select id="getEntities" resultMap="CityResultMap">
-	<![CDATA[SELECT * FROM Cities]]>
+	<![CDATA[
+		SELECT * FROM Cities;
+	]]>
 	</select>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO Cities(name,country_id) VALUES (#{name},#{countryId});
+	]]>
+	</insert>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE Cities SET name = #{name}, country_id = #{countryId} WHERE id = #{id};
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM Cities WHERE id = #{id};
+	]]>
+	</delete>	
 </mapper>

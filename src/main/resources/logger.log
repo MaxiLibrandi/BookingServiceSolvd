@@ -1,5 +1,33 @@
-2020-06-02 18:24:27 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Cities 
-2020-06-02 18:24:27 DEBUG getEntities:143 - ==> Parameters: 
-2020-06-02 18:24:28 DEBUG getEntities:143 - <==      Total: 2
-2020-06-02 18:24:28 INFO  Runner:210 - City id: 2 |name: Tandil |countryId: 1
-2020-06-02 18:24:28 INFO  Runner:210 - City id: 3 |name: MDQ |countryId: 1
+2020-06-02 19:21:41 DEBUG save:143 - ==>  Preparing: INSERT INTO Cities(name,country_id) VALUES (?,?); 
+2020-06-02 19:21:41 DEBUG save:143 - ==> Parameters: Buenos Airess(String), 1(Long)
+2020-06-02 19:21:41 DEBUG save:143 - <==    Updates: 1
+2020-06-02 19:21:41 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Cities; 
+2020-06-02 19:21:41 DEBUG getEntities:143 - ==> Parameters: 
+2020-06-02 19:21:41 DEBUG getEntities:143 - <==      Total: 9
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 2 |name: Tandil |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 4 |name: Olavarria |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 5 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 6 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 7 |name: Buenos Aires |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 8 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 9 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 10 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:217 - City id: 11 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 DEBUG update:143 - ==>  Preparing: UPDATE Cities SET name = ?, country_id = ? WHERE id = ?; 
+2020-06-02 19:21:41 DEBUG update:143 - ==> Parameters: Buenos Aires(String), 1(Long), 11(Long)
+2020-06-02 19:21:41 DEBUG update:143 - <==    Updates: 1
+2020-06-02 19:21:41 DEBUG delete:143 - ==>  Preparing: DELETE FROM Cities WHERE id = ?; 
+2020-06-02 19:21:41 DEBUG delete:143 - ==> Parameters: 3(Long)
+2020-06-02 19:21:41 DEBUG delete:143 - <==    Updates: 0
+2020-06-02 19:21:41 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Cities; 
+2020-06-02 19:21:41 DEBUG getEntities:143 - ==> Parameters: 
+2020-06-02 19:21:41 DEBUG getEntities:143 - <==      Total: 9
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 2 |name: Tandil |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 4 |name: Olavarria |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 5 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 6 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 7 |name: Buenos Aires |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 8 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 9 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 10 |name: Buenos Airess |countryId: 1
+2020-06-02 19:21:41 INFO  Runner:224 - City id: 11 |name: Buenos Aires |countryId: 1

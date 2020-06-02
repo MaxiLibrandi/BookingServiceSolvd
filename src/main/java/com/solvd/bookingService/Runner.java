@@ -140,9 +140,9 @@ public class Runner {
 			}
 		}
 		*/
-		/*
-		//JAXB Parser
 		
+		//JAXB Parser
+		/*
 		AccommodationJAXBParser jaxbAccommodation = new AccommodationJAXBParser("src/main/resources/accommodations.xml");
 		List<Accommodation> accommodations = jaxbAccommodation.XMLToAccommodations();
 		accommodations.stream().forEach(a -> LOGGER.info(a.toString()));
@@ -167,9 +167,10 @@ public class Runner {
 		List<User> users = jaxbUser.XMLToUsers();
 		users.stream().forEach(u -> LOGGER.info(u.toString()));
 		jaxbUser.UsersToXML(users);
+		*/
 		
 		//JACKSON PARSER
-		
+		/*
 		ObjectMapper objMapper = new ObjectMapper();
 		
 		List<Accommodation> jsonAccommodations = null;
@@ -207,6 +208,19 @@ public class Runner {
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		
 		ICityDAO cityDao = sqlSessionFactory.openSession(true).getMapper(ICityDAO.class);
-		cityDao.getEntities().stream().forEach(c -> LOGGER.info(c.toString()));
+		
+		City c = new City();
+		c.setName("Buenos Airess");
+		c.setCountryId(Integer.toUnsignedLong(1));
+		cityDao.save(c);
+		
+		cityDao.getEntities().stream().forEach(ci -> LOGGER.info(ci.toString()));
+		
+		c.setName("Buenos Aires");
+		cityDao.update(c);
+		
+		cityDao.delete(Integer.toUnsignedLong(3));
+
+		cityDao.getEntities().stream().forEach(ci -> LOGGER.info(ci.toString()));
 	}
 }
