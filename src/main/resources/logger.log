@@ -1,16 +1,5 @@
-2020-05-27 17:58:48 INFO  Runner:141 - Accommodation id: 1 |hostId: 1 |direction: San Martin 1333 |description: Sweet home for your holidays |maxCapacity: 5 |cityId: 1
-2020-05-27 17:58:48 INFO  Runner:141 - Accommodation id: 2 |hostId: 1 |direction: Mexico 74 |description: Big house to enjoy this beautiful landscape |maxCapacity: 6 |cityId: 2
-2020-05-27 17:58:48 INFO  Runner:141 - Accommodation id: 3 |hostId: 1 |direction: Burgos 621 |description: Cozy apartment for students |maxCapacity: 2 |cityId: 2
-2020-05-27 17:58:48 INFO  Runner:146 - City id: 1 |name: Tandil |countryId: 1
-2020-05-27 17:58:48 INFO  Runner:146 - City id: 2 |name: Azul |countryId: 1
-2020-05-27 17:58:48 INFO  Runner:151 - Country id: 1 |name: Argentina |continentId: 1
-2020-05-27 17:58:48 INFO  Runner:151 - Country id: 2 |name: Brasil |continentId: 1
-2020-05-27 17:58:48 INFO  Runner:151 - Country id: 3 |name: Chile |continentId: 1
-2020-05-27 17:58:48 INFO  Runner:151 - Country id: 4 |name: Uruguay |continentId: 1
-2020-05-27 17:58:48 INFO  Runner:156 - Reservation id: 1 |guestId: 2 |accommodationId: 1 |dateFrom: 2020-05-24 |dateTo: 2020-05-26 |price:300.0 |reservationStatusId: 1 |rating: null
-2020-05-27 17:58:48 INFO  Runner:156 - Reservation id: 2 |guestId: 2 |accommodationId: 2 |dateFrom: 2020-12-25 |dateTo: 2021-01-26 |price:3000.0 |reservationStatusId: 2 |rating: null
-2020-05-27 17:58:48 INFO  Runner:156 - Reservation id: 3 |guestId: 2 |accommodationId: 3 |dateFrom: 2020-04-24 |dateTo: 2020-04-28 |price:400.0 |reservationStatusId: 3 |rating: 5
-2020-05-27 17:58:48 INFO  Runner:161 - User id: 1 |name: Maximo |lastName: Librandi |birthDate: 1997-08-03
-2020-05-27 17:58:48 INFO  Runner:161 - User id: 2 |name: Johny |lastName: Walker |birthDate: 1987-08-17
-2020-05-27 17:58:48 INFO  Runner:178 - Accommodation id: 1 |hostId: 2 |direction: San martin 1333 |description: Sweet apartment for your family |maxCapacity: 2 |cityId: 1
-2020-05-27 17:58:48 INFO  Runner:178 - Accommodation id: 2 |hostId: 2 |direction: Burgos 621 |description: Big house |maxCapacity: 6 |cityId: 2
+2020-06-02 18:24:27 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Cities 
+2020-06-02 18:24:27 DEBUG getEntities:143 - ==> Parameters: 
+2020-06-02 18:24:28 DEBUG getEntities:143 - <==      Total: 2
+2020-06-02 18:24:28 INFO  Runner:210 - City id: 2 |name: Tandil |countryId: 1
+2020-06-02 18:24:28 INFO  Runner:210 - City id: 3 |name: MDQ |countryId: 1

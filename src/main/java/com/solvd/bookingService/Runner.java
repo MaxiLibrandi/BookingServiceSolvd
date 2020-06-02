@@ -2,11 +2,15 @@ package com.solvd.bookingService;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -16,6 +20,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.solvd.bookingService.dao.ICityDAO;
+import com.solvd.bookingService.dao.mySqlImpl.CityDAO;
 import com.solvd.bookingService.jaxb.AccommodationJAXBParser;
 import com.solvd.bookingService.jaxb.CityJAXBParser;
 import com.solvd.bookingService.jaxb.CountryJAXBParser;
@@ -30,6 +36,7 @@ import com.solvd.bookingService.models.reservation.*;
 import com.solvd.bookingService.models.user.*;
 import com.solvd.bookingService.services.*;
 import com.solvd.bookingService.staxParser.StAXParser;
+
 
 public class Runner {
 
@@ -133,7 +140,7 @@ public class Runner {
 			}
 		}
 		*/
-		
+		/*
 		//JAXB Parser
 		
 		AccommodationJAXBParser jaxbAccommodation = new AccommodationJAXBParser("src/main/resources/accommodations.xml");
@@ -188,5 +195,18 @@ public class Runner {
 		} catch (IOException e) {
 			LOGGER.error(e);
 		}		
+		*/
+		
+		String resource = "mybatis-config.xml";
+		InputStream inputStream = null;
+		try {
+			inputStream = Resources.getResourceAsStream(resource);
+		} catch (IOException e) {
+			LOGGER.error(e);
+		}
+		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		
+		ICityDAO cityDao = sqlSessionFactory.openSession(true).getMapper(ICityDAO.class);
+		cityDao.getEntities().stream().forEach(c -> LOGGER.info(c.toString()));
 	}
 }
