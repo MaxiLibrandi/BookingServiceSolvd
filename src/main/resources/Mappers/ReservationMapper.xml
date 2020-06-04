@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bookingService.dao.IReservationDAO">
+	<resultMap id="ReservationResultMap" type="com.solvd.bookingService.models.reservation.Reservation">
+		<id property="id" column="id"></id>
+		<result property="guestId" column="guest_id"></result>
+		<result property="accommodationId" column="accommodation_id"></result>
+		<result property="dateFrom" column="date_from"></result>
+		<result property="dateTo" column="date_to"></result>
+		<result property="price" column="price"></result>
+		<result property="reservationStatusId" column="reservation_status_id"></result>
+		<result property="rating" column="rating"></result>
+	</resultMap>
+
+	<select id="getEntities" resultMap="ReservationResultMap">
+	<![CDATA[
+		SELECT * FROM Reservations;
+	]]>
+	</select>
+	
+	<select id="getReservationsByReservationStatusId" resultMap="ReservationResultMap">
+	<![CDATA[
+		SELECT * FROM Reservations WHERE reservation_status_id = #{reservationStatusId};
+	]]>
+	</select>
+	
+	<select id="getReservationsByGuestId" resultMap="ReservationResultMap">
+	<![CDATA[
+		SELECT * FROM Reservations WHERE guest_id = #{guestId};
+	]]>
+	</select>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO Reservations(guest_id,accommodation_id,date_from,date_to,price,reservation_status_id,rating) VALUES (#{guestId},#{accommodationId},#{dateFrom},#{dateTo},#{price},#{reservationStatusId},#{rating});
+	]]>
+	</insert>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE Reservations SET guest_id = #{guestId}, accommodation_id = #{AccommodationId}, date_from = #{dateFrom}, date_to = #{dateTo}, price = #{price}, reservation_status_id = #{reservationStatusId}, rating = #{rating} WHERE id = #{id};
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM Reservations WHERE id = #{id};
+	]]>
+	</delete>	
+</mapper>

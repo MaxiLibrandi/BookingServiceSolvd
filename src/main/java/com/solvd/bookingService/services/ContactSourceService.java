@@ -3,19 +3,18 @@ package com.solvd.bookingService.services;
 import java.util.List;
 
 import com.solvd.bookingService.dao.IContactDAO;
-import com.solvd.bookingService.dao.IEntityDAO;
-import com.solvd.bookingService.dao.mySqlImpl.ContactDAO;
-import com.solvd.bookingService.dao.mySqlImpl.ContactSourceDAO;
+import com.solvd.bookingService.dao.IContactSourceDAO;
 import com.solvd.bookingService.models.user.ContactSource;
+import com.solvd.bookingService.myBatis.SqlSession;
 
 public class ContactSourceService {
 	
-	private IEntityDAO<ContactSource> contactSourceDAO;
+	private IContactSourceDAO contactSourceDAO;
 	private IContactDAO contactDAO;
 	
 	public ContactSourceService() {
-		contactSourceDAO = new ContactSourceDAO();
-		contactDAO = new ContactDAO();
+		contactSourceDAO = SqlSession.getInstance().openSession(true).getMapper(IContactSourceDAO.class);
+		contactDAO = SqlSession.getInstance().openSession(true).getMapper(IContactDAO.class);
 	}
 	
 	public List<ContactSource> getContactSources(){

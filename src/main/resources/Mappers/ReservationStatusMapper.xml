@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bookingService.dao.IReservationStatusDAO">
+	<resultMap id="ReservationStatusResultMap" type="com.solvd.bookingService.models.reservation.ReservationStatus">
+		<id property="id" column="id"></id>
+		<result property="status" column="status"></result>
+	</resultMap>
+
+	<select id="getEntities" resultMap="ReservationStatusResultMap">
+	<![CDATA[
+		SELECT * FROM Reservation_Status;
+	]]>
+	</select>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO Reservation_Status(status) VALUES (#{status});
+	]]>
+	</insert>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE Reservation_Status SET status = #{status} WHERE id = #{id};
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM Reservation_Status WHERE id = #{id};
+	]]>
+	</delete>	
+</mapper>

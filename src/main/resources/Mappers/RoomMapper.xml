@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bookingService.dao.IRoomDAO">
+	<resultMap id="RoomResultMap" type="com.solvd.bookingService.models.accommodation.Room">
+		<id property="id" column="id"></id>
+		<result property="description" column="description"></result>
+		<result property="accommodationId" column="accommodation_id"></result>
+		<result property="roomTypeId" column="room_type_id"></result>
+	</resultMap>
+
+	<select id="getEntities" resultMap="RoomResultMap">
+	<![CDATA[
+		SELECT * FROM Rooms;
+	]]>
+	</select>
+	
+	<select id="getRoomsByRoomTypeId" resultMap="RoomResultMap">
+	<![CDATA[
+		SELECT * FROM Rooms WHERE room_type_id = #{roomTypeId};
+	]]>
+	</select>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO Rooms(description,accommodation_id,room_type_id) VALUES (#{description},#{accommodationId},#{roomTypeId});
+	]]>
+	</insert>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE Rooms SET description = #{description}, accommodation_id = #{accommodationId}, room_type_id = #{roomTypeId} WHERE id = #{id};
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM Rooms WHERE id = #{id};
+	]]>
+	</delete>	
+</mapper>

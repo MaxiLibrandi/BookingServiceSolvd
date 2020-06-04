@@ -16,6 +16,15 @@
 		</environment>
 	</environments>
 	<mappers>
+		  <mapper resource="Mappers/AccommodationMapper.xml"/>
 		  <mapper resource="Mappers/CityMapper.xml"/>
+		  <mapper resource="Mappers/ContactMapper.xml"/>
+		  <mapper resource="Mappers/ContinentMapper.xml"/>
+		  <mapper resource="Mappers/CountryMapper.xml"/>
+		  <mapper resource="Mappers/ReservationMapper.xml"/>
+		  <mapper resource="Mappers/ReservationStatusMapper.xml"/>
+		  <mapper resource="Mappers/RoomMapper.xml"/>
+		  <mapper resource="Mappers/RoomTypeMapper.xml"/>
+		  <mapper resource="Mappers/UserMapper.xml"/>
 	</mappers>
 </configuration>

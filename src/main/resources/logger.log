@@ -1,33 +1,221 @@
-2020-06-02 19:21:41 DEBUG save:143 - ==>  Preparing: INSERT INTO Cities(name,country_id) VALUES (?,?); 
-2020-06-02 19:21:41 DEBUG save:143 - ==> Parameters: Buenos Airess(String), 1(Long)
-2020-06-02 19:21:41 DEBUG save:143 - <==    Updates: 1
-2020-06-02 19:21:41 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Cities; 
-2020-06-02 19:21:41 DEBUG getEntities:143 - ==> Parameters: 
-2020-06-02 19:21:41 DEBUG getEntities:143 - <==      Total: 9
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 2 |name: Tandil |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 4 |name: Olavarria |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 5 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 6 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 7 |name: Buenos Aires |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 8 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 9 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 10 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:217 - City id: 11 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 DEBUG update:143 - ==>  Preparing: UPDATE Cities SET name = ?, country_id = ? WHERE id = ?; 
-2020-06-02 19:21:41 DEBUG update:143 - ==> Parameters: Buenos Aires(String), 1(Long), 11(Long)
-2020-06-02 19:21:41 DEBUG update:143 - <==    Updates: 1
-2020-06-02 19:21:41 DEBUG delete:143 - ==>  Preparing: DELETE FROM Cities WHERE id = ?; 
-2020-06-02 19:21:41 DEBUG delete:143 - ==> Parameters: 3(Long)
-2020-06-02 19:21:41 DEBUG delete:143 - <==    Updates: 0
-2020-06-02 19:21:41 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Cities; 
-2020-06-02 19:21:41 DEBUG getEntities:143 - ==> Parameters: 
-2020-06-02 19:21:41 DEBUG getEntities:143 - <==      Total: 9
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 2 |name: Tandil |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 4 |name: Olavarria |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 5 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 6 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 7 |name: Buenos Aires |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 8 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 9 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 10 |name: Buenos Airess |countryId: 1
-2020-06-02 19:21:41 INFO  Runner:224 - City id: 11 |name: Buenos Aires |countryId: 1
+2020-06-04 12:08:24 DEBUG save:143 - ==>  Preparing: INSERT INTO Reservation_Status(status) VALUES (?); 
+2020-06-04 12:08:24 DEBUG save:143 - ==> Parameters: pending(String)
+2020-06-04 12:08:24 DEBUG save:143 - <==    Updates: 1
+2020-06-04 12:08:24 DEBUG save:143 - ==>  Preparing: INSERT INTO Reservation_Status(status) VALUES (?); 
+2020-06-04 12:08:24 DEBUG save:143 - ==> Parameters: cancelled(String)
+2020-06-04 12:08:24 DEBUG save:143 - <==    Updates: 1
+2020-06-04 12:08:24 DEBUG save:143 - ==>  Preparing: INSERT INTO Reservation_Status(status) VALUES (?); 
+2020-06-04 12:08:24 DEBUG save:143 - ==> Parameters: accepted(String)
+2020-06-04 12:08:24 DEBUG save:143 - <==    Updates: 1
+2020-06-04 12:08:24 DEBUG update:143 - ==>  Preparing: UPDATE Reservation_Status SET status = ? WHERE id = ?; 
+2020-06-04 12:08:24 DEBUG update:143 - ==> Parameters: waiting(String), 15(Long)
+2020-06-04 12:08:24 DEBUG update:143 - <==    Updates: 1
+2020-06-04 12:08:24 DEBUG delete:143 - ==>  Preparing: DELETE FROM Reservation_Status WHERE id = ?; 
+2020-06-04 12:08:24 DEBUG delete:143 - ==> Parameters: 1(Long)
+2020-06-04 12:08:24 DEBUG delete:143 - <==    Updates: 0
+2020-06-04 12:08:24 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Reservation_Status; 
+2020-06-04 12:08:24 DEBUG getEntities:143 - ==> Parameters: 
+2020-06-04 12:08:24 DEBUG getEntities:143 - <==      Total: 14
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 2(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 3(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 4(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 5(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 6(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 7(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 8(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 9(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 10(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 11(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 12(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 13(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 14(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE reservation_status_id = ?; 
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - ==> Parameters: 15(Long)
+2020-06-04 12:08:24 DEBUG getReservationsByReservationStatusId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 2 |status: cancelled
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 3 |status: accepted
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 4 |status: pending
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 5 |status: cancelled
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 6 |status: waiting
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 7 |status: pending
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 8 |status: cancelled
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 9 |status: waiting
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 10 |status: pending
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 11 |status: cancelled
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 12 |status: waiting
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 13 |status: pending
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 14 |status: cancelled
+2020-06-04 12:08:24 DEBUG Runner:68 - ReservationStatus id: 15 |status: waiting
+2020-06-04 12:08:24 DEBUG save:143 - ==>  Preparing: INSERT INTO Room_Types(type) VALUES (?); 
+2020-06-04 12:08:24 DEBUG save:143 - ==> Parameters: Bedroom(String)
+2020-06-04 12:08:24 DEBUG save:143 - <==    Updates: 1
+2020-06-04 12:08:24 DEBUG save:143 - ==>  Preparing: INSERT INTO Room_Types(type) VALUES (?); 
+2020-06-04 12:08:24 DEBUG save:143 - ==> Parameters: Bathroom(String)
+2020-06-04 12:08:24 DEBUG save:143 - <==    Updates: 1
+2020-06-04 12:08:24 DEBUG save:143 - ==>  Preparing: INSERT INTO Room_Types(type) VALUES (?); 
+2020-06-04 12:08:24 DEBUG save:143 - ==> Parameters: Living Room(String)
+2020-06-04 12:08:24 DEBUG save:143 - <==    Updates: 1
+2020-06-04 12:08:24 DEBUG update:143 - ==>  Preparing: UPDATE Room_Types SET type = ? WHERE id = ?; 
+2020-06-04 12:08:24 DEBUG update:143 - ==> Parameters: Kitchen(String), 12(Long)
+2020-06-04 12:08:24 DEBUG update:143 - <==    Updates: 1
+2020-06-04 12:08:24 DEBUG delete:143 - ==>  Preparing: DELETE FROM Room_Types WHERE id = ?; 
+2020-06-04 12:08:24 DEBUG delete:143 - ==> Parameters: 1(Long)
+2020-06-04 12:08:24 DEBUG delete:143 - <==    Updates: 0
+2020-06-04 12:08:24 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Room_Types; 
+2020-06-04 12:08:24 DEBUG getEntities:143 - ==> Parameters: 
+2020-06-04 12:08:24 DEBUG getEntities:143 - <==      Total: 11
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 2(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 3(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 4(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 5(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 6(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 7(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 8(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 9(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 10(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 11(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==>  Preparing: SELECT * FROM Rooms WHERE room_type_id = ?; 
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - ==> Parameters: 12(Long)
+2020-06-04 12:08:24 DEBUG getRoomsByRoomTypeId:143 - <==      Total: 0
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 2 |type: Bathroom
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 3 |type: Living Room
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 4 |type: Bedroom
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 5 |type: Bathroom
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 6 |type: Kitchen
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 7 |type: Bedroom
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 8 |type: Bathroom
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 9 |type: Kitchen
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 10 |type: Bedroom
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 11 |type: Bathroom
+2020-06-04 12:08:24 DEBUG Runner:90 - RoomType id: 12 |type: Kitchen
+2020-06-04 12:08:25 DEBUG save:143 - ==>  Preparing: INSERT INTO Users(name,last_name,birth_date) VALUES (?,?,?); 
+2020-06-04 12:08:25 DEBUG save:143 - ==> Parameters: Maximo(String), Librandi(String), 1997-07-03(LocalDate)
+2020-06-04 12:08:25 DEBUG save:143 - <==    Updates: 1
+2020-06-04 12:08:25 DEBUG save:143 - ==>  Preparing: INSERT INTO Users(name,last_name,birth_date) VALUES (?,?,?); 
+2020-06-04 12:08:25 DEBUG save:143 - ==> Parameters: Johny(String), Wilson(String), 1987-09-17(LocalDate)
+2020-06-04 12:08:25 DEBUG save:143 - <==    Updates: 1
+2020-06-04 12:08:25 DEBUG update:143 - ==>  Preparing: UPDATE Users SET name = ?, last_name = ?, birth_date = ? WHERE id = ?; 
+2020-06-04 12:08:25 DEBUG update:143 - ==> Parameters: John(String), Wilson(String), 1987-09-17(LocalDate), 8(Long)
+2020-06-04 12:08:25 DEBUG update:143 - <==    Updates: 1
+2020-06-04 12:08:25 DEBUG delete:143 - ==>  Preparing: DELETE FROM Users WHERE id = ?; 
+2020-06-04 12:08:25 DEBUG delete:143 - ==> Parameters: 1(Long)
+2020-06-04 12:08:25 DEBUG delete:143 - <==    Updates: 0
+2020-06-04 12:08:25 DEBUG getEntities:143 - ==>  Preparing: SELECT * FROM Users; 
+2020-06-04 12:08:25 DEBUG getEntities:143 - ==> Parameters: 
+2020-06-04 12:08:25 DEBUG getEntities:143 - <==      Total: 7
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==>  Preparing: SELECT * FROM Contacts WHERE user_id = ?; 
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==> Parameters: 2(Long)
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==>  Preparing: SELECT * FROM Accommodations WHERE host_id = ?; 
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==> Parameters: 2(Long)
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE guest_id = ?; 
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==> Parameters: 2(Long)
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==>  Preparing: SELECT * FROM Contacts WHERE user_id = ?; 
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==> Parameters: 3(Long)
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - <==      Total: 2
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==>  Preparing: SELECT * FROM Accommodations WHERE host_id = ?; 
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==> Parameters: 3(Long)
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE guest_id = ?; 
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==> Parameters: 3(Long)
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==>  Preparing: SELECT * FROM Contacts WHERE user_id = ?; 
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==> Parameters: 4(Long)
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==>  Preparing: SELECT * FROM Accommodations WHERE host_id = ?; 
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==> Parameters: 4(Long)
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE guest_id = ?; 
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==> Parameters: 4(Long)
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==>  Preparing: SELECT * FROM Contacts WHERE user_id = ?; 
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==> Parameters: 5(Long)
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==>  Preparing: SELECT * FROM Accommodations WHERE host_id = ?; 
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==> Parameters: 5(Long)
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE guest_id = ?; 
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==> Parameters: 5(Long)
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==>  Preparing: SELECT * FROM Contacts WHERE user_id = ?; 
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==> Parameters: 6(Long)
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==>  Preparing: SELECT * FROM Accommodations WHERE host_id = ?; 
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==> Parameters: 6(Long)
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE guest_id = ?; 
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==> Parameters: 6(Long)
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==>  Preparing: SELECT * FROM Contacts WHERE user_id = ?; 
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==> Parameters: 7(Long)
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==>  Preparing: SELECT * FROM Accommodations WHERE host_id = ?; 
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==> Parameters: 7(Long)
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE guest_id = ?; 
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==> Parameters: 7(Long)
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==>  Preparing: SELECT * FROM Contacts WHERE user_id = ?; 
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - ==> Parameters: 8(Long)
+2020-06-04 12:08:25 DEBUG getContactsByUserId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==>  Preparing: SELECT * FROM Accommodations WHERE host_id = ?; 
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - ==> Parameters: 8(Long)
+2020-06-04 12:08:25 DEBUG getAccommodationsByHostId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==>  Preparing: SELECT * FROM Reservations WHERE guest_id = ?; 
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - ==> Parameters: 8(Long)
+2020-06-04 12:08:25 DEBUG getReservationsByGuestId:143 - <==      Total: 0
+2020-06-04 12:08:25 DEBUG Runner:112 - User id: 2 |name: Johny |lastName: Wilson |birthDate: 1987-09-17
+2020-06-04 12:08:25 DEBUG Runner:112 - User id: 3 |name: Maximo |lastName: Librandi |birthDate: 1997-07-03
+2020-06-04 12:08:25 DEBUG Runner:112 - User id: 4 |name: John |lastName: Wilson |birthDate: 1987-09-17
+2020-06-04 12:08:25 DEBUG Runner:112 - User id: 5 |name: Maximo |lastName: Librandi |birthDate: 1997-07-03
+2020-06-04 12:08:25 DEBUG Runner:112 - User id: 6 |name: John |lastName: Wilson |birthDate: 1987-09-17
+2020-06-04 12:08:25 DEBUG Runner:112 - User id: 7 |name: Maximo |lastName: Librandi |birthDate: 1997-07-03
+2020-06-04 12:08:25 DEBUG Runner:112 - User id: 8 |name: John |lastName: Wilson |birthDate: 1987-09-17

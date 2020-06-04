@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bookingService.dao.ICountryDAO">
+	<resultMap id="CountryResultMap" type="com.solvd.bookingService.models.localization.Country">
+		<id property="id" column="id"></id>
+		<result property="name" column="name"></result>
+		<result property="continentId" column="continent_id"></result>
+	</resultMap>
+
+	<select id="getEntities" resultMap="CountryResultMap">
+	<![CDATA[
+		SELECT * FROM Countries;
+	]]>
+	</select>
+	
+	<select id="getCountriesByContinentId" resultMap="CountryResultMap">
+	<![CDATA[
+		SELECT * FROM Countries WHERE continent_id = #{continentId};
+	]]>
+	</select>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO Countries(name,continent_id) VALUES (#{name},#{continentId});
+	]]>
+	</insert>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE Countries SET name = #{name}, continent_id = #{continentId} WHERE id = #{id};
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM Countries WHERE id = #{id};
+	]]>
+	</delete>	
+</mapper>

@@ -13,7 +13,7 @@ public class ConnectionPool {
 	private BlockingQueue<Connection> connections;
 	private Integer connectionsCount;
 	public static final Integer POOL_SIZE = 5;
-	private static final String DB_URL = "jdbc:mysql://192.168.99.100:33060";
+	private static final String DB_URL = "jdbc:mysql://192.168.99.100:33060/booking_service_db";
 	private static final String DB_USERNAME = "root";
 	private static final String DB_PASSWORD = "secret";
 	

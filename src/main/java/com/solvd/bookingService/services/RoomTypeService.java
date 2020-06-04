@@ -2,20 +2,19 @@ package com.solvd.bookingService.services;
 
 import java.util.List;
 
-import com.solvd.bookingService.dao.IEntityDAO;
 import com.solvd.bookingService.dao.IRoomDAO;
-import com.solvd.bookingService.dao.mySqlImpl.RoomDAO;
-import com.solvd.bookingService.dao.mySqlImpl.RoomTypeDAO;
+import com.solvd.bookingService.dao.IRoomTypeDAO;
 import com.solvd.bookingService.models.information.RoomType;
+import com.solvd.bookingService.myBatis.SqlSession;
 
 public class RoomTypeService {
 	
-	private IEntityDAO<RoomType> roomTypeDAO;
+	private IRoomTypeDAO roomTypeDAO;
 	private IRoomDAO roomDAO;
 	
 	public RoomTypeService() {
-		roomTypeDAO = new RoomTypeDAO();
-		roomDAO = new RoomDAO();
+		roomTypeDAO = SqlSession.getInstance().openSession(true).getMapper(IRoomTypeDAO.class);
+		roomDAO = SqlSession.getInstance().openSession(true).getMapper(IRoomDAO.class);
 	}
 	
 	public List<RoomType> getRoomTypes(){

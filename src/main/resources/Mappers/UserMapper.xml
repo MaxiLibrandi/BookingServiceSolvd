@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bookingService.dao.IUserDAO">
+	<resultMap id="UserResultMap" type="com.solvd.bookingService.models.user.User">
+		<id property="id" column="id"></id>
+		<result property="name" column="name"></result>
+		<result property="lastName" column="last_name"></result>
+		<result property="birthDate" column="birth_date"></result>
+	</resultMap>
+
+	<select id="getEntities" resultMap="UserResultMap">
+	<![CDATA[
+		SELECT * FROM Users;
+	]]>
+	</select>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO Users(name,last_name,birth_date) VALUES (#{name},#{lastName},#{birthDate});
+	]]>
+	</insert>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE Users SET name = #{name}, last_name = #{lastName}, birth_date = #{birthDate} WHERE id = #{id};
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM Users WHERE id = #{id};
+	]]>
+	</delete>	
+</mapper>

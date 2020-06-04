@@ -34,6 +34,7 @@ import com.solvd.bookingService.models.localization.City;
 import com.solvd.bookingService.models.localization.Country;
 import com.solvd.bookingService.models.reservation.*;
 import com.solvd.bookingService.models.user.*;
+import com.solvd.bookingService.myBatis.SqlSession;
 import com.solvd.bookingService.services.*;
 import com.solvd.bookingService.staxParser.StAXParser;
 
@@ -43,9 +44,6 @@ public class Runner {
 	private static final Logger LOGGER = LogManager.getLogger(Runner.class);
 
 	public static void main(String[] args) {	
-		/*
-		DBConfigurationService dbConfigurationService = new DBConfigurationService();
-		dbConfigurationService.initDB();
 		
 		ReservationStatusService reservationStatusService = new ReservationStatusService();
 		ReservationStatus reservationStatus;
@@ -111,9 +109,7 @@ public class Runner {
 		
 		userService.delete(Integer.toUnsignedLong(1));
 		
-		userService.getUsers().stream().forEach(u -> LOGGER.debug(u.toString()));
-		*/
-		
+		userService.getUsers().stream().forEach(u -> LOGGER.debug(u.toString()));		
 		
 		//STAX PARSER
 		/*
@@ -197,30 +193,5 @@ public class Runner {
 			LOGGER.error(e);
 		}		
 		*/
-		
-		String resource = "mybatis-config.xml";
-		InputStream inputStream = null;
-		try {
-			inputStream = Resources.getResourceAsStream(resource);
-		} catch (IOException e) {
-			LOGGER.error(e);
-		}
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-		
-		ICityDAO cityDao = sqlSessionFactory.openSession(true).getMapper(ICityDAO.class);
-		
-		City c = new City();
-		c.setName("Buenos Airess");
-		c.setCountryId(Integer.toUnsignedLong(1));
-		cityDao.save(c);
-		
-		cityDao.getEntities().stream().forEach(ci -> LOGGER.info(ci.toString()));
-		
-		c.setName("Buenos Aires");
-		cityDao.update(c);
-		
-		cityDao.delete(Integer.toUnsignedLong(3));
-
-		cityDao.getEntities().stream().forEach(ci -> LOGGER.info(ci.toString()));
 	}
 }

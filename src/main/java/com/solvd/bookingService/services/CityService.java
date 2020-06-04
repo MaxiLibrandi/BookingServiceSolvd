@@ -4,9 +4,8 @@ import java.util.List;
 
 import com.solvd.bookingService.dao.IAccommodationDAO;
 import com.solvd.bookingService.dao.ICityDAO;
-import com.solvd.bookingService.dao.mySqlImpl.AccommodationDAO;
-import com.solvd.bookingService.dao.mySqlImpl.CityDAO;
 import com.solvd.bookingService.models.localization.City;
+import com.solvd.bookingService.myBatis.SqlSession;
 
 public class CityService {
 	
@@ -14,8 +13,8 @@ public class CityService {
 	private IAccommodationDAO accommodationDAO;
 	
 	public CityService() {
-		cityDAO = new CityDAO();
-		accommodationDAO = new AccommodationDAO();
+		cityDAO = SqlSession.getInstance().openSession(true).getMapper(ICityDAO.class);
+		accommodationDAO = SqlSession.getInstance().openSession(true).getMapper(IAccommodationDAO.class);
 	}
 	
 	public List<City> getCities(){

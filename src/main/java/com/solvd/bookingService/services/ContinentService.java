@@ -1,22 +1,21 @@
 package com.solvd.bookingService.services;
 
 import com.solvd.bookingService.models.localization.Continent;
+import com.solvd.bookingService.myBatis.SqlSession;
 
 import java.util.List;
 
 import com.solvd.bookingService.dao.ICountryDAO;
-import com.solvd.bookingService.dao.IEntityDAO;
-import com.solvd.bookingService.dao.mySqlImpl.ContinentDAO;
-import com.solvd.bookingService.dao.mySqlImpl.CountryDAO;
+import com.solvd.bookingService.dao.IContinentDAO;
 
 public class ContinentService {
 	
-	private IEntityDAO<Continent> continentDAO;
+	private IContinentDAO continentDAO;
 	private ICountryDAO countryDAO;
 	
 	public ContinentService() {
-		continentDAO = new ContinentDAO();
-		countryDAO = new CountryDAO();
+		continentDAO = SqlSession.getInstance().openSession(true).getMapper(IContinentDAO.class);
+		countryDAO = SqlSession.getInstance().openSession(true).getMapper(ICountryDAO.class);
 	}
 	
 	public List<Continent> getContinents(){

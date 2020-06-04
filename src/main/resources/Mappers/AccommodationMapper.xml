@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bookingService.dao.IAccommodationDAO">
+	<resultMap id="AccommodationResultMap" type="com.solvd.bookingService.models.accommodation.Accommodation">
+		<id property="id" column="id"></id>
+		<result property="hostId" column="host_id"></result>
+		<result property="direction" column="direction"></result>
+		<result property="description" column="description"></result>
+		<result property="maxCapacity" column="max_capacity"></result>
+		<result property="cityId" column="city_id"></result>
+	</resultMap>
+
+	<select id="getEntities" resultMap="AccommodationResultMap">
+	<![CDATA[
+		SELECT * FROM Accommodations;
+	]]>
+	</select>
+	
+	<select id="getAccommodationsByCityId" resultMap="AccommodationResultMap">
+	<![CDATA[
+		SELECT * FROM Accommodations WHERE city_id = #{cityId};
+	]]>
+	</select>
+	
+	<select id="getAccommodationsByHostId" resultMap="AccommodationResultMap">
+	<![CDATA[
+		SELECT * FROM Accommodations WHERE host_id = #{hostId};
+	]]>
+	</select>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO Accommodations(host_id,direction,description,max_capacity,city_id) VALUES (#{hostId},#{direction},#{description},#{maxCapacity},#{cityId});
+	]]>
+	</insert>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE Accommodations SET host_id = #{hostId}, direction = #{direction}, description = #{description}, max_capacity = #{maxCapacity}, city_id = #{cityId} WHERE id = #{id};
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM Accommodations WHERE id = #{id};
+	]]>
+	</delete>	
+</mapper>

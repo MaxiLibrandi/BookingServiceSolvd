@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.bookingService.dao.IContactDAO">
+	<resultMap id="ContactResultMap" type="com.solvd.bookingService.models.user.Contact">
+		<id property="id" column="id"></id>
+		<result property="userId" column="user_id"></result>
+		<result property="contactSourceId" column="contact_source_id"></result>
+		<result property="contactData" column="contact_data"></result>
+	</resultMap>
+
+	<select id="getEntities" resultMap="ContactResultMap">
+	<![CDATA[
+		SELECT * FROM Contacts;
+	]]>
+	</select>
+	
+	<select id="getContactsByUserId" resultMap="ContactResultMap">
+	<![CDATA[
+		SELECT * FROM Contacts WHERE user_id = #{userId};
+	]]>
+	</select>
+	
+	<select id="getContactsByContactSourcesId" resultMap="ContactResultMap">
+	<![CDATA[
+		SELECT * FROM Contacts WHERE contact_source_id = #{contactSourceId};
+	]]>
+	</select>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+	<![CDATA[
+		INSERT INTO Contacts(user_id,contact_source_id,contact_data) VALUES (#{userId},#{contactSourceId},#{contactData});
+	]]>
+	</insert>
+	
+	<update id="update">
+	<![CDATA[
+		UPDATE Contacts SET user_id = #{userId}, contact_source_id = #{contactSourceId}, contact_data = #{contactData} WHERE id = #{id};
+	]]>
+	</update>
+	
+	<delete id="delete">
+	<![CDATA[
+		DELETE FROM Contacts WHERE id = #{id};
+	]]>
+	</delete>	
+</mapper>

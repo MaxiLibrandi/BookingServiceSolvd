@@ -2,20 +2,19 @@ package com.solvd.bookingService.services;
 
 import java.util.List;
 
-import com.solvd.bookingService.dao.IEntityDAO;
+import com.solvd.bookingService.dao.IReservationStatusDAO;
 import com.solvd.bookingService.dao.IReservationDAO;
-import com.solvd.bookingService.dao.mySqlImpl.ReservationDAO;
-import com.solvd.bookingService.dao.mySqlImpl.ReservationStatusDAO;
 import com.solvd.bookingService.models.reservation.ReservationStatus;
+import com.solvd.bookingService.myBatis.SqlSession;
 
 public class ReservationStatusService {
 	
-	private IEntityDAO<ReservationStatus> reservationStatusDAO;
+	private IReservationStatusDAO reservationStatusDAO;
 	private IReservationDAO reservationDAO;
 	
 	public ReservationStatusService() {
-		reservationStatusDAO = new ReservationStatusDAO();
-		reservationDAO = new ReservationDAO();
+		reservationStatusDAO = SqlSession.getInstance().openSession(true).getMapper(IReservationStatusDAO.class);
+		reservationDAO = SqlSession.getInstance().openSession(true).getMapper(IReservationDAO.class);
 	}
 	
 	public List<ReservationStatus> getReservationStatus(){
